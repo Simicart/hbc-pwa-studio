@@ -1,0 +1,110 @@
+.askit-toolbar {
+    margin-bottom: 10px;
+    text-align: right;
+    .limiter {
+        margin-right: 0;
+        text-align: left;
+        float: right;
+        .limiter-label {
+            font-weight: 700;
+            color: #777;
+            font-size: 13px;
+            line-height: 18.2px;
+        }
+    }
+    select {
+        background-color: #fff;
+        border-radius: 3px;
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 26px;
+        margin-right: 0;
+        width: auto;
+        margin: 0 5px 0 7px;
+    }
+}
+.no-avatar .askit-item {
+    padding-left: 15px;
+}
+.askit-item--commenting .askit-item-actions {
+    height: initial;
+}
+.no-avatar .askit-item-actions {
+    width: calc(100% + 15px + 15px);
+    margin-left: -15px;   
+}
+.askit-item--commenting .askit-item-answers {
+    display: block;
+    border-top: 1px solid rgba(0,0,0,.05);
+}
+.askit-item-actions {
+    height: 40px;
+    width: calc(100% + 80px + 15px);
+    margin-left: -80px;
+    border-top: 1px solid rgba(0,0,0,.05);
+    .askit-item-trigger {
+        line-height: 40px;
+        text-align: center;
+        padding: 0 10px;
+        text-align: left;
+        font-size: 16px;
+        font-weight: 400;
+        color: #797979;
+        cursor: pointer;
+    }
+}
+
+.askit-item-answers {
+    display: none;
+    padding: 15px;
+}
+
+
+.askit-item {
+    background: #fff;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    position: relative;
+    padding: 15px 15px 0 80px;
+    margin: 0 0 50px;
+    box-shadow: 0 0 1px rgba(0,0,0,.15);
+    .askit-item-author {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        color: #777;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 18.2px;
+    }
+    .askit-item-body {
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 18.2px;
+    }
+    h4.askit-item-timestamp {
+        margin: 0 0 10px;
+        font-weight: 700;
+        line-height: 1.1;
+        font-size: 13px;
+        color: #777;
+    }
+}
+
+.askit-item-answer {
+    padding-bottom: 15px;
+    margin: 0;
+    box-shadow: none;
+    h3.askit-item-author {
+        font-weight: 600;
+        line-height: 1.1;
+        font-size: 17px;
+    }
+}
+
+@media(max-width: 480px) {
+    .askit-toolbar {
+        .limiter {
+            clear: both;
+            float: none;
+        }
+    }
+}

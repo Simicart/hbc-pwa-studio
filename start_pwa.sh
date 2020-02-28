@@ -1,0 +1,1 @@
+NODE_ENV=production PORT=8084 yarn run stage:siminia

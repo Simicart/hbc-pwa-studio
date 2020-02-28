@@ -1,0 +1,35 @@
+.newsletter-wrap {
+    display: block;
+    border: 1px solid #ececec;
+    border-radius: 8px;
+    background: #fff;
+    border-top: 4px solid #00cccc;
+    padding: 35px 25px 35px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+
+    .subscription-title {
+        padding: 0;
+        border: 0;
+        color: #00cccc;
+        text-transform: uppercase;
+        margin: 0 0 20px;
+        font-size: 16px;
+        font-weight: 400;
+        width: 100%;
+        box-sizing: border-box;
+        float: left;
+        line-height: 1.2;
+    }
+    .account-newsletter {
+        clear: both;
+        margin-bottom: 18px;
+    }
+    .actions-toolbar {
+        margin-top: 36px;
+        button {
+            padding: 7px 15px;
+            color: #fff;
+            outline: none;
+        }
+    }
+}

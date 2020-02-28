@@ -1,0 +1,35 @@
+.side-area {
+    .item1, .item2 {
+        margin-bottom: 9px;
+        position: relative;
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 991px) {
+    .side-area {
+        .item1, .item2 {
+            padding: 8px;
+            width: 33.33%;
+            float: left;
+            margin: 0;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .side-area {
+        .item1, .item2 {
+            padding: 8px;
+            width: 100%;
+            float: none;
+        }
+
+        img {
+            width: 100%;
+            vertical-align: top
+        }
+    }
+    
+
+}

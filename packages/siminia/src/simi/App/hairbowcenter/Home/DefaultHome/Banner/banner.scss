@@ -1,0 +1,29 @@
+.banner-home-rtl {
+    .carousel {
+        direction: ltr;
+    }
+}
+
+.banner-homepage {
+    max-width: 1430px;
+    margin: 0 auto;
+}
+.banner-homepage .carousel .control-dots .dot {
+    background: #777;
+    opacity: .2;
+}
+.banner-homepage .carousel .control-dots .dot.selected {
+    background: #007aff;
+    opacity: 1;
+}
+
+.banner-title {
+    position: absolute;
+    top: 133px;
+    left: 120px;
+    color: #fff;
+    z-index: 20;
+    text-align: left;
+    max-width: 433px;
+
+}

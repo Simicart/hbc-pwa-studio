@@ -1,0 +1,184 @@
+.cat-tree-navigation {
+    li.ui-menu-item {
+        position: relative;
+        line-height: 16px;
+        
+
+        .open-children-toggle {
+            display: block;
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            right: 0;
+            top: 0;
+            z-index: 1;
+            cursor: pointer;
+        }
+        
+        .level-top {
+            line-height: 30px;
+            padding: 0 10px;
+            position: relative;
+            font-weight: 400;
+            text-transform: uppercase;
+            word-wrap: break-word;
+            display: block;
+            text-decoration: none;
+            color: #777;
+        }
+
+        .level-top span.cat-label {
+            right: 80px;
+            margin-top: 7px;
+            height: 17px;
+            line-height: 16px;
+        }
+
+        .level-top.open-children-toggle-new:after {
+            font-size: 2.2rem;
+            right: 10px;
+            top: 0px;
+            position: absolute;
+            line-height: inherit;
+            color: inherit;
+            content: '\f807';
+            font-family: 'porto-icons';
+            vertical-align: middle;
+            display: inline-block;
+            font-weight: 400;
+            overflow: hidden;
+            speak: none;
+            text-align: center;
+        }
+    }
+
+    li.ui-menu-item:first-child {
+        border-top: 0;
+    }
+
+    .submenu:not(:first-child) {
+        font-weight: 400;
+        line-height: 1.3;
+        left: auto !important;
+        overflow-x: hidden;
+        padding: 0;
+        position: relative;
+        top: auto !important;
+    }
+
+    .level0 {
+        border-top: 1px solid #ddd;
+        font-size: 1.3rem;
+    }
+
+    li.level0>a.submenu {
+        background-color: #eee;
+    }
+
+    .submenu:not(:first-child) ul {
+        display: block;
+        padding-left: 15px;
+    }
+
+    .submenu a {
+         padding-top: 10px;
+         padding-bottom: 10px;
+     }
+
+     li.level0 .ui-menu-item>a:before {
+        content: '\f801';
+        display: inline;
+        font-family: 'porto-icons';
+        margin-right: 10px;
+        font-size: 16px;
+        vertical-align: top;
+        color: #aaa;
+    }
+
+    .submenu:not(:first-child) ul>li a {
+        display: block;
+        line-height: normal;
+    }
+
+    .navigation li.ui-menu-item>a {
+        position: relative;
+    }
+
+    span.cat-label.cat-label-label2 {
+        color: #FFFFFF;
+        background-color: #FF217C;
+    }
+
+    .subchildmenu span.cat-label {
+        top: 50%;
+        margin-top: -7px;
+        margin-left: 7px;
+        border-radius: 2px !important;
+    }
+
+    span.cat-label {
+        right: -80px;
+        text-decoration: none !important;
+        display: inline-block;
+        line-height: 10px;
+        position: absolute;
+        text-transform: uppercase;
+        font: inherit;
+        font-size: 9px;
+        padding: 2px;
+    }
+
+    span.cat-label.cat-label-label2:before {
+        border-right-color: #FF217C;
+    }
+
+    span.cat-label.cat-label-label3:before {
+        border-right-color: #EC0120;
+    }
+
+    span.cat-label.cat-label-label1 {
+        background-color: #61D855;
+        color: #FFFFFF;
+    }
+    span.cat-label.cat-label-label3  {
+        background: #EC0120;
+        color: #FFFFFF;
+    }
+
+    .subchildmenu span.cat-label:before {
+        content: '';
+        display: block;
+        width: 5px;
+        height: 5px;
+        border: 3px solid transparent;
+        position: absolute;
+        left: -6px;
+        top: 50%;
+        margin-top: -3px;
+        bottom: 3px;
+    }
+    li.ui-menu-item .level-top.ui-state-active {
+        background-color: #eee;
+    }
+
+    li.level0 > a.ui-state-active {
+        color: #333 !important;
+    }
+
+    li.level0>.submenu.opened {
+        background-color: #eee;
+    }
+    // .ui-menu-item li.leve0>.ui-state-active {
+    //     background-color: #eee;
+    // }
+
+    .submenu.level0 {
+        height: 0;
+        visibility: hidden;
+    }
+
+    .submenu.level0.opened {
+        visibility: visible;
+        height: auto;
+    }
+}

@@ -1,0 +1,163 @@
+.hidden {
+    display: none;
+}
+.container:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.navigation,
+.page-wrapper > .breadcrumbs,
+.page-header .header.panel,
+.header.content,
+.footer.content,
+.page-wrapper > .widget,
+.page-wrapper > .page-bottom,
+.block.category.event,
+.top-container,
+.page-main {
+    width: 100%;
+}
+.opc-wrapper .form-discount .field .label,
+.bundle-options-container .block-bundle-summary .product-image-container,
+.bundle-options-container .block-bundle-summary .product.name,
+.bundle-options-container .block-bundle-summary .stock,
+.product-item-actions .actions-secondary.action span,
+.modes-label,
+.special-price .price-label,
+.table-comparison .cell.label.remove span,
+.table-comparison .cell.label.product span,
+.block.related .field.choice .label,
+.cart.table-wrapper .col.qty .label,
+.minicart-wrapper .action.showcart .text,
+.minicart-wrapper .action.showcart .counter-label,
+.checkout-index-index .page-title-wrapper,
+.checkout-onepage-success .page-title-wrapper,
+.checkout-payment-method .field-select-billing > .label,
+.checkout-payment-method .payments .legend,
+.checkout-payment-method .ccard .legend,
+.field.street .field.additional .label,
+.block-balance .balance-price-label,
+.page-product-downloadable
+    .product-options-wrapper
+    .fieldset
+    .legend.links-title,
+.page-product-giftcard .fieldset.giftcard > .legend,
+.opc-wrapper .form-giftcard-account .field .label,
+.form-add-invitations .fields .label,
+.filter-options-content .filter-count-label,
+.table-comparison .wishlist.split.button > .action.split span,
+.product-items .wishlist.split.button > .action.split span,
+.page-multiple-wishlist .page-title-wrapper .page-title,
+.block-wishlist-search-form .form-wishlist-search .fieldset > .legend,
+.multicheckout .table-wrapper .col .label,
+.multicheckout .block .methods-shipping .item-content .fieldset > .legend,
+.block.newsletter .label,
+.review-date .review-details-label,
+.customer-review .product-details .rating-average-label,
+.block-reorder .product-item .label,
+.action.skip:not(:focus),
+.page-header .switcher .label,
+.page-footer .switcher .label,
+.products-grid.wishlist .product-item .comment-box .label {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+button {
+    background-image: none;
+    background: #eee;
+    border: 1px solid #ccc;
+    color: #777;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    margin: 0;
+    padding: 7px 15px;
+    font-size: 1.4rem;
+    line-height: 1.5rem;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border-radius: 3px;
+    height: 38px;
+    line-height: 22px;
+    font-weight: 400;
+
+    &:not(.primary) {
+        border: 1px solid #ccc;
+        color: #777;
+        line-height: 30px;
+        padding: 0 12px;
+        height: 32px;
+        background-color: #fff;
+    }
+}
+
+input[type='text'],
+input[type='password'],
+input[type='url'],
+input[type='tel'],
+input[type='search'],
+input[type='number'],
+input[type='datetime'],
+input[type='email'] {
+    background: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    height: 38px;
+    line-height: 1.4;
+    padding: 10px;
+    vertical-align: baseline;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .navigation,
+    .page-wrapper > .breadcrumbs,
+    .page-header .header.panel,
+    .header.content,
+    .footer.content,
+    .page-wrapper > .widget,
+    .page-wrapper > .page-bottom,
+    .block.category.event,
+    .top-container,
+    .page-main {
+        max-width: 720px;
+    }
+
+    /* .page-header .drop-menu .nav-sections,
+    .page-header.type11 .nav-sections,
+    .page-header.type16 .navigation > ul,
+    header.page-header.sticky-header.type16 .nav-sections,
+    .page-header.type2.header-newskin .nav-sections,
+    .page-header.type18 .nav-sections,
+    .page-header.header-newskin:not(.type16) .nav-sections {
+        background-color: #4e5183;
+    } */
+}
+
+@media (min-width: 992px) {
+    .navigation,
+    .page-wrapper > .breadcrumbs,
+    .page-header .header.panel,
+    .header.content,
+    .footer.content,
+    .page-wrapper > .widget,
+    .page-wrapper > .page-bottom,
+    .block.category.event,
+    .top-container,
+    .page-main {
+        max-width: 960px;
+    }
+}

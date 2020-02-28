@@ -1,0 +1,67 @@
+.main-my-reward-points {
+    .order-links {
+        margin: 0;
+        padding: 0;
+        list-style: none none;
+        .item {
+            line-height: 36px;
+            margin: 0 0 -1px;
+            span {
+                background: #f6f6f6;
+                color: #c1c1c1;
+                border: 1px solid #ccc;
+                display: block;
+                font-weight: 400;
+                cursor: pointer;
+                padding: 0 20px;
+            }
+            &.current {
+                span {
+                    background: #fff;
+                    display: block;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+    .order-details-items {
+        border: 1px solid #ccc;
+        margin-bottom: 36px;
+        padding: 9px;
+        color: #777777;
+        .unsubscribe{
+            .here{
+                cursor: pointer;
+                color: #00cccc;
+            }
+        }
+    }
+    .table-siminia.table-striped>tbody>tr:nth-of-type(even){
+        background-color: transparent;
+    }
+}
+
+@media (min-width: 768px), print {
+    .main-my-reward-points {
+        .order-links .item {
+            float: left;
+            margin: 0 -1px 0 0;
+
+            span {
+                padding: 1px 35px 0px;
+            }
+
+            &.current {
+                span {
+                    border-bottom: 0;
+                    margin-bottom: -1px;
+                    border-bottom: 1px solid #fff;
+                }
+            }
+        }
+        .order-details-items {
+            margin-top: -1px;
+            padding: 25px;
+        }
+    }
+}

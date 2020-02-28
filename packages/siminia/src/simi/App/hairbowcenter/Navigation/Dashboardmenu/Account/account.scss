@@ -1,0 +1,26 @@
+.navigation-account {
+    .header.links {
+        margin: 0;
+        padding: 0;
+        list-style: none none;
+        color: #777;
+        li.greet.welcome {
+            font-weight: 400;
+            padding: 12px 20px;
+        }
+
+        li {
+            border-bottom: 1px solid #ddd;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        a {
+            color: #777;
+            text-decoration: none;
+            display: block;
+            font-weight: 400;
+            padding: 12px 20px;
+        }
+    }
+}

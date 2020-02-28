@@ -1,0 +1,59 @@
+.downloadable-option {
+    margin-bottom: 22.5px;
+    .option-select {
+        margin-bottom: 9px;
+        .option-title {
+            margin: 0 0 8px;
+            span {
+                font-weight: 400;
+                font-size: 14px;
+                color: #777;
+            }
+        }
+        .option-content {
+            .options-list {
+                .option-row {
+                    box-sizing: border-box;
+                    border-bottom: 1px solid #ebebeb;
+                    padding-bottom: 9px;
+                    margin-bottom: 9px;
+                    width: 100%;
+                    position: relative;
+                    z-index: 1;
+                    padding-left: 25px;
+                    input {
+                        position: absolute;
+                        left: 0;
+                        top: 2px;
+                        margin: 2px 4.5px 0 0;
+                    }
+
+                    div > span {
+                        font-size: 13px;
+                        color: #777;
+                    }
+                }
+        
+            }
+        }
+    }
+
+    .download-all-option {
+        .label {
+            color: #08c;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+
+    .no-required .option-select .option-content .options-list .option-row {
+        padding-left: 0 !important;
+        border-bottom: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .downloadable-option {
+        width: 49%;
+    }
+}

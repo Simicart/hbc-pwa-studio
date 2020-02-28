@@ -1,0 +1,7 @@
+#billingAddressForm > div > div {
+    max-width: 500px;
+}
+
+#billingAddressForm > div > div.billing-same {
+    max-width: unset;
+}

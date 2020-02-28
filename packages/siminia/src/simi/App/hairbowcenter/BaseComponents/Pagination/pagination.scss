@@ -1,0 +1,94 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .pagination-items {
+        border: none;
+        padding: 0;
+        display: flex;
+        align-items: 'center';
+        font-size: 14;
+    }
+
+    .icon-page-number {
+        display: inline-block;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        background: #fff;
+        color: #999;
+        padding: 0 8px;
+        width: 26px;
+        height: 26px;
+        line-height: inherit;
+    }
+
+    .page-number {
+        font-weight: 500;
+        display: inline-block;
+        width: 26px;
+        height: 26px;
+        text-align: center;
+        padding-top: 3px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        color: #00cccc;
+    }
+
+    .page-number:hover,
+    .icon-page-number:hover {
+        background: #00cccc;
+        color: #fff;
+    }
+
+    .icon-page-number:hover:before {
+        color: #fff;
+    }
+
+    .page-number.page-number-active {
+        background: #00cccc;
+        border: 1px solid #00cccc;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .icon-page-number:before {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 16px;
+        line-height: inherit;
+        color: #999;
+        content: '\f802';
+        font-family: 'porto-icons';
+        margin: 0;
+        font-weight: 400;
+        overflow: hidden;
+        speak: none;
+        text-align: center;
+    }
+
+    .icon-page-number.icon-back:before {
+        content: '\f801';
+    }
+    select {
+        background: #fff url('../../Images/select-bg.svg') no-repeat 100% 48%;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        appearance: none;
+        border: 1px solid #ccc !important;
+        height: 26px;
+        width: 57px;
+        background-size: 30px 60px;
+        padding-right: 25px;
+        text-indent: 0.01em;
+        line-height: 1;
+        padding: 4.5px 9px 4px;
+        vertical-align: baseline;
+        outline: none;
+        box-sizing: border-box;
+        border-radius: 6px;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+    }
+}

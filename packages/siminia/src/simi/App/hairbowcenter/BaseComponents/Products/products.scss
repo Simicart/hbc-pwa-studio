@@ -1,0 +1,171 @@
+.category-description {
+    margin-bottom: 18px;
+    word-wrap: break-word;
+    a {
+        color: #00cccc;
+    }
+}
+.top-toolbar {
+    height: 33px;
+    .models-bar {
+        float: left;
+        display: inline-block;
+
+        .models-mode {
+            loat: left;
+            border: 1px solid #ccc;
+            font-weight: 400;
+            color: #ccc;
+            text-align: center;
+            width: 26px;
+            line-height: 26px;
+            background-color: #fff;
+            display: block;
+            margin-right: 5px;
+            border-radius: 3px;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+
+            &::before {
+                display: block;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-size: 12px;
+                line-height: inherit;
+                color: inherit;
+                content: '\f839';
+                font-family: 'porto-icons';
+                vertical-align: middle;
+                display: inline-block;
+                font-weight: 400;
+                overflow: hidden;
+                speak: none;
+                text-align: center;
+            }
+            &.mode-list:before {
+                content: '\f83a';
+            }
+
+            &.active {
+                background-color: #00cccc;
+                color: #fff;
+                border-color: #00cccc;
+            }
+
+            > span {
+                border: 0;
+                clip: rect(0, 0, 0, 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+        }
+    }
+    .sort-dropdown {
+        margin-top: -10px;
+        margin-left: 8px;
+
+        .sorter-action {
+            display: inline-block;
+            margin-left: 180px;
+            margin-top: 4px;
+            cursor: pointer;
+
+            &::before {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-size: 16px;
+                line-height: inherit;
+                color: #00cccc;
+                content: '\f840';
+                font-family: 'porto-icons';
+                vertical-align: top;
+                display: inline-block;
+                font-weight: 400;
+                overflow: hidden;
+                speak: none;
+                text-align: center;
+            }
+            &.sort-desc {
+                &::before {
+                    content: '\f842';
+                }
+            }
+            > span {
+                border: 0;
+                clip: rect(0, 0, 0, 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+        }
+    }
+}
+
+#siminia-main-page {
+    .filter-btn-mobile {
+        border: 1px solid #ccc;
+        padding: 7px 10px;
+        margin-top: 8px;
+        display: block;
+        width: fit-content;
+        border-radius: 4px;
+        clear: both;
+    }
+    .left-nav-filter-mobile {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        background-color: #fff;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding: initial;
+        padding-top: 10px;
+        border-right: 1px solid #dedede;
+    }
+    .btn-close-filter-nav {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+    }
+    .mb-filtered-container {
+        .mb-child-filtered ,
+        .mb-filtered-clear-all{
+            padding: 7px 10px;
+            border: 1px solid #ccc;
+            margin-right: 4px;
+            float: left;
+            margin-bottom: 3px;
+        }
+
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .top-toolbar {
+        .models-bar {
+            float: right;
+        }
+        .sort-dropdown {
+            > div {
+                padding: 4px 8px;
+                width: auto;
+                min-height: 38px;
+            }
+            .sorter-action {
+                margin-left: 140px;
+                margin-top: 7px;
+            }
+        }
+    }
+}

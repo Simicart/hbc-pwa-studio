@@ -1,0 +1,36 @@
+.product-reviews-summary {
+    margin-bottom: 20px;
+    .reviews-actions{
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 14px;
+        margin-top: 0;
+        line-height: 16px;
+        span {
+            &:not(:last-child) {
+                border-right: 0;
+            }
+            &.view {
+                padding-right: 3px;
+            }
+            &:hover {
+                text-decoration: underline;
+            }
+            color: #bdbdbd;
+            padding: 0 15px;
+            border-left: 1px solid #bdbdbd;
+            margin-left: 10px;
+            display: inline-block;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+        
+    }
+    .rating-summary {
+        margin-right: 15px;
+        display: inline-block;
+        vertical-align: middle;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+}

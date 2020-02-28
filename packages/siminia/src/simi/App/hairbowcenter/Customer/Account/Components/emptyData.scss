@@ -1,0 +1,31 @@
+.message.info {
+    margin: 0 0 20px;
+    padding: 12px 18px 12px 22.5px;
+    display: block;
+    font-size: 1.3rem;
+    background: #fdf0d5;
+    color: #6f4400;
+    padding-left: 45px;
+    position: relative;
+
+    > *:first-child:before {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 24px;
+        line-height: 24px;
+        color: #c07600;
+        content: '\f84a';
+        font-family: 'porto-icons';
+        margin: -12px 0 0;
+        vertical-align: middle;
+        display: inline-block;
+        font-weight: normal;
+        overflow: hidden;
+        speak: none;
+        left: 0;
+        top: 22px;
+        width: 45px;
+        position: absolute;
+        text-align: center;
+    }
+}

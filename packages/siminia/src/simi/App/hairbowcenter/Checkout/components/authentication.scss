@@ -1,0 +1,89 @@
+.block-authentication .block-title {
+    font-size: 17px;
+    border-bottom: 0;
+    margin-bottom: 22.5px;
+}
+
+.block-authentication .block-title strong {
+    font-weight: 300;
+}
+
+.block-authentication .block-content .email {
+    margin: 0 0 18px
+}
+
+.block-authentication .block-content .address-field-label  {
+    float: none;
+    width: auto;
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0 0 8px;
+    display: inline-block;
+    color: #777;
+}
+
+.block-authentication .block-content .address-field-label.req::after {   
+    content: '*';
+    color: #e02b27;
+    font-size: 1.2rem;
+    margin: 0 0 0 4.5px;
+}
+
+.block-authentication .block-content .btn_login_exist {
+    margin-top: 36px;
+}
+
+.block-authentication .block-content .btn_login_exist a {
+    margin-top: 10px;
+    color: #00CCCC;
+    font-size: 13px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+.block-authentication .block-content .btn_login_exist::after {
+    clear: both;
+}
+
+.block-authentication .block-content .btn_login_exist button {
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #777;
+}
+
+.block-authentication .block-content .btn_login_exist button:hover {
+    background: #00CCCC;
+    color: #fff;
+}
+
+@media (min-width: 768px) {
+    .block-authentication .block-title {
+        font-size: 20px;
+        border-bottom: 0;
+        margin: 0;
+        margin-bottom: 20px;
+    }
+
+    .block-authentication .block-content .btn_login_exist button {
+        display: inline;
+        float: right;
+        margin-right: 0;
+        margin-bottom: 0;
+    } 
+}
+
+@media (max-width: 767px) {
+    .checkout-column .authentication-ck {
+        text-align: left !important;
+        padding: 25px 18px;
+    }
+
+    .checkout-column .custom-slide.show .authentication-ck button.action-auth-toggle {
+        display: none;
+    }
+
+    .checkout-column .authentication-ck .action-close {
+        top: 10px !important;
+    }
+}

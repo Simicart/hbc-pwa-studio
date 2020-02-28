@@ -1,0 +1,95 @@
+.add-review-form {
+    .review-list-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    .your-rating-title {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 9px;
+        color: rgb(119, 119, 119);
+        line-height: 19.6px;
+    }
+    .table {
+        margin-bottom: 10px;
+    }
+    .form-group {
+        margin-bottom: 18px;
+    }
+    .label-item {
+        margin-bottom: 8px;
+        color: rgb(119, 119, 119);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 19.6px;
+    }
+    
+    input[type=text] {
+        background: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 13px;
+        height: 38px;
+        line-height: 1.4;
+        padding: 10px;
+        vertical-align: baseline;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    textarea {
+        background: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+        font-size: 13px;
+        height: auto;
+        line-height: 1.4;
+        margin: 0;
+        padding: 9px;
+        vertical-align: baseline;
+        width: 100%;
+        box-sizing: border-box;
+        resize: vertical;
+    }
+
+    .rq {
+        color: red;
+    }
+    .btn-submit-review-ctn {
+        margin-top: 36px;
+        .btn-submit-review {
+            font-size: 14px;
+            line-height: 1.5rem;
+            padding: 7px 15px;
+            margin: 0;
+            width: auto;
+            border-color: #00CCCC;
+            background-color: #00CCCC;
+            display: inline-block;
+            border-radius: 3px;
+            height: 38px;
+            box-sizing: border-box;
+            vertical-align: middle;
+            font-weight: 400;
+            color: #fff;
+            cursor: pointer;
+            background-image: none;
+        }
+    }
+}
+
+@media (min-width: 640px) {
+    .review-form {
+        max-width: 500px;
+        .review-list-title {
+            margin-top: 0;
+            margin-bottom: 30px;
+            color: rgb(0, 204, 204);
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 20.8px;
+        }
+    }
+}

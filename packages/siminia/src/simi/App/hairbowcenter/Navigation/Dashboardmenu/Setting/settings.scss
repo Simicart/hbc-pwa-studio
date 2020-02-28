@@ -1,0 +1,30 @@
+.switcher-language {
+    border-bottom: 1px solid #ddd;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin: 0;
+    padding: 12px 20px;
+    height: auto;
+    color: #777;
+    .options {
+        display: inline-block;
+        position: relative; 
+        .action.toggle {
+            padding: 0;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+    }
+    strong {
+        font-weight: 400;
+        line-height: 15px;
+        vertical-align: top;
+        font-size: 13px;
+    }
+
+    .switcher-trigger strong  {
+        display: inline-block !important;
+        position: relative;
+    }
+}

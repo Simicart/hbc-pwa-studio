@@ -1,0 +1,352 @@
+.minicart-wrapper {
+    .action.showcart {
+        cursor: pointer;
+        display: inline-block;
+        text-decoration: none;
+        white-space: nowrap;
+
+        &:before {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 35px;
+            line-height: 40px;
+            color: #00CCCC;
+            content: '\f815';
+            font-family: 'porto-icons';
+            margin: 0;
+            vertical-align: top;
+            display: inline-block;
+            font-weight: 400;
+            overflow: hidden;
+            speak: none;
+            text-align: center;
+        }
+
+        .counter.qty {
+            color: #fff;
+            height: 24px;
+            line-height: 24px;
+            border-radius: 2px;
+            display: inline-block;
+            margin: -11px 0 0;
+            min-width: 18px;
+            width: 100%;
+            overflow: hidden;
+            padding: 0 3px;
+            text-align: center;
+            white-space: normal;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            font-weight: 600;
+            font-size: 14px;
+        }
+    }
+    .block-minicart {
+        position: absolute;
+        top: 100%;
+        margin: 0;
+        padding: 25px 18px;
+        list-style: none none;
+        background: #fff;
+        border: 0;
+        margin-top: 7px;
+        min-width: 100%;
+        z-index: 100;
+        box-sizing: border-box;
+        border-top: 6px solid #00cccc;
+        color: #777;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+        padding-top: 15px;
+        padding-bottom: 10px;
+        display: none;
+        right: -15px;
+        &::before {
+            content: '';
+            left: auto;
+            right: 26px;
+            border: 8px solid;
+            border-color: transparent transparent #00cccc;
+            top: -21px;
+            z-index: 99;
+            display: block;
+            height: 0;
+            position: absolute;
+            width: 0;
+        }
+        &:after {
+            content: '';
+            left: auto;
+            right: 25px;
+            top: -23px;
+            border: 9px solid;
+            border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+            z-index: 98;
+            display: block;
+            height: 0;
+            position: absolute;
+            width: 0;
+        }
+        .btn-minicart-close {
+            color: #777;
+            width: 40px;
+            height: 40px;
+            top: 0;
+            right: 0;
+            position: absolute;
+            background-image: none;
+            background: 0 0;
+            -moz-box-sizing: content-box;
+            border: 0;
+            box-shadow: none;
+            line-height: inherit;
+            margin: 0;
+            padding: 0;
+            text-shadow: none;
+            font-weight: 400;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+
+            &::before {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-size: 16px;
+                line-height: 16px;
+                color: #777;
+                content: '\f819';
+                font-family: 'porto-icons';
+                margin: 0;
+                vertical-align: top;
+                display: inline-block;
+                font-weight: 400;
+                overflow: hidden;
+                speak: none;
+                text-align: center;
+            }
+        }
+        .items-total {
+            margin-top: 2px;
+            float: right;
+            .count {
+                font-weight: 700;
+                color: #000;
+                margin-right: 3px;
+            }
+        }
+        .subtotal {
+            text-align: left;
+            .label {
+                &::after {
+                    content: ': ';
+                }
+            }
+            .amount.price-container {
+                display: inline-block;
+                vertical-align: middle;
+
+                .price-wrapper {
+                    color: #000000;
+                    .price {
+                        font-size: 17px;
+                        font-weight: 700;
+                        color: #444;
+                    }
+                }
+            }
+        }
+
+        .block-content {
+            > .actions {
+                margin-top: 10px;
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px 15px;
+                    font-weight: 400;
+                    text-transform: uppercase;
+                    font-size: 15px;
+                    color: #fff;
+                }
+                .secondary {
+                    text-align: center;
+                    margin: 0 0 15px;
+                    .action.viewcart {
+                        font-weight: 400;
+                        display: block;
+                        width: 100%;
+                        padding: 10px 15px;
+                        text-transform: uppercase;
+                        font-size: 15px;
+                        border: 1px solid #ccc;
+                        border-radius: 3px;
+                    }
+                }
+            }
+            .minicart-items-wrapper {
+                padding: 10px 15px;
+                max-height: 250px;
+                margin: 0 -15px;
+                overflow-x: auto;
+                .minicart-items {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none none;
+                    li {
+                        margin: 0;
+                        &.product-item {
+                            padding: 18px 0;
+                            vertical-align: top;
+
+                            &:first-child {
+                                padding-top: 0;
+                            }
+                            .product-item-photo {
+                                float: left;
+                                min-width: 0;
+                                display: block;
+                                position: relative;
+                                overflow: hidden;
+                                padding: 3px;
+                                border: 1px solid #ddd;
+                                border-radius: 7px;
+                                min-height: 50px;
+                                .product-image-container {
+                                    border: 1px solid #ececec;
+                                    display: inline-block;
+                                    max-width: 100%;
+                                    min-width: 100%;
+                                    position: relative;
+                                    background: #fff;
+                                    overflow: hidden;
+                                    z-index: 0;
+                                    width: 75px;
+                                    .product-image-wrapper {
+                                        height: auto;
+                                        padding: 0 !important;
+                                        display: block;
+                                        position: relative;
+                                        z-index: 1;
+                                        overflow: hidden;
+                                        img {
+                                            display: block;
+                                            max-width: 100%;
+                                        }
+                                    }
+                                }
+                            }
+                            .product-item-details {
+                                padding-left: 95px;
+                                text-align: left;
+                                .product-item-name {
+                                    margin-bottom: 5px;
+                                    font-size: 14px;
+                                    font-weight: 400;
+                                    margin: 0 0 9px;
+                                    hyphens: auto;
+                                    word-wrap: break-word;
+                                    display: block;
+                                    &:hover {
+                                        text-decoration: underline;
+                                    }
+                                    a{
+                                        white-space: normal;
+                                    }
+                                }
+                                .product-item-pricing {
+                                    .price-wrapper {
+                                        margin: 4.5px 0;
+                                        white-space: nowrap;
+                                        display: block;
+                                        font-size: 2rem;
+                                        line-height: 1;
+                                        font-weight: 700;
+                                        color: #000;
+                                    }
+                                }
+                                .details-qty {
+                                    margin-top: 9px;
+                                    label {
+                                        display: inline-block;
+                                        vertical-align: middle;
+                                        margin-top: -5px;
+                                        width: 4.5rem;
+                                        &::after {
+                                            content: ': ';
+                                        }
+                                    }
+                                }
+                                .item-qty {
+                                    height: 30px;
+                                    width: 40px;
+                                    text-align: center;
+                                    margin-right: 9px;
+                                    border-radius: 3px;
+                                    background: #fff;
+                                    background-clip: padding-box;
+                                    border: 1px solid #ccc;
+                                    border-radius: 6px;
+                                    font-family: 'Open Sans', 'Helvetica Neue',
+                                        Helvetica, Arial, sans-serif;
+                                    font-size: 13px;
+                                    line-height: 1.4;
+                                    padding: 10px;
+                                    vertical-align: baseline;
+                                    box-sizing: border-box;
+
+                                    &[type='number']::-webkit-inner-spin-button,
+                                    &[type='number']::-webkit-outer-spin-button {
+                                        -webkit-appearance: none;
+                                        margin: 0;
+                                    }
+                                }
+                                .actions.product {
+                                    margin: -26px 0 0;
+                                    float: right;
+                                    > span {
+                                        display: inline-block;
+                                        text-decoration: none;
+                                        &::before {
+                                            -webkit-font-smoothing: antialiased;
+                                            -moz-osx-font-smoothing: grayscale;
+                                            font-size: 18px;
+                                            line-height: 20px;
+                                            color: #00CCCC;
+                                            font-family: 'porto-icons';
+                                            vertical-align: middle;
+                                            display: inline-block;
+                                            font-weight: 400;
+                                            overflow: hidden;
+                                            speak: none;
+                                            text-align: center;
+                                            font-size: 16px;
+                                            line-height: inherit;
+                                        }
+                                    }
+                                    .edit-item {
+                                        margin-right: 15px;
+                                        &::before {
+                                            content: '\f826';
+                                        }
+                                    }
+                                    .del-item {
+                                        &::before {
+                                            content: '\f81a';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 479px) {
+    .minicart-wrapper .block-minicart {
+        width: 290px;
+    }
+}

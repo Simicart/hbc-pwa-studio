@@ -1,0 +1,15 @@
+{
+  "name": "Grosgrain & Satin Ribbons & Supplies | HairBow Center",
+  "short_name": "Grosgrain & Satin Ribbons & Supplies | HairBow Center",
+  "start_url": "/",
+  "theme_color": "#ff6334",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Shop the look",
+  "icons": [{
+    "src": "/icons/hairbow-splash.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+  ]
+}

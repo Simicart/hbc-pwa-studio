@@ -1,0 +1,174 @@
+.block .block-title {
+    margin: 5px 0 10px;
+    line-height: 1.2;
+    font-size: 16px;
+}
+footer.page-footer {
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .footer-middle {
+        background-color: #454545;
+        color: #777;
+        padding: 40px 0;
+
+        > .container {
+            position: relative;
+        }
+        .footer-ribbon {
+            position: absolute;
+            margin: -56px 0 25px;
+            padding: 10px 20px 6px;
+
+            &:before {
+                content: '';
+                display: block;
+                width: 7px;
+                height: 0;
+                position: absolute;
+                left: -10px;
+                top: 0;
+                border-right: 10px solid #008b8b;
+                border-top: 16px solid transparent;
+            }
+            span {
+                color: #fff;
+                font-size: 20px;
+                font-family: 'Shadows Into Light', cursive;
+                line-height: 1;
+            }
+        }
+        .block {
+            text-align: left;
+            line-height: 1.5;
+            margin: 0;
+            width: auto;
+            .block-title {
+                margin-bottom: 20px;
+                strong {
+                    font-weight: 400;
+                    padding: 0;
+                    font-size: 16px;
+                    color: #fff;
+                    text-transform: none;
+                }
+            }
+        }
+        p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        ul.links {
+            margin-top: -5px;
+            li {
+                position: relative;
+                padding: 10px 0;
+                line-height: 1;
+                display: block;
+                margin: 0;
+                [class^='porto-icon-'],
+                [class*=' porto-icon-'] {
+                    margin-left: -5px;
+                }
+            }
+        }
+        [class^='porto-icon-'],
+        [class*=' porto-icon-'] {
+            color: #777;
+        }
+        a,
+        a:hover,
+        a:visited {
+            color: #fff;
+        }
+        .social-icons {
+            > li {
+                display: inline-block;
+                vertical-align: middle;
+                > a {
+                    display: inline-block;
+                    width: 30px;
+                    height: 30px;
+                    background-color: #9e9e9e;
+                    line-height: 30px;
+                    text-align: center;
+                    border-radius: 50%;
+                    color: #fff;
+                    font-size: 16px;
+                    margin-left: 7px;
+                    transition: 0.3s background-color;
+
+                    &.facebook-link:hover {
+                        background-color: #3c599b;
+                    }
+                    &.twitter-link:hover {
+                        background-color: #1ca8e3;
+                    }
+                }
+                &:first-child {
+                    > a {
+                        margin-left: 0;
+                    }
+                }
+            }
+            [class^='porto-icon-'] {
+                color: #fff;
+            }
+        }
+        ul.contact-info {
+            li {
+                padding: 5px 0;
+                &:first-child {
+                    padding-top: 0;
+                }
+            }
+        }
+        ul.features {
+            margin-top: -5px;
+            li {
+                position: relative;
+                padding: 10px 0;
+                line-height: 1;
+                display: block;
+                [class^='porto-icon-'],
+                [class*=' porto-icon-'] {
+                    margin-left: -5px;
+                    margin-right: 3px;
+                }
+            }
+        }
+        .social-likes{
+            margin-top: 15px;
+        }
+    }
+
+    .footer-bottom {
+        min-height: 50px;
+        line-height: 40px;
+        background-color: #0c0c0c;
+        padding: 25px 0;
+
+        .custom-block {
+            float: left;
+            line-height: 1;
+            margin: 3px 0;
+
+            img {
+                display: inline-block;
+                vertical-align: middle;
+                max-width: 100%;
+                height: auto;
+            }
+        }
+        address {
+            float: right;
+            line-height: 30px;
+            margin: 0;
+            font-style: normal;
+            color: #777;
+        }
+    }
+}

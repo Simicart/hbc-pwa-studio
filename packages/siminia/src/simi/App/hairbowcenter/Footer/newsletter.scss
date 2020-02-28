@@ -1,0 +1,46 @@
+.subscribe-foot {
+    margin-top: 50px;
+    > label {
+        display: block;
+        text-align: left;
+        font-size: 13px;
+        font-weight: 400;
+        padding: 0;
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+
+    .form.subscribe {
+        max-width: 300px;
+        display: flex;
+        width: 100%;
+
+        input {
+            padding: 0 10px;
+            background-color: #dcdcdc;
+            border-radius: 5px 0 0 5px;
+            height: 30px;
+            border: 0;
+            outline: none;
+        }
+        button[type='submit'] {
+            margin-left: -1px;
+            border-radius: 0 5px 5px 0;
+            height: 30px;
+            font-size: 14px;
+            line-height: 30px;
+            padding: 0 13px;
+            font-weight: 400;
+            background: #00cccc;
+            color: #fff;
+            border: 1px solid #00cccc;
+            outline: none;
+        }
+    }
+
+    .mage-error {
+        color: #e02b27;
+        font-size: 1.2rem;
+        margin-top: 7px;
+    }
+}

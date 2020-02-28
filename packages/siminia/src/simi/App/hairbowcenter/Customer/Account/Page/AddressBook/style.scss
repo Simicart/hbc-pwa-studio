@@ -1,0 +1,359 @@
+.address-book {
+    .default-address {
+        margin-bottom: 45px;
+    }
+    .address-label {
+        margin: 5px 0 10px;
+        line-height: 1.2;
+        font-size: 16px;
+        font-weight: 700;
+    }
+    .address-content {
+        padding: 10px 0px;
+        padding-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .billing-address {
+        background-color: #ffffff;
+        margin-right: 30px;
+        width: 100%;
+        flex: 1 1;
+    }
+    .shipping-address {
+        background-color: #ffffff;
+        margin-right: 30px;
+        width: 100%;
+        flex: 1 1;
+    }
+    .box-title {
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        background-color: #f5f5f5;
+        position: relative;
+        border-radius: 7px 7px 0 0;
+        line-height: 1.4;
+        font-size: 1.3rem;
+        display: block;
+        width: 100%;
+    }
+
+    .box-content {
+        padding: 20px 15px;
+        font-size: 13px;
+        border: 1px solid #ddd;
+        border-top: 0;
+        background-color: #fbfbfb;
+
+        > address {
+            font-style: normal;
+        }
+        > a > span {
+            color: #2335c5;
+        }
+    }
+    .box-action {
+        margin: 0;
+        border: 1px solid #ddd;
+        border-top: 0;
+        background-color: #f5f5f5;
+        border-radius: 0 0 7px 7px;
+        padding: 10px 15px;
+    }
+    .additional-address {
+        .table-wrap {
+            padding: 10px 0px;
+            margin-top: 10px;
+
+            table {
+                font-size: 16px;
+                color: #3d3d3d;
+                background-color: #fafafa;
+                width: 100%;
+                border-collapse: collapse;
+                > thead {
+
+                }
+                tr:nth-child(2n) {
+                    background-color: #eaeaea;
+                }
+                tr th {
+                    padding: 5px;
+                    font-size: 14px;
+                    border-bottom: 1px solid #ccc;
+                }
+                tr td {
+                    padding: 5px;
+                    line-height: 1.4;
+                    font-size: 1.3rem;
+                }
+            }
+            a {
+                padding: 5px;
+                color: #00cccc;
+                &.edit {
+                    color: #00cccc;
+                }
+                &.delete {
+                    color: #f78787;
+                }
+            }
+        }
+        .pagination {
+            width: 100%;
+            text-align: center;
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+            > ul {
+                display: inline-block;
+                width: 55%;
+                text-align: right;
+
+                li {
+                    min-width: 30px;
+                    height: 22px;
+                    margin: 5px;
+                    display: inline-block;
+                    background-color: #ffffff;
+                    text-align: center;
+                    vertical-align: middle;
+                    line-height: 22px;
+
+                    &:hover {
+                        background-color: #fbc96a;
+                    }
+                    &.active {
+                        background-color: #fbc96a;
+                    }
+                    &.disabled {
+                        background-color: #eaeaea;
+                        color: #b5b5b5;
+                        > a {
+                            color: #b5b5b5;
+                            cursor: auto;
+                        }
+                    }
+                    > a {
+                        text-decoration: none;
+                        user-select: none;
+                        display: block;
+                        line-height: 22px;
+                        padding: 0px;
+                        &:visited {
+                            text-decoration: none;
+                            user-select: none;
+                        }
+                    }
+                }
+            }
+            .info {
+                min-width: 150px;
+                line-height: 32px;
+            }
+            .options-size {
+                min-width: 150px;
+                line-height: 32px;
+                > select {
+                    border: 1px solid #eaeaea;
+                    margin: 0px 5px;
+                }
+            }
+        }
+    }
+
+    .add-new-address {
+        background-image: none;
+        background: #00cccc;
+        border: 1px solid #00cccc;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 600;
+        padding: 7px 15px;
+        font-size: 1.4rem;
+        box-sizing: border-box;
+        vertical-align: middle;
+        font-weight: 400;
+        line-height: 22px;
+        height: auto;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .edit-address {
+        display: block;
+        border: 1px solid #ececec;
+        border-radius: 8px;
+        background: #fff;
+        border-top: 4px solid #00cccc;
+        padding: 35px 25px 0 35px;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+        float: left;
+        width: 100%;
+
+        .col-left,
+        .col-right {
+            width: 48%;
+        }
+        .col-left {
+            float: left;
+        }
+        .col-right {
+            float: right;
+        }
+        > form {
+            .form-button {
+                clear: both;
+                margin-bottom: 25px;
+
+                button {
+                    background: #00cccc;
+                    border: 1px solid #00cccc;
+                    color: #fff;
+                    cursor: pointer;
+                    display: inline-block;
+                    font-weight: 600;
+                    padding: 7px 15px;
+                    font-size: 1.4rem;
+                    box-sizing: border-box;
+                    vertical-align: middle;
+                    font-weight: 400;
+                    line-height: 22px;
+                    height: auto;
+                }
+            }
+            .col-label {
+                padding: 0;
+                border: 0;
+                color: #00cccc;
+                text-transform: uppercase;
+                margin: 0 0 20px;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .address-field-label {
+                font-weight: 400;
+                font-size: 1.4rem;
+                margin-right: 10px;
+                margin-bottom: 5px;
+                &.req::after {
+                    color: #e02b27;
+                    content: ' *';
+                }
+            }
+            .form-row {
+                min-height: 34px;
+                padding: 2px 0px;
+                margin: 5px 0px;
+                input.warning,
+                select.warning {
+                    box-shadow: 0 0 5px -2px #e02b27;
+                }
+
+                input {
+                    width: 100%;
+                    height: 34px;
+                    line-height: 30px;
+                    margin: 2px 0px;
+                    padding: 2px 10px;
+                    user-select: none;
+                    outline: none;
+                    border: 1px solid #cccccc;
+                    &:focus {
+                        outline: none;
+                        border-color: rgb(0, 115, 120);
+                        box-shadow: 0 0 0 2px rgb(212, 243, 238),
+                            0 0 0.5rem 2px rgba(0, 115, 120, 0.2);
+                    }
+                }
+
+                select {
+                    user-select: none;
+                    outline: none;
+                    border: 1px solid #cccccc;
+                    border-radius: 2px;
+                    color: rgb(33, 33, 33);
+                    display: inline-flex;
+                    flex: 0 0 100%;
+                    font-size: 13px;
+                    height: 32px;
+                    margin: 0;
+                    padding: calc(0.375rem - 1px) calc(2.25rem - 1px)
+                        calc(0.375rem - 1px) calc(0.625rem - 1px);
+                    width: 100%;
+                    -webkit-appearance: none;
+                    background: white
+                        url(https://d30y9cdsu7xlg0.cloudfront.net/png/221782-200.png);
+                    background-position: 97% center;
+                    background-repeat: no-repeat;
+                    background-size: 18px;
+                    border-radius: 6px;
+
+                    &:focus {
+                        outline: none;
+                        border-color: rgb(0, 115, 120);
+                        box-shadow: 0 0 0 2px rgb(212, 243, 238),
+                            0 0 0.5rem 2px rgba(0, 115, 120, 0.2);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.address-book .edit-address .form-row .checkbox {
+    padding: 5px 10px;
+    margin: 0px;
+}
+.address-book .edit-address .form-row .checkbox input {
+    width: auto;
+    height: 22px;
+    padding: 0px;
+    margin: 0px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.address-book .edit-address .form-row .checkbox label {
+    margin-bottom: 0px;
+    vertical-align: middle;
+}
+
+.form-row.state-province .state-option {
+    display: flex;
+    flex-wrap: wrap;
+}
+.form-row.state-province .state-option > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 1024px) {
+    .address-book .additional-address .table-wrap table > thead {
+        display: none;
+    }
+    .address-book .additional-address tr {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 16px;
+        flex-direction: column;
+    }
+}
+@media (max-width: 768px) {
+    .address-book .billing-address {
+        margin-right: 0px;
+        flex: 100%;
+    }
+    .address-book .shipping-address {
+        margin-right: 0px;
+        margin-top: 30px;
+    }
+}

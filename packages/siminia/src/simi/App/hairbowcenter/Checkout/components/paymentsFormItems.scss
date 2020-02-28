@@ -1,0 +1,89 @@
+.payment-method-item {
+    padding-top: 18px;
+    label {
+        grid-template-columns: auto;
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-start;
+        cursor: pointer;
+        margin-bottom: 18px;
+        margin-top: 0px;
+
+        &:hover {
+            color: rgb(64, 139, 250);
+        }
+        span {
+            font-size: 1.3rem;
+        }
+        input[type='radio'] {
+            padding: 1px;
+            &:checked {
+                background-color: rgb(64, 139, 250);
+                border-color: rgb(64, 139, 250);
+            }
+        }
+    }
+
+    > label {
+        &:not(:first-child) {
+            border-top: 1px solid #ccc;
+            padding-top: 16px;
+        }
+    }
+    .payment-method-content {
+        padding: 0 0 18px 22px;
+        .checkout-billing-address {
+            margin: 0 0 18px;
+            .billing-address-same-as-shipping-block {
+                h3 {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    padding-bottom: 5px;
+                    font-weight: 600;
+                    line-height: 1.1;
+                    font-size: 1.7rem;
+                }
+            }
+            .new-billing-address-same-custom {
+                padding: 15px 0 15px 15px;
+                border: 1px solid #ccc;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+            .new-billing-address-diff-custom {
+                padding: 15px 0 15px 15px;
+                border-bottom: 1px solid #ccc;
+                border-left: 1px solid #ccc;
+                border-right: 1px solid #ccc;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+            input[type='radio'] {
+                margin: 2px 4.5px 0 0;
+            }
+        }
+
+        .actions-toolbar .primary {
+            float: right;
+        }
+
+        .actions-toolbar .primary .action.primary {
+            padding: 0 17px;
+            color: #fff;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .payment-method-item .payment-method-content {
+        padding-left: 0;
+    }
+
+    .payment-method-item .payment-method-content .actions-toolbar .primary {
+        float: none;
+    }
+
+    .payment-method-item .payment-method-content .actions-toolbar .primary .action.primary {
+        width: 100%;
+    }
+}

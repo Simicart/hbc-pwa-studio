@@ -1,0 +1,28 @@
+.form-create-account {
+    display: block;
+    border: 1px solid #ececec;
+    border-radius: 8px;
+    background: #fff;
+    border-top: 4px solid #08c;
+    padding: 35px 25px;
+    border-top-color: #00CCCC;
+    box-shadow: 0 2px 3px rgba(0,0,0,.08);
+
+    a {
+        color: #00CCCC;
+    }
+}
+
+@media (min-width: 768px) {
+    .form-create-account>.fieldset {
+        width: 50%;
+        padding: 0 25px;
+        float: left;
+    }
+
+    .form-create-account {
+        padding: 35px 0;
+    }
+}
+
+ 

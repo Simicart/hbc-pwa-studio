@@ -1,0 +1,111 @@
+.review-items {
+    margin: 0;
+    padding: 0;
+    list-style: none none;
+    .review-item {
+        &::after {
+            clear: both;
+            content: '';
+            display: table;
+        }
+        padding: 18px 0;
+        border-bottom: 1px solid #c9c9c9;
+        margin: 0;
+        .review-title {
+            font-weight: 600;
+            line-height: 1.1;
+            font-size: 17px;
+            margin-top: 1.8rem;
+            margin-bottom: .9rem;
+            margin: 0 0 18px;
+        }
+        .review-ratings {
+            display: table;
+            max-width: 100%;
+            margin-bottom: 9px;
+            .rating-summary {
+                display: table-row;
+                overflow: hidden;
+                white-space: nowrap;
+                .rating-result {
+                    display: inline-block;
+                    width: 83px;
+                    position: relative;
+                    vertical-align: middle;
+                }
+            }
+            .rating-label {
+                display: table-cell;
+                vertical-align: top;
+                padding-top: 1px;
+                padding-right: 22.5px;
+                padding-bottom: 4.5px;
+                span {
+                    font-size: 13px;
+                    line-height: 18.2px;
+                    font-weight: 400;
+                    color: #777;
+                }
+            }
+        }
+        .review-content {
+            margin-bottom: 18px;
+            color: #777;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 18.2px;
+
+        }
+        .review-author {
+            display: inline;
+            span {
+                color: #777;
+                font-size: 13px;
+                font-weight: 400;
+                line-height: 18.2px;
+            }
+            .review-details-value {
+                font-weight: 400;
+                font-size: 13px;
+                line-height: 18.2px;
+                color: #777;
+            }
+        }
+        .review-date {
+            display: inline;
+            time {
+                color: #777;
+                font-size: 13px;
+                font-weight: 400;
+                line-height: 18.2px;
+            }
+        }
+        
+    }
+    .pagination {
+        justify-content: center;
+        padding: 30px 0;
+        border-bottom: 1px solid #c9c9c9;
+        text-align: center;
+    }
+}
+
+@media (min-width: 640px) {
+    .review-items {
+        .review-item {
+            padding: 30px 0;
+        }
+        .review-title {
+            margin: 0 0 30px;
+        }
+        .review-ratings {
+            max-width: 244px;
+            float: left;
+            margin-bottom: 0;
+        }
+        .review-content, .review-details {
+            margin-left: 280px;
+        }
+    }
+
+}

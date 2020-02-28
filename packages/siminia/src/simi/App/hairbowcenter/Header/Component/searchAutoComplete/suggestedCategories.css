@@ -1,0 +1,14 @@
+.root {
+    border-top: 1px solid rgb(var(--venia-border));
+    display: grid;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+    text-align: left;
+}
+.root a {
+    font-size: 13px;
+}
+
+.root:empty {
+    display: none;
+}

@@ -1,0 +1,133 @@
+#helpdesk-submit-ticket {
+    .main__edit-column {
+        width: 48%;
+        border: 0;
+        margin: 0 0 36px;
+        padding: 0;
+        h4.title {
+            padding: 0;
+            border: 0;
+            color: #00cccc;
+            text-transform: uppercase;
+            margin: 0 0 20px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+        .form-group {
+            margin: 0 0 18px;
+            letter-spacing: normal;
+            > label {
+                font-weight: 400;
+                font-size: 1.4rem;
+                margin: 0 0 8px;
+                display: inline-block;
+                color: rgb(119, 119, 119);
+                span {
+                    color: #e02b27;
+                    margin: 0 0 0 4.5px;
+                }
+            }
+            select {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                -ms-appearance: none;
+                appearance: none;
+                border: 1px solid #cccccc;
+                height: 32px;
+                background: #ffffff url('../../../../Images/select-bg.svg')
+                    no-repeat 100% 48%;
+                background-size: 30px 60px;
+                padding-right: 25px;
+                text-indent: 0.01em;
+                border-radius: 6px;
+                line-height: 1.4;
+                padding: 4.5px 9px 4px;
+                vertical-align: baseline;
+                width: 100%;
+                box-sizing: border-box;
+                font-size: 13px;
+                outline: none;
+            }
+            textarea {
+                background: #ffffff;
+                background-clip: padding-box;
+                border: 1px solid #cccccc;
+                border-radius: 6px;
+                font-size: 13px;
+                height: auto;
+                line-height: 1.4;
+                margin: 0;
+                padding: 9px;
+                vertical-align: baseline;
+                width: 100%;
+                box-sizing: border-box;
+                resize: vertical;
+                display: block;
+            }
+            .aw-helpdesk-file-upload__container {
+                background: #efefef;
+                padding: 0.6rem 0 0.6rem;
+                display: inline-block;
+                width: 100%;
+                .aw-helpdesk-file-upload {
+                    color: #007bdb;
+                    position: relative;
+                    overflow: hidden;
+                    float: left;
+                    display: inline-block;
+                    padding: 6px 12px;
+                    margin-bottom: 0;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 1.42857143;
+                    text-align: center;
+                    white-space: nowrap;
+                    vertical-align: middle;
+                    cursor: pointer;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                    background-image: none;
+                    border: 1px solid transparent;
+                    border-radius: 4px;
+                    .aw-helpdesk-file-upload__link {
+                        color: #1979c3;
+                    }
+                    input[type='file'] {
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        margin: 0;
+                        opacity: 0;
+                        -ms-filter: 'alpha(opacity=0)';
+                        font-size: 200px;
+                        direction: ltr;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        button[type='submit'] {
+            background-image: none;
+            background: #00cccc;
+            border: 1px solid #00cccc;
+            color: #ffffff;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 600;
+            font-size: 1.4rem;
+            box-sizing: border-box;
+            vertical-align: middle;
+            font-weight: 400;
+            line-height: 22px;
+
+            &:disabled{
+                opacity: 0.8;
+            }
+        }
+    }
+}

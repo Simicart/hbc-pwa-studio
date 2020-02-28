@@ -1,0 +1,38 @@
+.product-prices {
+    .price {
+        color: #00CCCC;
+        font-size: 36px;
+        line-height: 36px;
+        font-weight: 600;
+
+    }
+
+    .old-price {
+        display: inline-block;
+        margin-right: 2px;
+        .label {
+            font-size: 14px;
+            font-weight: 300;
+            color: #999;
+        }
+
+        .old-price-label {
+            font-size: 20px;
+            font-weight: 300;
+            color: #999;
+            text-decoration: line-through;
+            .price {
+                font-size: 20px;
+                font-weight: 300;
+                color: #999;
+                text-decoration: line-through;
+            }
+        
+        }
+    }
+
+    .final-price {
+        display: inline-block;
+    }
+}
+

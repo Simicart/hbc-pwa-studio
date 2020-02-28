@@ -1,0 +1,34 @@
+.list-menu {
+    .section-title {
+        display: flex;
+        flex-wrap: nowrap;
+        .section-item-title {
+            height: 63px;
+            border: solid rgba(255,255,255,.3);
+            border-width: 0 0 1px 1px;
+            box-sizing: border-box;
+            padding-top: 24px;
+            text-align: center;
+            color: #fff;
+            background-color: #00CCCC;
+            width: 33.33%;
+        }
+
+        .section-item-title.item-active {
+            background: 0 0;
+            border-bottom: 0;
+            color: #00CCCC;
+        }
+
+        .section-item-title.item-menu::before {
+            font-size: 14px;
+            line-height: 1;
+            content: '\f827';
+            font-family: 'porto-icons';
+            vertical-align: middle;
+            display: inline-block;
+            font-weight: 400;
+            margin: -2px 5px 0 0;
+        }
+    }
+}

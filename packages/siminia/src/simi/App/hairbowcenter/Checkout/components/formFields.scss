@@ -1,0 +1,179 @@
+.form-fields-body {
+    > div:not(:last-child) {
+        margin: 0 0 18px;
+    }
+    .shipping_address {
+        > span {
+            width: 100%;
+        }
+
+        select[name='selected_address_field'] {
+            border: 1px solid rgb(112, 112, 112);
+            color: rgb(33, 33, 33);
+            display: inline-flex;
+            flex: 0 0 100%;
+            margin: 0;
+            padding: calc(0.375rem - 1px) calc(2.25rem - 1px)
+                calc(0.375rem - 1px) calc(0.625rem - 1px);
+            width: 100%;
+            -webkit-appearance: inherit;
+            background: white
+                url(https://d30y9cdsu7xlg0.cloudfront.net/png/221782-200.png);
+            background-position: 99% center;
+            background-repeat: no-repeat;
+            background-size: 18px;
+            height: 32px;
+            border-color: #ccc;
+            border-radius: 5px;
+            font-size: 1.3rem;
+
+            &:focus {
+                outline: none;
+                border-color: rgb(0, 115, 120);
+                box-shadow: 0 0 0 2px rgb(212, 243, 238),
+                    0 0 0.5rem 2px rgba(0, 115, 120, 0.2);
+            }
+        }
+        .address-field-label{
+            margin-top: 15px;
+        }
+    }
+
+    input[type='text'],
+    input[type='email'],
+    input[type='tel'] {
+        font-size: 13px;
+        padding: 3px 15px;
+        width: 100%;
+        margin-bottom: 5px;
+        border: 1px solid #cccccc;
+        outline: none;
+
+        &:focus {
+            box-shadow: 0 0 3px 1px #68a8e0;
+        }
+    }
+
+    .address-field-label {
+        font-weight: 400;
+        font-size: 1.4rem;
+        margin: 0 0 8px;
+        display: inline-block;
+
+        &.req::after {
+            color: #ee0000;
+            content: ' *';
+        }
+    }
+
+    > div.email {
+        margin-top: 28px;
+        margin-bottom: 28px;
+    }
+
+    > .country, >.region_code {
+        > span {
+            height: 32px;
+        }
+        select {
+            height: 32px;
+            border-color: #ccc;
+            border-radius: 5px;
+            font-size: 1.3rem;
+        }
+    }
+
+    ._with-tooltip {
+        position: relative;
+        input {
+            margin-right: 9px;
+            width: calc(100% - (21px + 9px + 4.5px));
+        }
+        .field-tooltip {
+            cursor: pointer;
+            position: absolute;
+            right: 0;
+            top: 30px;
+            .field-tooltip-action {
+                display: inline-block;
+                text-decoration: none;
+                &::before {
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    font-size: 21px;
+                    line-height: inherit;
+                    color: #bbb;
+                    content: '\f853';
+                    font-family: 'porto-icons';
+                    vertical-align: middle;
+                    display: inline-block;
+                    font-weight: 400;
+                    overflow: hidden;
+                    speak: none;
+                    text-align: center;
+                }
+            }
+            .field-tooltip-content {
+                background: #f4f4f4;
+                border: 1px solid #ddd;
+                border-radius: 1px;
+                font-size: 13px;
+                padding: 12px;
+                width: 270px;
+                display: none;
+                left: 38px;
+                position: absolute;
+                text-transform: none;
+                top: -9px;
+                word-wrap: break-word;
+                z-index: 2;
+                &::before, &::after {
+                    border: 10px solid transparent;
+                    height: 0;
+                    width: 0;
+                    border-right-color: #f4f4f4;
+                    left: -21px;
+                    top: 12px;
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    z-index: 3;
+                }
+                &::before {
+                    border-right-color: #ddd;
+
+                }
+
+            }
+        }
+        .note {
+            font-size: 13px;
+            margin-top: 9px;
+            margin: 3px 0 0;
+            padding: 0;
+            display: inline-block;
+            text-decoration: none;
+        }
+    }
+
+    .edit-virtual-billing,
+    .cancel-virtual-billing{
+        cursor: pointer;
+        color: #00CCCC;
+    }
+    .cancel-virtual-billing{
+        margin-left: 5px;
+    }
+}
+.btn_login_exist {
+    margin: 6px 0 10px;
+}
+
+.form-fields-body input.warning,
+.form-fields-body select.warning {
+    box-shadow: 0 0 5px -2px #ee0000;
+}
+.form-fields-body .country > span,
+.form-fields-body .region_code > span {
+    width: 100%;
+}

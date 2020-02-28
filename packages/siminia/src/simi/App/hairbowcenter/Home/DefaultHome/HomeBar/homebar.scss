@@ -1,0 +1,52 @@
+.homepage-bar {
+    em {
+        &::before {
+            font-family: 'porto-icons';
+            font-style: normal;
+            font-weight: 400;
+            speak: none;
+            display: inline-block;
+            text-decoration: inherit;
+            width: 1em;
+            margin-right: .2em;
+            text-align: center;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1em;
+            margin-left: .2em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        color: #000066;
+        font-size: 34px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .porto-icon-truck:before {
+        content: '\f830';
+    }
+    .porto-icon-dollar:before {
+        content: '\f831';
+    }
+    .porto-icon-lifebuoy:before {
+        content: '\f832';
+    }
+    .text-area {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: left;
+        margin-left: 5px;
+        color: #000066;
+    }
+    p {
+        font-size: 12px;
+        line-height: 1;
+        margin: 0;
+    }
+    h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0;
+        line-height: 1.5;
+    }
+}

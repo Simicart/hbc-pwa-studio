@@ -1,0 +1,36 @@
+#siminia-search-field {
+    border-radius: 0;
+    height: 36px;
+    outline: none;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+@media (min-width: 768px), print {
+    .page-header.type11 .block-search .action.search {
+        border-left: 1px solid #ccc;
+        padding: 0 10px;
+        height: 36px;
+        line-height: 36px;
+        cursor: pointer;
+    }
+}
+
+@media (max-width: 767px) {
+    .block.block-search .action.search {
+        display: none;
+    }
+
+    .block.block-search  {
+        display: none
+    }
+
+    .block.block-search.open  {
+        display: block !important
+    }
+
+    .block.block-search > div {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}

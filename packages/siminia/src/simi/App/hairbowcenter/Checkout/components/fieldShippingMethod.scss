@@ -1,0 +1,146 @@
+.ship-method_field {
+    > span {
+        width: 100%;
+    }
+    .method-item {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 15px 0;
+        border-bottom: 1px solid rgb(128, 128, 128);
+        &:last-child {
+            border-bottom: none;
+        }
+        > input {
+            width: 20px;
+        }
+        > label {
+            display: flex;
+            min-width: 500px;
+            div {
+                padding-left: 15px;
+                padding-right: 15px;
+                flex: 0 1 25%;
+                color: #777777;
+                &.method-item-price {
+                    font-weight: 600;
+                }
+                &.method-item-tooltip {
+                    cursor: pointer;
+                    position: relative;
+                    .field-tooltip-action {
+                        display: inline-block;
+                        text-decoration: none;
+                        &::before {
+                            -webkit-font-smoothing: antialiased;
+                            -moz-osx-font-smoothing: grayscale;
+                            font-size: 16px;
+                            line-height: inherit;
+                            color: #bbb;
+                            content: '\f853';
+                            font-family: 'porto-icons';
+                            vertical-align: middle;
+                            display: inline-block;
+                            font-weight: 400;
+                            overflow: hidden;
+                            speak: none;
+                            text-align: center;
+                        }
+                        > span {
+                            border: 0;
+                            clip: rect(0, 0, 0, 0);
+                            height: 1px;
+                            margin: -1px;
+                            overflow: hidden;
+                            padding: 0;
+                            position: absolute;
+                            width: 1px;
+                        }
+                    }
+                    .field-tooltip-content {
+                        background: #f4f4f4;
+                        border: 1px solid #ddd;
+                        border-radius: 1px;
+                        font-size: 13px;
+                        padding: 12px;
+                        width: 270px;
+                        display: none;
+                        left: 58px;
+                        position: absolute;
+                        text-transform: none;
+                        top: -9px;
+                        word-wrap: break-word;
+                        z-index: 2;
+                        &::before,
+                        &::after {
+                            border: 10px solid transparent;
+                            height: 0;
+                            width: 0;
+                            border-right-color: #f4f4f4;
+                            left: -21px;
+                            top: 12px;
+                            content: '';
+                            display: block;
+                            position: absolute;
+                            z-index: 3;
+                        }
+                        &::before {
+                            border-right-color: #ddd;
+                        }
+                    }
+                }
+            }
+        }
+        > .message.error {
+            margin: 0 0 9px;
+            padding: 12px 18px 12px 22.5px;
+            display: block;
+            font-size: 1.3rem;
+            background: #fae5e5;
+            color: #e02b27;
+            padding-left: 45px;
+            position: relative;
+            border-radius: 5px;
+            margin-top: 9px;
+
+            > div {
+                max-width: 172px;
+                box-sizing: border-box;
+            }
+
+            > *:first-child:before {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-size: 24px;
+                line-height: 24px;
+                color: #b30000;
+                content: '\f847';
+                font-family: 'porto-icons';
+                margin: -12px 0 0;
+                vertical-align: middle;
+                display: inline-block;
+                font-weight: 400;
+                overflow: hidden;
+                speak: none;
+                left: 0;
+                top: 22px;
+                width: 45px;
+                position: absolute;
+                text-align: center;
+            }
+        }
+    }
+    .no-quotes-block {
+        margin: 18px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .ship-method_field .method-item > input {
+        width: unset;
+    }
+
+    .ship-method_field .method-item > label {
+        min-width: unset;
+        width: 100%;
+    }
+}
