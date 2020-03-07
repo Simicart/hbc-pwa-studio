@@ -135,6 +135,7 @@ class Checkout extends Component {
             return true
         if (props.simiCheckoutUpdating)
             return true
+        if (props.simiPaymentInformationMessage) return false
         return false
     }
 
@@ -186,6 +187,7 @@ class Checkout extends Component {
         if (paymentData && paymentData.value === 'paypal_express')
             history.push('/paypal_express.html')
         else {
+            console.log('still click submit order')
             this.autoFocusCheckout = true;
             showFogLoading();
             submitOrder();
@@ -226,7 +228,7 @@ class Checkout extends Component {
     get checkoutInner() {
         const { props, cartCurrencyCode, btnPlaceOrder, userSignedIn, is_virtual} = this;
         const { cart, checkout, directory, editOrder, submitShippingMethod, submitShippingAddress, submitOrder, submitPaymentMethod,
-            submitBillingAddress, user, simiSignedIn, toggleMessages, getCartDetails } = props;
+            submitBillingAddress, user, simiSignedIn, toggleMessages, getCartDetails, simiPaymentInformationMessage } = props;
         const { shippingAddress, submitting, availableShippingMethods, shippingMethod, billingAddress, paymentData, paymentCode,
             invalidAddressMessage, isAddressInvalid, shippingTitle, editing } = checkout;
         const { paymentMethods } = cart;
@@ -239,7 +241,8 @@ class Checkout extends Component {
             ready: this.isCheckoutReady(checkout),
             shippingAddress, shippingMethod, shippingTitle, simiSignedIn, submitShippingAddress, submitOrder, submitPaymentMethod,
             submitBillingAddress, submitShippingMethod, submitting, toggleMessages, user,
-            placeOrder: this.placeOrder
+            placeOrder: this.placeOrder,
+            simiPaymentInformationMessage
         };
 
         let cpValue = "";
@@ -268,6 +271,12 @@ class Checkout extends Component {
                 }
             };
             this.handleLink(locate);
+        }
+
+        if (simiPaymentInformationMessage){
+            hideFogLoading();
+            smoothScrollToView($("#id-message"));
+            toggleMessages([{ type: 'error', message: simiPaymentInformationMessage, auto_dismiss: true }])
         }
 
         const grandTotal = cart && cart.totals && Object.keys(cart.totals).length > 0 ? cart.totals.grand_total : 0
@@ -306,13 +315,14 @@ class Checkout extends Component {
 }
 
 const mapStateToProps = ({ cart, checkout, directory, user, simireducers }) => {
-    const { simiCheckoutUpdating } = simireducers;
+    const { simiCheckoutUpdating, simiPaymentInformationMessage } = simireducers;
     return {
         cart,
         checkout,
         directory,
         user,
-        simiCheckoutUpdating
+        simiCheckoutUpdating,
+        simiPaymentInformationMessage
     }
 }
 

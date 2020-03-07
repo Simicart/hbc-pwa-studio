@@ -37,7 +37,8 @@ const EditableForm = props => {
         is_virtual,
         placeOrder,
         paymentData,
-        ready
+        ready,
+        simiPaymentInformationMessage
     } = props;
 
     const handleCancel = useCallback(() => {
@@ -93,7 +94,7 @@ const EditableForm = props => {
     );
 
     useEffect(() => {
-        if (ready && (paymentCode === 'braintree' || paymentCode === 'braintree_paypal' || paymentCode === 'braintree_paypal_credit')) {
+        if (ready && (paymentCode === 'braintree' || paymentCode === 'braintree_paypal' || paymentCode === 'braintree_paypal_credit') && !simiPaymentInformationMessage) {
             placeOrder()
         }
     });

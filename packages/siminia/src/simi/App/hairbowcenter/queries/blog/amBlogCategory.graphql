@@ -1,0 +1,18 @@
+query amBlogCategory($id: Int) {
+    amBlogCategory(id: $id) {
+        category_id
+        name
+        status
+        url_key
+        sort_order
+        meta_title
+        meta_tags
+        meta_description
+        created_at
+        updated_at
+        parent_id
+        path
+        level
+        store_id
+    }
+}

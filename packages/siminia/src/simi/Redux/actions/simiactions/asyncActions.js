@@ -347,8 +347,12 @@ export const submitOrder = () =>
             Identify.storeDataToStoreage(Identify.SESSION_STOREAGE, 'last_order_info', response)
 
             dispatch(checkoutActions.order.accept(response));
+            dispatch(actions.messagePaymentInformationAccept(response));
         } catch (error) {
             dispatch(checkoutActions.order.reject(error));
+            dispatch(
+                actions.messagePaymentInformationReject(error.message)
+            );
         }
     };
 
