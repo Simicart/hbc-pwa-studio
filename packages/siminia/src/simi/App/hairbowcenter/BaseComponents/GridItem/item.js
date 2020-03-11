@@ -131,7 +131,7 @@ const Griditem = props => {
             return;
         }
         showFogLoading()
-        simiAddToCart(addToCartCallBack, { product: item.id })
+        simiAddToCart(addToCartCallBack, { product: item.id});
     }
 
     const addToCartBtn = (

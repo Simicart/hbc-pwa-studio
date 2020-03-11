@@ -22,22 +22,52 @@ class CheckoutStep extends React.Component {
         if (stepProps.is_virtual && this.state.step !== 2) {
             this.setState({ step: 2 });
         }
-        // console.log('did update', stepProps)
+    }
+
+    checkFormAddressData = (form, queryString) => {
+        let validCheck = true;
+        for (const key in queryString) {
+            const item = queryString[key];
+            const itemName = item.name;
+            const itemValue = item.value;
+            const inputItem = form.find(`input[name='${itemName}']`);
+            const slbItem = form.find(`select[name='${itemName}']`);
+
+            if (inputItem.length || slbItem.length) {
+                if (inputItem.length && inputItem.hasClass('isrequired') && !itemValue) {
+                    validCheck = false;
+                    inputItem.addClass('warning');
+                }
+                if (slbItem.length && slbItem.attr('isrequired') === 'isrequired' && !itemValue) {
+                    validCheck = false;
+                    slbItem.addClass('warning');
+                }
+            }
+        }
+        return validCheck;
     }
 
     changeStep = (step, saveAddress = false) => {
         const { stepProps } = this.props;
 
-        if (step === 2 && (!stepProps.hasShippingAddress)) return;
+        const form = $(`#shippingAddressForm`);
+        const queryString = form.serializeArray();
+        const validCheck = this.checkFormAddressData(form, queryString);
+        if (validCheck){
+            if (step === 2 && (!stepProps.hasShippingAddress)) return;
 
-        Identify.storeDataToStoreage(Identify.SESSION_STOREAGE, 'checkout_step', step);
+            Identify.storeDataToStoreage(Identify.SESSION_STOREAGE, 'checkout_step', step);
 
-        if (saveAddress) {
-            this.submitAddress(step)
-        } else {
-            this.setState({ step });
+            if (saveAddress) {
+                this.submitAddress(step)
+            } else {
+                this.setState({ step });
+            }
+        }else{
+            if (stepProps.toggleMessages){
+                stepProps.toggleMessages([{ type: 'error', message: Identify.__('Required field is empty!'), auto_dismiss: true }])
+            }
         }
-
         smoothScrollToView($("#root"));
     }
 

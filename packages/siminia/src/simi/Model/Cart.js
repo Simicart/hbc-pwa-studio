@@ -7,7 +7,7 @@ const storage = new BrowserPersistence();
 export const addToCart = (callBack, params) => {
     let getParams = storage.getItem('cartId');
     getParams = getParams?{quote_id: getParams}:{}
-    sendRequest('rest/V1/simiconnector/quoteitems', callBack, 'POST', getParams, params)
+    sendRequest('/rest/V1/simiconnector/quoteitems', callBack, 'POST', getParams, params)
 }
 
 export const removeItemFromCart = (callBack, itemId, isSignedIn) => {

@@ -49,10 +49,10 @@ class SearchAddress extends React.Component {
 
 
     render() {
-        const { configFields, initialValues } = this.props;
+        const { configFields, initialValues, handleChangeInput } = this.props;
         return (
             <input ref={this.autocompleteInput} id="street_number" name='street[0]' placeholder="Enter your address"
-                type="text" className={!configFields || (configFields && configFields.hasOwnProperty('street_show') && configFields.street_show === 'req') ? 'isrequired' : ''} defaultValue={(initialValues.street && initialValues.street[0]) ? initialValues.street[0] : ''} />
+                type="text" className={!configFields || (configFields && configFields.hasOwnProperty('street_show') && configFields.street_show === 'req') ? 'isrequired' : ''} defaultValue={(initialValues.street && initialValues.street[0]) ? initialValues.street[0] : ''} onChange={handleChangeInput} />
         );
     }
 }
