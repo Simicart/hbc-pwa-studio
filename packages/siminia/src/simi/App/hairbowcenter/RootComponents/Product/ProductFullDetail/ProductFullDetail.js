@@ -80,7 +80,7 @@ class ProductFullDetail extends Component {
 
     setQuantity = quantity => this.quantity = quantity;
 
-    setProductRelatedAddToCart = (productId) => { 
+    setProductRelatedAddToCart = (productId) => {
         if(productId instanceof Array) {
             const products = [];
             productId.forEach(id => {
@@ -149,7 +149,7 @@ class ProductFullDetail extends Component {
                         quantity: value.quantity
                     })
                 })
-    
+
                 params['group_selection'] = groupSelection
             } else {
                 this.missingOption = true
@@ -174,7 +174,7 @@ class ProductFullDetail extends Component {
                 this.productRelatedATC.forEach((product) => {
                     showFogLoading()
                     simiAddToCart(() => {}, product)
-                }) 
+                })
             }
 
             if(params.group_selection && params.group_selection.length > 0) {
@@ -183,7 +183,7 @@ class ProductFullDetail extends Component {
                     if(params.group_selection.length === index + 1) {
                         callBack = this.addToCartCallBack
                     }
-                    const newParams = { 
+                    const newParams = {
                         product: params.product,
                         qty: param.quantity,
                         super_attribute: param.super_attribute
@@ -197,7 +197,7 @@ class ProductFullDetail extends Component {
                 simiAddToCart(this.addToCartCallBack, params)
             }
 
- 
+
         }
     };
 
@@ -371,7 +371,7 @@ class ProductFullDetail extends Component {
         } else if(!isStock) {
             display = true
         }
-        
+
         if(display) {
             return (
                 <div className="actions">
@@ -390,10 +390,10 @@ class ProductFullDetail extends Component {
             const html = tierPrices.map((tierPrice, index) => {
                 if(tierPrice.price > 0) {
                     let percentageValue = null
-                    if(!tierPrice.percentage_value) {
+                    if(!tierPrice.percentage_value && tierPricesData && tierPricesData[index]) {
                         const tierPricesText = tierPricesData[index]
                         const tierPriceArray = tierPricesText.split(' ');
-                        percentageValue = tierPriceArray[tierPriceArray.length - 1]; 
+                        percentageValue = tierPriceArray[tierPriceArray.length - 1];
                     } else {
                         percentageValue = parseInt(tierPrice.percentage_value) + '%'
                     }

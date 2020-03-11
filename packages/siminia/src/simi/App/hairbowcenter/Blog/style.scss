@@ -1,0 +1,165 @@
+.blog-data-page {
+    padding-top: 3.428571429rem;
+    padding-bottom: 3.428571429rem;
+    float: left;
+    width: 100%;
+    margin-top: 40px;
+    &::before,
+    &::after {
+        display: table;
+        content: '';
+    }
+    .blog-container {
+        padding: 0 2.857142857rem;
+        background-color: #ffffff;
+        float: left;
+        width: 100%;
+        .blog-site-content {
+            margin: 1.714285714rem 0 0;
+            article {
+                border-bottom: 4px double #ededed;
+                margin-bottom: 72px;
+                padding-bottom: 24px;
+                word-wrap: break-word;
+                -webkit-hyphens: auto;
+                -moz-hyphens: auto;
+                hyphens: auto;
+                header.entry-header {
+                    margin-bottom: 1.714285714rem;
+                    .entry-title {
+                        font-size: 20px;
+                        line-height: 1.2;
+                        font-weight: normal;
+                        a {
+                            color: #00cccc;
+                        }
+                    }
+                }
+                img {
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+            .blog-pagination {
+                line-height: 2;
+                margin-bottom: 30px;
+                clear: both;
+                float: left;
+                width: 100%;
+                .nav-previous {
+                    width: 50%;
+                    float: left;
+                    > div {
+                        display: inline-block;
+                        cursor: pointer;
+                        color: #00cccc;
+                        font-weight: 700;
+                    }
+                }
+                .nav-next {
+                    width: 50%;
+                    float: right;
+                    text-align: right;
+                    > div {
+                        display: inline-block;
+                        cursor: pointer;
+                        color: #00cccc;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+        .blog-sidebar {
+            margin: 1.714285714rem 0 0;
+            .widget-area {
+                .widget {
+                    -webkit-hyphens: auto;
+                    -moz-hyphens: auto;
+                    hyphens: auto;
+                    margin-bottom: 48px;
+                    margin-bottom: 3.428571429rem;
+                    word-wrap: break-word;
+                    .widget-title {
+                        margin-bottom: 1.714285714rem;
+                        font-size: 11px;
+                        line-height: 2.181818182;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        color: #636363;
+                    }
+                    li {
+                        font-size: 13px;
+                        line-height: 1.846153846;
+                    }
+                    a {
+                        color: #757575;
+                        text-decoration: underline;
+                        &:visited {
+                            color: #9f9f9f;
+                        }
+                    }
+                    ul {
+                        ul {
+                            margin-left: 0.857142857rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.blog-post-content {
+    .entry-header {
+        margin-bottom: 1.714285714rem;
+        .entry-title {
+            font-size: 1.571428571rem;
+            line-height: 1.2;
+            font-weight: normal;
+        }
+    }
+    .entry-content {
+        line-height: 1.714285714;
+        p {
+            margin: 0 0 1.714285714rem;
+            line-height: 1.714285714;
+        }
+        img {
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+            max-width: 100%;
+            height: auto;
+            clear: both;
+            margin-top: 0.857142857rem;
+            margin-bottom: 0.857142857rem;
+            display: block;
+        }
+    }
+}
+
+@media (min-width: 960px) {
+    .blog-data-page {
+        background-color: #e6e6e6;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .blog-data-page {
+        .blog-container {
+            .blog-site-content {
+                float: left;
+                width: 65.104166667%;
+                article {
+                    header.entry-header {
+                        .entry-title {
+                            font-size: 22px;
+                        }
+                    }
+                }
+            }
+            .blog-sidebar {
+                float: right;
+                width: 26.041666667%;
+            }
+        }
+    }
+}

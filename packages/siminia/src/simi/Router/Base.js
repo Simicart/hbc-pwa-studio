@@ -76,6 +76,7 @@ class Abstract extends React.Component{
                 <Route exact {...router.search_page}/>
                 <Route exact {...router.cart}/>
                 <Route exact {...router.product_detail}/>
+                <Route exact {...router.category_page}/>
                 <Route exact {...router.checkout}/>
                 <Route exact {...router.thankyou}/>
                 <Route exact {...router.account}/>
@@ -98,6 +99,8 @@ class Abstract extends React.Component{
                 <Route exact {...router.contact}/>
                 <Route exact {...router.paypal_express}/>
                 <Route exact {...router.print} />
+                <Route exact {...router.blog} />
+                {/* <Route exact {...router.blog_detail} /> */}
                 {this.renderPbRoute()}
                 <Route {...router.noMatch}/>
             </Switch>

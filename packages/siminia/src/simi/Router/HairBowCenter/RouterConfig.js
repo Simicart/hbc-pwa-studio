@@ -43,6 +43,11 @@ const NoMatch = (props) => {
     return <LazyComponent component={() => import(/* webpackChunkName: "NoMatch"*/'src/simi/App/hairbowcenter/NoMatch')} {...props}/>
 }
 
+const Blog = (props) => {
+    return <LazyComponent component={() => import(/* webpackChunkName: "Blog"*/'src/simi/App/hairbowcenter/Blog')} {...props}/>
+}
+
+
 const router = {
     home : {
         path: '/',
@@ -152,6 +157,14 @@ const router = {
         path: '/print.html/:orderId',
         render: location => <Account {...location} page={`print`}/>
     },
+    blog: {
+        path: '/blog',
+        render : location => <Blog {...location}/>
+    },
+    /* blog_detail: {
+        path: '/blog/slug?',
+        render : location => <BlogDetail {...location}/>
+    }, */
     noMatch: {
         component : location => <NoMatch {...location} />
     }

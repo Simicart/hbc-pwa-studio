@@ -31,5 +31,6 @@ query amBlogPosts($page: Int, $type: String) {
             categories
             is_featured
         }
+        total
     }
 }

@@ -68,7 +68,7 @@ const Thankyou = props => {
                 <div className="body">
                     <div className='textBlock'>{Identify.__('Your order number is:')} {hasOrderId && <span className="order-detail" onClick={() => handleViewOrderDetails()}>{hasOrderId()}</span>}</div>
                     <div className='textBlock'>{Identify.__("We'll email you an order confirmation with details and tracking info.")}</div>
-                    <Button onClick={() => history.push('/category.html')}>
+                    <Button onClick={() => history.push('/')}>
                         {Identify.__('Continue Shopping')}
                     </Button>
                 </div>
