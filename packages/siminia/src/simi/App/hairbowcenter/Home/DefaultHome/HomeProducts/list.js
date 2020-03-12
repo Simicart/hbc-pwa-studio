@@ -14,7 +14,11 @@ const ProductList = props => {
         id: Number(dataProduct.category_id),
         pageSize: Number(8),
         currentPage: Number(1),
-        stringId: String(dataProduct.category_id)
+        stringId: String(dataProduct.category_id),
+        simiProductSort: {
+            attribute: 'created_at',
+            direction: 'DESC'
+        }
     }
     if(dataProduct.product_array && dataProduct.product_array.length > 0) {
         useQuery = getProductsBySkus
@@ -22,6 +26,10 @@ const ProductList = props => {
             stringSku: dataProduct.product_array,
             currentPage: Number(1),
             pageSize: Number(8),
+            simiProductSort: {
+                attribute: 'created_at',
+                direction: 'DESC'
+            }
         }
     }
     const [queryResult, queryApi] = simiUseQuery(useQuery);

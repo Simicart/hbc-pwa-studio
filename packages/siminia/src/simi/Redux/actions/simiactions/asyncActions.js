@@ -48,6 +48,7 @@ export const simiSignOut = ({ history }) => async dispatch => {
     sessionStorage.removeItem("billing_address");
     await clearBillingAddress();
     await clearShippingAddress();
+    await clearAvailableShippingMethod();
 
     // Finally, go back to the first page of the browser history.
     refresh({ history });
@@ -412,6 +413,10 @@ async function clearShippingMethod() {
 
 async function clearToken() {
     return storage.removeItem('signin_token');
+}
+
+async function clearAvailableShippingMethod() {
+    return storage.removeItem('availableShippingMethod');
 }
 
 async function saveAvailableShippingMethod(methods) {
