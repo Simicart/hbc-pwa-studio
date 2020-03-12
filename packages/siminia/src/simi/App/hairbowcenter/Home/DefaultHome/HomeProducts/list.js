@@ -25,7 +25,7 @@ const ProductList = props => {
         variables = {
             stringSku: dataProduct.product_array,
             currentPage: Number(1),
-            pageSize: Number(8),
+            pageSize: Number(dataProduct.product_array.length),
             simiProductSort: {
                 attribute: 'created_at',
                 direction: 'DESC'
@@ -48,23 +48,41 @@ const ProductList = props => {
         history.push(location);
     }
 
+    const shuffleArray = (items) => {
+        for (let i = items.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [items[i], items[j]] = [items[j], items[i]];
+        }
+
+        return items;
+    }   
+
     const renderProductList = (items) => {
-        return items.map((item, index) => {
-            const itemData =  {
-                ...item,
-                small_image:
-                    typeof item.small_image === 'object' && item.small_image.hasOwnProperty('url') ? item.small_image.url : item.small_image
+        let shuffledItems = items;
+        if(parseInt(dataProduct.list_type) === 8) {
+            shuffledItems = shuffleArray(items); 
+        }
+        
+        return shuffledItems.map((item, index) => {
+            if(index < 8) {
+                const itemData =  {
+                    ...item,
+                    small_image:
+                        typeof item.small_image === 'object' && item.small_image.hasOwnProperty('url') ? item.small_image.url : item.small_image
+                }
+                return (
+                    <GridItem
+                        item={itemData}
+                        handleLink={handleAction}
+                        list_type="grid"
+                        lazyImage
+                        hideActionButton={true}
+                        key={index}
+                    />
+                )
             }
-            return (
-                <GridItem
-                    item={itemData}
-                    handleLink={handleAction}
-                    list_type="grid"
-                    lazyImage
-                    hideActionButton={true}
-                    key={index}
-                />
-            )
+
+            return null;
         });
     }
 

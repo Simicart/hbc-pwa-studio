@@ -24,7 +24,8 @@ const Banner = props => {
     }
 
     const bannerData = [];
-    data.homebanners.forEach((item, index) => {
+    const bannersSorted = data.homebanners.sort((a, b) => a.sort_order - b.sort_order);
+    bannersSorted.forEach((item, index) => {
         if (item.banner_name || item.banner_name_tablet) {
             bannerData.push(
                 <div

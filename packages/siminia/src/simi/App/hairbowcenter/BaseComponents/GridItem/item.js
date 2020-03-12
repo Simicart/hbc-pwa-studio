@@ -23,6 +23,7 @@ import { showToastMessage } from 'src/simi/Helper/Message';
 import { toggleMessages } from 'src/simi/Redux/actions/simiactions';
 import { getProductLabel } from '../../Helper';
 import { formatPrice } from 'src/simi/Helper/Pricing';
+import { resourceUrl } from 'src/simi/Helper/Url'
 
 require("./item.scss");
 const $ = window.$;
@@ -34,7 +35,8 @@ const Griditem = props => {
     const { classes, hideActionButton } = props
     if (!item) return '';
     const itemClasses = mergeClasses(defaultClasses, classes);
-    const { name, url_key, id, price, type_id, small_image, simiExtraField } = item
+    const { name, url_key, id, price, type_id, simiExtraField } = item;
+    let { small_image } = item;
     const product_url = `/${url_key}${productUrlSuffix()}`
     saveDataToUrl(product_url, item)
     const location = {
@@ -58,21 +60,26 @@ const Griditem = props => {
     }
 
     let isNew = false;
-    if (simiExtraField.attribute_values && productLabelConfig && productLabelConfig.new_label) {
-        const now = new Date()
-        let newsFrom = null;
-        let newsTo = null;
-        if (simiExtraField.attribute_values.news_from_date) {
-            newsFrom = new Date(simiExtraField.attribute_values.news_from_date)
-        }
-        if (simiExtraField.attribute_values.news_to_date) {
-            newsTo = new Date(simiExtraField.attribute_values.news_to_date)
-        }
-
-        if (newsFrom || newsTo) {
-            if ((newsFrom && newsTo && now >= newsFrom && now <= newsTo) || (!newsTo && now >= newsFrom) || (!newsFrom && now <= newsTo)) {
-                isNew = true
+    if (simiExtraField.attribute_values ) {
+        if (productLabelConfig && productLabelConfig.new_label){
+            const now = new Date()
+            let newsFrom = null;
+            let newsTo = null;
+            if (simiExtraField.attribute_values.news_from_date) {
+                newsFrom = new Date(simiExtraField.attribute_values.news_from_date)
             }
+            if (simiExtraField.attribute_values.news_to_date) {
+                newsTo = new Date(simiExtraField.attribute_values.news_to_date)
+            }
+
+            if (newsFrom || newsTo) {
+                if ((newsFrom && newsTo && now >= newsFrom && now <= newsTo) || (!newsTo && now >= newsFrom) || (!newsFrom && now <= newsTo)) {
+                    isNew = true
+                }
+            }
+        }
+        if (simiExtraField.attribute_values.small_image){
+            small_image = resourceUrl(simiExtraField.attribute_values.small_image, {type: 'image-product', width: 300});
         }
     }
 

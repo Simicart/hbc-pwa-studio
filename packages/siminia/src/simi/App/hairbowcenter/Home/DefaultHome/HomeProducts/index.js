@@ -17,7 +17,8 @@ const HomeProducts = props => {
         let cat = null;
         if(data.home && data.home.homeproductlists && data.home.homeproductlists.homeproductlists && data.home.homeproductlists.homeproductlists.length > 0) {
             const catData = data.home.homeproductlists.homeproductlists;
-            cat = catData.map((item, index) => (
+            const dataSorted = catData.sort((a, b) => a.sort_order - b.sort_order);
+            cat = dataSorted.map((item, index) => (
                 <React.Fragment key={index}>
                     <div id={`product-tabs-${index}`} className="data-item title" key={index}>
                         <div onClick={() => handleChangeTab(index)} className={`data-switch ${index === 0 ? 'active' : ''}`}>{item.list_title}</div>
