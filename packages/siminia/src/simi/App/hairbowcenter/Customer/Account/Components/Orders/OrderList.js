@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 // import Loading from "src/simi/BaseComponents/Loading";
 import Identify from 'src/simi/Helper/Identify'
 import { formatPrice } from 'src/simi/Helper/Pricing';
+import {
+    getCartDetails,
+} from 'src/actions/cart';
 import PaginationTable from './PaginationTable';
 import { Link } from 'react-router-dom';
 import defaultClasses from './style.scss'
@@ -13,7 +16,8 @@ import { compose } from 'redux';
 import { showFogLoading, hideFogLoading } from 'src/simi/BaseComponents/Loading/GlobalLoading'
 
 const OrderList = props => {
-    const { showForDashboard, data } = props
+    const { showForDashboard, data, getCartDetails } = props
+    console.log(getCartDetails);
     const [limit, setLimit] = useState(10);
     const [title, setTitle] = useState(10)
     const cols =
@@ -30,8 +34,9 @@ const OrderList = props => {
     const currentPage = 1;
 
     const processData = (data) => {
-        if (data) {
+        if (data && data.message) {
             hideFogLoading();
+            getCartDetails();
             props.toggleMessages([{ type: 'success', message: data.message }])
         }
     }
@@ -46,6 +51,7 @@ const OrderList = props => {
             pathname: "/orderdetails.html/" + item.increment_id,
             state: { orderData: item }
         };
+     
         return (
             <tr key={index}>
                 <td data-title={Identify.__("Order #")}>
@@ -68,7 +74,7 @@ const OrderList = props => {
                     <Link className="view-order" to={location}>{Identify.__('View')}</Link>
                     {item.status === 'processing' || item.status === 'completed' ? <div aria-hidden onClick={() => {
                         showFogLoading();
-                        getReOrder(item.increment_id, processData)
+                        getReOrder(item.id, processData)
                     }} className="view-order">{Identify.__('Reorder')}</div> : ''}
                 </td>
             </tr>
@@ -107,6 +113,7 @@ const OrderList = props => {
 
 const mapDispatchToProps = {
     toggleMessages,
+    getCartDetails
 }
 
 export default compose(

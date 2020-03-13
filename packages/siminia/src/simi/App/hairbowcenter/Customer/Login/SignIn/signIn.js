@@ -74,7 +74,7 @@ const SignIn = props => {
                                             </div>
                                         </div>
                                         <div className="field password required">
-                                            <label htmlFor="password"><span>{Identify.__('Password')}</span></label>
+                                            <label htmlFor="password" className="label"><span>{Identify.__('Password')}</span></label>
                                             <div className="control">
                                                 <input id="password" type="password" className="input-text" name="password"/>
                                                 <div className="mage-error" id="password-error"></div>

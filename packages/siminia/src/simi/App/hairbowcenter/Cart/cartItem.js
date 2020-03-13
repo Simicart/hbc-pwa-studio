@@ -3,6 +3,7 @@ import Identify from 'src/simi/Helper/Identify'
 import { Price } from '@magento/peregrine'
 import { Link } from 'react-router-dom';
 import ReactHTMLParse from 'react-html-parser';
+import {cateUrlSuffix} from 'src/simi/Helper/Url';
 require('./cartItem.scss')
 const $ = window.$;
 
@@ -68,16 +69,19 @@ const CartItem = props => {
 
         if(quantity > 0) {
             selector.val(quantity);
+        } else {
+            selector.val(1);
+
         }
     }   
 
-    const location = `/product.html?sku=${item.simi_sku?item.simi_sku:item.sku}`
+    const location = item.url_key ? `/${item.url_key + cateUrlSuffix()}` : `/product.html?sku=${item.simi_sku?item.simi_sku:item.sku}`
     const image = (item.image && item.image.file)?item.image.file:item.simi_image
     return (
             <tbody className="cart-item">
                 <tr className="item-info">
                     <td className="col item">
-                        <Link to='/' className="product-item-photo">
+                        <Link to={location} className="product-item-photo">
                             <span className="product-image-container" style={{width: '165px'}}>
                                 <span className="product-image-wrapper">
                                     <img src={image} alt={item.name} className="product-image-photo"/>
@@ -107,7 +111,9 @@ const CartItem = props => {
                                     <i className="porto-icon-down-dir"></i>
                                 </div>
                             </div>
+                            <div id={`error-${item.item_id}`} className="error"></div>
                         </div>
+                        
                     </td>
                     <td className="col subtotal" data-th="Subtotal">
                         <span className="cart-price">{subtotal}</span>

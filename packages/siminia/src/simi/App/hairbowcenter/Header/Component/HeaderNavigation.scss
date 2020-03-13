@@ -151,6 +151,15 @@
                         }
                     }
                 }
+                &.parent > a:after {
+                    line-height: 40px;
+                    content: '';
+                    display: inline-block;
+                    font-family: 'porto-icons';
+                    margin-right: 0px;
+                    vertical-align: top;
+                    margin-left: 6px;
+                }
             }
             &.sw-megamenu {
                 li.level0 {
@@ -180,12 +189,12 @@
             background-color: #4e5183;
 
             .sw-megamenu.navigation {
-                li.level0>a>span.cat-label{
+                li.level0 > a > span.cat-label {
                     top: -9px;
                 }
             }
         }
-        > .navigation{
+        > .navigation {
             z-index: unset;
         }
     }

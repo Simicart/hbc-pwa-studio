@@ -9,13 +9,16 @@ import { logoUrl } from 'src/simi/Helper/Url'
 import Image from 'src/simi/BaseComponents/Image'
 import {Link} from 'react-router-dom'
 import Table from "./Table";
+import {
+    getCartDetails,
+} from 'src/actions/cart';
 
 require('./style.scss');
 
 const Detail = (props) => {
     const [data, setData] = useState(null)
     const [loaded, setLoaded] = useState(false)
-    const { history, isPhone, match, print } = props
+    const { history, isPhone, match, print, getCartDetails, toggleMessages } = props
     let id = null;
     if(history.location.state && history.location.state.orderData && history.location.state.orderData.increment_id) {
         id = history.location.state.orderData.increment_id
@@ -154,7 +157,7 @@ const Detail = (props) => {
                 <div className="order-date">
                     {data.created_at && <date>{dateFormat(data.created_at)}</date>}
                 </div>
-                <Table data={data} print={true}/>
+                <Table data={data} print={true} toggleMessages={toggleMessages} getCartDetails={getCartDetails}/>
                 <div className="block block-order-details-view">
                     <div className="block-title">
                         <strong>{Identify.__('Order Information')}</strong>
@@ -172,7 +175,7 @@ const Detail = (props) => {
             <div className="order-date">
                 {data.created_at && <date>{dateFormat(data.created_at)}</date>}
             </div>
-            <Table data={data} />
+            <Table data={data} toggleMessages={toggleMessages} getCartDetails={getCartDetails}/>
             <div className="block block-order-details-view">
                 <div className="block-title">
                     <strong>{Identify.__('Order Information')}</strong>
@@ -185,6 +188,7 @@ const Detail = (props) => {
 
 const mapDispatchToProps = {
     toggleMessages,
+    getCartDetails
 }
 
 export default connect(

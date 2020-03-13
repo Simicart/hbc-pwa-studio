@@ -3,6 +3,7 @@ import amBlogPost from 'src/simi/App/hairbowcenter/queries/blog/amBlogPost';
 import { Simiquery } from 'src/simi/Network/Query';
 import Loading from 'src/simi/BaseComponents/Loading';
 import ReactHTMLParser from 'react-html-parser';
+import BlogItem from './BlogItem';
 
 const Post = (props) => {
     const { post_id } = props;
@@ -21,15 +22,8 @@ const Post = (props) => {
                     blogData = data.amBlogPost;
                 }
                 if (blogData) {
-                    // return renderBlogData(blogData)
-                    console.log(blogData);
                     return <div className="blog-post-content">
-                        <header className="entry-header">
-                            <h1 className="entry-title">{blogData.title}</h1>
-                        </header>
-                        <div className="entry-content">
-                            {ReactHTMLParser(blogData.full_content)}
-                        </div>
+                        <BlogItem item={blogData} type="post" />
                     </div>
                 }
                 if (loading)

@@ -13,7 +13,7 @@ const FeatureBranch = props => {
 
     const responsive = {
         0: {
-            items: 1
+            items: 2
         },
         1024: {
             items: 6

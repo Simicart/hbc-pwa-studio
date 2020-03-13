@@ -3,9 +3,11 @@ import Identify from 'src/simi/Helper/Identify';
 import { Price } from '@magento/peregrine'
 
 const CartTotals = props => {
+
     const {totals, shippingMethod, rewardPoint} = props
     const currency = totals.base_currency_code;
     const {total_segments} = totals
+    console.log(total_segments);
     
     const getSegment = (code, type = 'other') => {
         const segment = total_segments.find(value => value.code === code);

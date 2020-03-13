@@ -8,7 +8,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 const $ = window.$;
 
 const QuestionForm = props => {
-    const {productId, toggleMessages} = props
+    const {productId, toggleMessages, setOpen} = props
     const publicKey = getGooglePublicKey()
     let reCaptchaResponse = null
 
@@ -62,8 +62,9 @@ const QuestionForm = props => {
     }
 
     const callBackSubmitQuestion = (data) => {
+        setOpen(true);
         hideFogLoading()
-        smoothScrollToView($('#root'))
+        smoothScrollToView($('#root'));
         if (data.message) {
             $('#question-form input.input-text').val('')
             $('#question-form textarea.input-text').val('')

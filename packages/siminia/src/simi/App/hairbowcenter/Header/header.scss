@@ -72,6 +72,12 @@
                 }
             }
         }
+
+        .placeholder-header-banner {
+            position: absolute;
+            top: 35%;
+            z-index: 99;
+        }
     }
 
     button.action.switch {

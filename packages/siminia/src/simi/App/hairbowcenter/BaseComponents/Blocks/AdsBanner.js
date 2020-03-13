@@ -15,6 +15,13 @@ const AdsBanner = (props) => {
         countEasyBannerPoint(countCallBack, data.banner_id);
     }
 
+    const handleOnpenPopup = (e) => {
+        e.preventDefault();
+        countPoint();
+        window.open(data.url, 'easybanners23', 'width=600,height=400');
+        
+    }
+
     function countCallBack(data) {
         console.log(data)
     }
@@ -24,7 +31,11 @@ const AdsBanner = (props) => {
     let linkHTML = null;
     const pattern = /^((http|https|ftp):\/\/)/;
 
-    if (pattern.test(data.url)) {
+    if(data.target === 'popup') {
+        linkHTML = <a href={data.url} onClick={handleOnpenPopup} className="easybanner-image-link">
+            {img}
+        </a>
+    } else if (pattern.test(data.url)) {
         linkHTML = <a href={data.url} onClick={() => countPoint()} className="easybanner-image-link">
             {img}
         </a>

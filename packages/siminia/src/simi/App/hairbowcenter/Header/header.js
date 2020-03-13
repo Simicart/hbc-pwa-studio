@@ -13,6 +13,8 @@ import { logoUrl } from 'src/simi/Helper/Url'
 import HeaderLeft from './Component/HeaderLeft';
 import HeaderWelcome from './Component/HeaderWelcome';
 import Image from 'src/simi/BaseComponents/Image'
+import Banner from 'src/simi/App/hairbowcenter/BaseComponents/Blocks/AdsBanner'
+
 require('./header.scss');
 
 const $ = window.$;
@@ -103,6 +105,38 @@ class Header extends React.Component {
         )
     }
 
+    renderEasyBanner = () => {
+        const {simiStoreConfig} = Identify.getStoreConfig() || {};
+        if(simiStoreConfig && simiStoreConfig.config) {
+            let headerLeftBanner = null;
+            let easyBanners = null;
+            if(
+                simiStoreConfig.config.easy_banners 
+                && simiStoreConfig.config.easy_banners.items
+                && simiStoreConfig.config.easy_banners.items instanceof Array
+            ) {
+                easyBanners = simiStoreConfig.config.easy_banners.items;
+            }
+
+            if(simiStoreConfig.config.header_configs && simiStoreConfig.config.header_configs.left_banner) {
+                headerLeftBanner = simiStoreConfig.config.header_configs.left_banner
+            }
+
+            if(headerLeftBanner && easyBanners) {
+                const data = easyBanners.find(banner => banner.identifier === headerLeftBanner)
+                if(data) {
+                    return (
+                        <div className="placeholder-header-banner">
+                            <Banner data={data}/>
+                        </div>
+                    )
+                }
+            }
+        } 
+
+        return null;
+    }
+
     renderTopBar = () => {
         const { classes } = this;
 
@@ -113,6 +147,7 @@ class Header extends React.Component {
                     <MyAccount classes={classes} />
                 </ul>
                 <HeaderLeft />
+                {this.renderEasyBanner()}
             </div>
         </div>
     }

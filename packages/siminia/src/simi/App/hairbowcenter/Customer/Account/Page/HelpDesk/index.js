@@ -24,7 +24,6 @@ const HelpDesk = (props) => {
             Identify.storeDataToStoreage(Identify.SESSION_STOREAGE, 'ticket_list_local', data);
         }
     }
-    console.log(ticket)
 
     return <React.Fragment>
         {(!ticket || (ticket && ticket.tickets.length < 1)) ? <EmptyData message={Identify.__("You have submitted no tickets.")} /> : <p>list tickets</p>}

@@ -84,7 +84,9 @@ class CheckoutStep extends React.Component {
                 const itemName = item.name;
                 const itemValue = item.value;
                 if (itemName) {
-                    if (itemName === 'street[0]') {
+                    if (itemName === 'save_in_address_book') {
+                        submitValues.save_in_address_book = form.find(`input[name='${itemName}']`).is(":checked") ? 1 : 0;
+                    }else if (itemName === 'street[0]') {
                         submitValues.street = [itemValue]
                     } else if (itemName === 'street[1]' || itemName === 'street[2]') {
                         submitValues.street.push(itemValue)

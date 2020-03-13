@@ -101,11 +101,11 @@ const AddressForm = props => {
     const values = useMemo(
         () =>
             fields.reduce((acc, key) => {
-                if (key === 'save_in_address_book') {
+                /* if (key === 'save_in_address_book') {
                     acc[key] = initialFormValues[key] ? true : false;
-                } else {
+                } else { */
                     acc[key] = initialFormValues[key];
-                }
+                // }
 
                 return acc;
             }, {}),
@@ -190,8 +190,14 @@ const AddressForm = props => {
         }
     }
 
-    const handleFormReset = () => {
-        Object.keys(values).forEach(k => values[k] = null)
+    const handleFormReset = () => { console.log(values)
+        Object.keys(values).forEach(k => {
+            if ('save_in_address_book' === k) {
+                values[k] = 1;
+            } else {
+                values[k] = null;
+            }
+        });
     }
 
     const formChildrenProps = {
@@ -203,7 +209,8 @@ const AddressForm = props => {
         selectableCountries,
         configFields,
         handleFormReset,
-        formId
+        formId,
+        initialValues: billingForm ? initialValues : values,
     };
 
     return (

@@ -1,0 +1,52 @@
+query amBlogPostsByCategory($page: Int, $type: String, $cateId: Int) {
+  amBlogPosts(page: $page, type: $type, cateId: $cateId) {
+    items {
+      post_id
+      title
+      status
+      url_key
+      short_content
+      full_content
+      meta_title
+      meta_tags
+      meta_description
+      created_at
+      updated_at
+      published_at
+      user_define_publish
+      notify_on_enable
+      display_short_content
+      comments_enabled
+      views
+      post_thumbnail
+      list_thumbnail
+      thumbnail_url
+      grid_class
+      canonical_url
+      post_thumbnail_alt
+      list_thumbnail_alt
+      author_id
+      related_post_ids
+      tag_ids
+      categories
+      is_featured
+    }
+    total
+  }
+  amBlogCategory(id: $cateId) {
+    category_id
+    name
+    status
+    url_key
+    sort_order
+    meta_title
+    meta_tags
+    meta_description
+    created_at
+    updated_at
+    parent_id
+    path
+    level
+    store_id
+  }
+}

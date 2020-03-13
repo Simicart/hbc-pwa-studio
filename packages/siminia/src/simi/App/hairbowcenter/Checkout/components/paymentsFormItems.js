@@ -58,6 +58,10 @@ const PaymentsFormItems = props => {
         } else {
             initialV = paymentCode;
         }
+    }else{
+        if (Identify.ApiDataStorage('payment_selected_local')) {
+            initialV = Identify.ApiDataStorage('payment_selected_local');
+        }
     }
 
     const [selectedPMethod, setSelectedPMethod] = useState(initialV);
@@ -169,6 +173,7 @@ const PaymentsFormItems = props => {
                     paymentMethodsConfirm = paymentMethods.filter(itemT => itemT.code === 'free');
                 }
             }
+
             mt = paymentMethodsConfirm.filter(itemT => itemT.code !== 'braintree_paypal' && itemT.code !== 'braintree_paypal_credit').map(ite => {
                 let frameCard = '';
                 if (selectedPMethod === ite.code) {

@@ -117,7 +117,7 @@ class Navigation extends React.Component {
                     if (item.child_cats && item.child_cats.length > 0) {
 
                         const sw_menu_type = item.hasOwnProperty('sw_menu_type') && item.sw_menu_type ? item.sw_menu_type : '';
-                        return (<li className={`ui-menu-item level0 ${sw_menu_type}`} key={index}>
+                        return (<li className={`ui-menu-item level0 ${sw_menu_type} parent`} key={index}>
                             <div className="open-children-toggle" />
                             <Link className="level-top open-children-toggle-new" to={'/' + item.url_path}>
                                 <span>{Identify.__(item.name)}</span>{itemLabel}
@@ -138,12 +138,30 @@ class Navigation extends React.Component {
                         return (
                             <li className="ui-menu-item level0" key={index}>
                                 <Link className="level-top" to={'/' + item.url_path} >
-                                    <span>{Identify.__(item.name)}</span>{itemLabel}
+                                    <span>{Identify.__("New")}</span>{itemLabel}
                                 </Link>
                             </li>
                         )
                     }
-                })
+                });
+                const customMenus = <React.Fragment>
+                    <li className="ui-menu-item level0" key={Identify.randomString(2)}>
+                        <Link className="level-top" to={'/new-product'} >
+                            <span>{Identify.__("New")}</span>
+                        </Link>
+                    </li>
+                    <li className="ui-menu-item level0" key={Identify.randomString(2)}>
+                        <Link className="level-top" to={'/shop_by_theme'} >
+                            <span>{Identify.__("Theme")}</span>
+                        </Link>
+                    </li>
+                    <li className="ui-menu-item level0" key={Identify.randomString(2)}>
+                        <Link className="level-top" to={'/blog'} >
+                            <span>{Identify.__("Blog")}</span>
+                        </Link>
+                    </li>
+                </React.Fragment>
+                menuItems.push(customMenus);
             }
         }
 

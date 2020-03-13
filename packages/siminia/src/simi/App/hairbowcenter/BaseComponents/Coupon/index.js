@@ -2,6 +2,7 @@ import React from 'react';
 import { func, string } from 'prop-types';
 import { showFogLoading, hideFogLoading } from 'src/simi/BaseComponents/Loading/GlobalLoading';
 import { updateCoupon } from 'src/simi/Model/Cart';
+import {smoothScrollToView} from 'src/simi/Helper/Behavior'
 import Identify from 'src/simi/Helper/Identify';
 
 require ('./style.scss')
@@ -45,7 +46,10 @@ const Coupon = (props) => {
             success = true
             document.querySelector('#coupon_code').value = ''
         }
-        if (text) toggleMessages([{ type: success ? 'success' : 'error', message: text, auto_dismiss: true }]);
+        if (text) {
+            toggleMessages([{ type: success ? 'success' : 'error', message: text, auto_dismiss: false }]);
+            smoothScrollToView($('#root'));
+        }
         getCartDetails();
         hideFogLoading();
     }

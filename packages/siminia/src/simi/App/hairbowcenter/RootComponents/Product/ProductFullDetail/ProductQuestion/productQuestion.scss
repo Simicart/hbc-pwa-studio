@@ -4,7 +4,25 @@
     float: right;
     margin-left: 0!important;
     width: 100%;
+    .askit-show-form {
+        display: inline-block;
+        border: 1px solid #ccc;
+        color: #777;
+        line-height: 30px;
+        padding: 0 12px;
+        height: 32px;
+        background-color: #fff;
+        border-radius: 3px;
+        font-weight: 400;
+        cursor: pointer;
+        &:hover {
+            border-color: #00CCCC;
+            background-color: #00CCCC;
+            color: #fff;
+        }
+    }
     .block {
+        margin-top: 45px;
         .block-title {
             margin: 5px 0 10px;
             line-height: 1.2;

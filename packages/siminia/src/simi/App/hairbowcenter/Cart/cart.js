@@ -85,18 +85,44 @@ class Cart extends Component {
         return false
     }
 
+    validateItem = (items) => {
+        let error = 0
+        for(const i in items) {
+            const item = items[i];
+            const quantity = $(`#cart-quantity-${item.item_id}`).val();
+            if(parseInt(quantity) <= 0) {
+                error = error + 1;
+                $(`#cart-quantity-${item.item_id}`).addClass('error-input')
+                $(`#error-${item.item_id}`).text('Please enter a number greater than 0 in the field');
+            } else if (!quantity) {
+                error = error + 1;
+                $(`#cart-quantity-${item.item_id}`).addClass('error-input')
+                $(`#error-${item.item_id}`).text('This is required field');
+            }
+        }
+
+        return error === 0
+    }
+
     updateCart = () => {
         const { cart } = this.props;
-        for (const i in cart.details.items) {
-            const item = cart.details.items[i];
-            const quantity = $(`#cart-quantity-${item.item_id}`).val();
-            const payload = {
-                item,
-                quantity
+        $('.cart-item .col.qty .input-text.qty').removeClass('error-input');
+        $('.cart-item .col.qty .error').text('');
+        const checkQuantity = this.validateItem(cart.details.items);
+ 
+        if(checkQuantity) {
+            for (const i in cart.details.items) {
+                const item = cart.details.items[i];
+                const quantity = $(`#cart-quantity-${item.item_id}`).val();
+                const payload = {
+                    item,
+                    quantity
+                }
+                this.type = 'update'
+                this.props.updateItemInCart(payload, item.item_id);
             }
-            this.type = 'update'
-            this.props.updateItemInCart(payload, item.item_id);
         }
+       
     }
 
     get cartId() {
@@ -120,7 +146,6 @@ class Cart extends Component {
         if (!cart)
             return
         const { cartCurrencyCode, cartId } = this;
-        const borderItemStyle = Identify.isRtl() ? {borderLeft: 'solid #DCDCDC 1px'} : {borderRight: 'solid #DCDCDC 1px'};
         if (cartId) {
             const obj = [];
             obj.push(

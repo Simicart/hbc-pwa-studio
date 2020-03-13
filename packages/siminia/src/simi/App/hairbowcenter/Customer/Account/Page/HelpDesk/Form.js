@@ -9,7 +9,7 @@ const FormTicket = (props) => {
     const { tickets, orderId } = props;
     let defaultOrder = '';
     if(orderId) {
-        const {order_options} = tickets
+        const {order_options} = tickets || {}
         for (let i in order_options) {
             const order_option = order_options[i];
             if(order_option === orderId) {

@@ -296,7 +296,9 @@ const FormFields = (props) => {
                 }
 
                 if (itemName) {
-                    if (itemName === 'street[0]') {
+                    if (itemName === 'save_in_address_book') {
+                        submitValues.save_in_address_book = inputItem.is(":checked") ? 1 : 0;
+                    }else if (itemName === 'street[0]') {
                         submitValues.street = [itemValue]
                     } else if (itemName === 'street[1]' || itemName === 'street[2]') {
                         submitValues.street.push(itemValue)
@@ -457,9 +459,10 @@ const FormFields = (props) => {
                             <input type="text" id='vat_id' name='vat_id' className={configFields && configFields.hasOwnProperty('taxvat_show') && configFields.taxvat_show === 'req' ? 'isrequired' : ''} defaultValue={initialValues.vat_id} onChange={handleChangeInput} />
                         </div>
                         : null}
-                    {/* <div className='save_in_address_book'>
-                        <Checkbox field="save_in_address_book" label={Identify.__('Save in address book.')} />
-                    </div> */}
+                    {isSignedIn && (shippingNewForm || (billingForm && storageBilling === 'new_address') || (!billingForm && storageShipping === 'new_address')) ? <div className='save_in_address_book'>
+                        <input type="checkbox" id="save_in_address_book" name="save_in_address_book" style={{fontSize: 20, width: 20}} defaultChecked={initialValues.save_in_address_book} onChange={() => changeInput()} />
+                        <label htmlFor="save_in_address_book">{Identify.__('Save in address book.')}</label>
+                    </div> : ''}
                     <div className='validation'>{validationMessage}</div>
                 </Fragment> : null}
         </Fragment>
@@ -489,6 +492,7 @@ const FormFields = (props) => {
     }
 
     const handleCheckBoxBilling = (label) => {
+        console.log(label);
         if (label === 'diff') {
             setUsingSameAddress(false)
         } else {

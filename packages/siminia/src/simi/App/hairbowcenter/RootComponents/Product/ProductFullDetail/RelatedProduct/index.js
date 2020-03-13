@@ -8,6 +8,7 @@ import {applySimiProductListItemExtraField} from 'src/simi/Helper/Product'
 import {cateUrlSuffix} from 'src/simi/Helper/Url';
 import Price from 'src/simi/App/hairbowcenter/BaseComponents/Price';
 import StaticRate from '../../Component/StaticRate';
+import { resourceUrl } from 'src/simi/Helper/Url'
 const $ = window.$
 require('./relatedProduct.scss');
 
@@ -35,6 +36,10 @@ const ProductRelated = props => {
                     stringSku: matchedSkus,
                     currentPage: 1,
                     pageSize: maxItem,
+                    simiProductSort: {
+                        attribute: 'created_at',
+                        direction: 'DESC'
+                    }
                 }
             })
         }
@@ -80,10 +85,11 @@ const ProductRelated = props => {
                             typeof small_image === 'object' ? small_image.url : small_image
                     }
                     if (itemData)
+                        console.log(itemData);
                         return (
                             <div className="product-item-info" key={index}>
                                 <Link to={itemData.url_key + cateUrlSuffix()} className="product photo product-item-photo">
-                                    <img src={itemData.small_image} alt={itemData.name}/>
+                                    <img src={resourceUrl(itemData.simiExtraField.attribute_values.small_image , {type: 'image-product', width: 84})} alt={itemData.name}/>
                                 </Link>
                                 <div className="product details product-item-details">
                                     <strong className="product name product-item-name">

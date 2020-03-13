@@ -37,7 +37,7 @@ const Account = props => {
                     </div>
                 </li>
                 <li className="favorites"><Link to={'/wishlist.html'} onClick={() => handleCloseMenu()}><i className="fa fa-heart"></i></Link></li>
-                {props.isSignedIn && <li className="authorization-link"><Link to={'/logout.html'} onClick={() => handleOpenMenu()}>{Identify.__('Sign Out')}</Link></li>}
+                {props.isSignedIn && <li className="authorization-link"><Link to={'/logout.html'} onClick={() => handleCloseMenu()}>{Identify.__('Sign Out')}</Link></li>}
             </ul>   
         </nav>
     );

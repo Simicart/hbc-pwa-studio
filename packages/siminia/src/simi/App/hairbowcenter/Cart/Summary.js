@@ -22,12 +22,12 @@ class Summary extends Component {
         this.country = firstCountry
         this.cartId = this.props.cartId
         this.isSignedIn = this.props.isSignedIn
-        const shippingMethodSave = storage.getItem('shippingMethod')
-        const shippingSave = storage.getItem('shipping_address')
-        const availableShippingMethodSave = storage.getItem('availableShippingMethod')
-        console.log(shippingMethodSave);
-        console.log(shippingSave);
-        console.log(availableShippingMethodSave);
+        // const shippingMethodSave = storage.getItem('shippingMethod')
+        // const shippingSave = storage.getItem('shipping_address')
+        // const availableShippingMethodSave = storage.getItem('availableShippingMethod')
+        // console.log(shippingMethodSave);
+        // console.log(shippingSave);
+        // console.log(availableShippingMethodSave);
         this.payloadEstimate = {
             country_id: this.country.country_code
         }
@@ -37,6 +37,15 @@ class Summary extends Component {
             shipping: null,
         }
     }
+
+    static getDerivedStateFromProps(props, state) {
+        if(props.totals && props.totals.total_segments) {
+            return {newTotals: props.totals}
+            
+        }
+        return null
+    }
+
    
     checkFormatPostCode = (code) => {
         return /[0-9]{5}-[0-9]{4}/.test(code) || (/[0-9]{5}/.test(code) && parseInt(code, 10) > 10000);
@@ -84,7 +93,7 @@ class Summary extends Component {
         hideFogLoading()
         this.setState({newTotals: data});
     }
-
+    
     handleOnChangeCountry = (e) => {
         const selectedCountry = this.allowedCountries.find(country => country.country_code === e.target.value)
         if(selectedCountry) {
@@ -129,7 +138,11 @@ class Summary extends Component {
     handleOnSelectShipingMethod = (e) => {
         const {shipping} = this.state;
         const methodCode = e.target.value
-        const selectShippingMethod = shipping.find(item => item.method_code === methodCode);
+        let selectShippingMethod = shipping
+        if(shipping instanceof Array) {
+            selectShippingMethod = shipping.find(item => item.method_code === methodCode);
+        }
+        
         if(selectShippingMethod) {
             this.shippingMethod = selectShippingMethod;
             this.loadTotal(this.payloadEstimate, selectShippingMethod)
