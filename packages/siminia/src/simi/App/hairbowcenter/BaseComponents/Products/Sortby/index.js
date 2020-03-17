@@ -110,7 +110,7 @@ const Sortby = props => {
                             >
                                 {selections}
                             </Dropdownoption>
-                            <span className={`action sorter-action ${storageSortDir === 'ASC' ? 'sort-asc' : 'sort-desc'}`} onClick={() => sortDirectory(storageSortDir)} />
+                            <span className={`action sorter-action ${storageSortDir === 'ASC' ? 'sort-asc' : 'sort-desc'}`} onClick={() => sortDirectory(storageSortDir)} title={Identify.__("Set Descending Direction")} />
                         </div>
                     </div>
             }

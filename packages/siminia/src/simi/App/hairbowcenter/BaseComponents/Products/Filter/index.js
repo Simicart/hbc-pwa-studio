@@ -11,8 +11,8 @@ import Panel from 'src/simi/App/hairbowcenter/BaseComponents/Panel';
 class Filter extends React.Component {
     constructor(props) {
         super(props);
-        const isPhone = window.innerWidth < 1024 ;
-        this.state = {isPhone}
+        const isPhone = window.innerWidth < 1024;
+        this.state = { isPhone }
         this.rowFilterAttributes = []
         this.rowsActived = []
         this.filtersToApply = {}
@@ -20,24 +20,24 @@ class Filter extends React.Component {
         this.activedItems = {}
     }
 
-    setIsPhone(){
+    setIsPhone() {
         const obj = this;
         $(window).resize(function () {
             const width = window.innerWidth;
             const isPhone = width < 1024;
-            if(obj.state.isPhone !== isPhone){
-                obj.setState({isPhone})
+            if (obj.state.isPhone !== isPhone) {
+                obj.setState({ isPhone })
             }
         })
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setIsPhone();
     }
 
     renderActivedFilters() {
-        const {props} = this
-        const {filterData} = props
+        const { props } = this
+        const { filterData } = props
         if (props.data)
             this.items = props.data;
 
@@ -60,7 +60,7 @@ class Filter extends React.Component {
                             this.rowsActived.push(this.renderActivedFilterItem(item, filter_item_label))
                         }
                     } else if (item && item.request_var && item.filter_items && this.activedItems[item.request_var]) {
-                        item.filter_items.map((filter_item)=> {
+                        item.filter_items.map((filter_item) => {
                             if (
                                 (filter_item.value_string === String(this.activedItems[item.request_var]))
                             ) {
@@ -100,7 +100,7 @@ class Filter extends React.Component {
     }
 
     renderFilterItems() {
-        const {props, classes} = this
+        const { props, classes } = this
 
         if (props.data)
             this.items = props.data;
@@ -116,28 +116,28 @@ class Filter extends React.Component {
                     const filterOptions = this.renderFilterItemsOptions(item)
                     if (filterOptions.length > 0 && !this.activedItems[item.request_var]) {
                         this.rowFilterAttributes.push(
-                            this.state.isPhone?
-                            <Dropdownplus
-                                key={Identify.randomString(5)}
-                                classes={this.classes}
-                                title={Identify.__(item.name)}
-                                expanded={this.filtersToApply[item.request_var]?true:false}
-                            >
-                                <div
-                                    id={`filter-option-items-${item.request_var}`}
-                                    className={classes["filter-option-items"]}>
-                                    {this.renderFilterItemsOptions(item)}
+                            this.state.isPhone ?
+                                <Dropdownplus
+                                    key={Identify.randomString(5)}
+                                    classes={this.classes}
+                                    title={Identify.__(item.name)}
+                                    expanded={this.filtersToApply[item.request_var] ? true : false}
+                                >
+                                    <div
+                                        id={`filter-option-items-${item.request_var}`}
+                                        className={classes["filter-option-items"]}>
+                                        {this.renderFilterItemsOptions(item)}
+                                    </div>
+                                </Dropdownplus>
+                                :
+                                <div key={Identify.randomString(5)}>
+                                    <Panel className="product-list-filter-panel" title={<div className={classes["filter-name"]} style={styles}>{name}</div>}
+                                        // className={panelClassName}
+                                        renderContent={<div className={classes["filter-option-items"]}>{this.renderFilterItemsOptions(item)}</div>}
+                                        isToggle={true}
+                                        expanded={true}
+                                    />
                                 </div>
-                            </Dropdownplus>
-                            :
-                            <div key={Identify.randomString(5)}>
-                                <Panel title={<div className={classes["filter-name"]} style={styles}>{name}</div>}
-                                    // className={panelClassName}
-                                    renderContent={<div className={classes["filter-option-items"]}>{this.renderFilterItemsOptions(item)}</div>}
-                                    isToggle={true}
-                                    expanded={true}
-                                />
-                            </div>
                         )
                     }
                     return null
@@ -149,23 +149,22 @@ class Filter extends React.Component {
         }
     }
 
-    renderFilterItemsOptions(item)
-    {
-        const { classes} = this
-        let options= [];
-        if(item){
-            if(item.filter_items !== null){
+    renderFilterItemsOptions(item) {
+        const { classes } = this
+        let options = [];
+        if (item) {
+            if (item.filter_items !== null) {
                 options = item.filter_items.map(function (optionItem) {
                     const name = <span className={classes["filter-item-text"]}>
                         {$("<div/>").html(Identify.__(optionItem.label)).text()}
-                        </span>;
+                    </span>;
                     return (
                         <Checkbox
                             key={Identify.randomString(5)}
                             id={`filter-item-${item.request_var}-${optionItem.value_string}`}
                             className={classes["filter-item"]}
                             classes={classes}
-                            onClick={()=>{
+                            onClick={() => {
                                 this.clickedFilter(item.request_var, optionItem.value_string);
                             }}
                             label={name}
@@ -179,22 +178,17 @@ class Filter extends React.Component {
     };
 
     renderClearButton() {
-        const { classes, props} = this
-        const {filterData} = props
-
-        return this.state.isPhone?'':
-        (filterData)
-        ? (<div className={classes["action-clear"]}>
-                <div
-                    role="presentation"
-                    onClick={() => this.clearFilter()}
-                    className={classes["clear-filter"]}>{Identify.__('Clear all')}</div>
-            </div>
-        ) : <div className={classes["clear-filter"]}></div>
+        const { classes, props } = this
+        const { filterData } = props
+        return this.state.isPhone ? '' : (<div className={classes["action-clear"]}>
+            <div role="presentation" onClick={() => this.clearFilter()} className={`${classes["clear-filter"]} ${filterData ? '' : 'clear-filter-disable'}`}>{Identify.__('Clear all')}</div>
+        </div>
+        )
     }
 
     clearFilter() {
-        const {history, location} = this.props
+        const { history, location, filterData } = this.props
+        if (!filterData) return;
         const { search } = location;
         const queryParams = new URLSearchParams(search);
         queryParams.delete('filter');
@@ -202,9 +196,9 @@ class Filter extends React.Component {
     }
 
     deleteFilter(attribute) {
-        const {history, location, filterData} = this.props
+        const { history, location, filterData } = this.props
         const { search } = location;
-        const filterParams = filterData?filterData:{}
+        const filterParams = filterData ? filterData : {}
         delete filterParams[attribute]
         const queryParams = new URLSearchParams(search);
         queryParams.set('filter', JSON.stringify(filterParams));
@@ -212,9 +206,9 @@ class Filter extends React.Component {
     }
 
     clickedFilter(attribute, value) {
-        const {history, location, filterData} = this.props
+        const { history, location, filterData } = this.props
         const { search } = location;
-        const filterParams = filterData?filterData:{}
+        const filterParams = filterData ? filterData : {}
         filterParams[attribute] = value
         const queryParams = new URLSearchParams(search);
         queryParams.set('page', 1);
@@ -223,34 +217,34 @@ class Filter extends React.Component {
     }
 
     render() {
-        const {props, classes} = this
-        const {filterData} = props
-        this.items = props.data?this.props.data:null;
-        const activeFilter = filterData?
+        const { props, classes } = this
+        const { filterData } = props
+        this.items = props.data ? this.props.data : null;
+        const activeFilter = filterData ?
             (
                 <div className={classes["active-filter"]}>
                     {this.renderActivedFilters()}
                 </div>
-            ):
+            ) :
             ''
         const filterProducts =
-                <div className={`${classes['filter-products']}`}>
-                    {this.renderClearButton()}
-                    {activeFilter}
-                    {this.renderFilterItems()}
-                </div>
+            <div className={`${classes['filter-products']}`}>
+                {activeFilter}
+                {this.renderFilterItems()}
+                {this.renderClearButton()}
+            </div>
         if (this.rowsActived.length === 0 && this.rowFilterAttributes.length === 0)
-                return ''
+            return ''
 
-        return this.state.isPhone?
-        <Dropdownplus
-            className={classes["siminia-phone-filter"]}
-            title={Identify.__('Filter')}
-            classes={classes}
-        >
-            {filterProducts}
-        </Dropdownplus>
-        :filterProducts;
+        return this.state.isPhone ?
+            <Dropdownplus
+                className={classes["siminia-phone-filter"]}
+                title={Identify.__('Filter')}
+                classes={classes}
+            >
+                {filterProducts}
+            </Dropdownplus>
+            : filterProducts;
     }
 }
 

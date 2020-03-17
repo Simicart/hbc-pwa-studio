@@ -30,19 +30,24 @@ div#app-loading {
 .siminia-breadcrumb {
     padding-top: 8px;
     padding-bottom: 8px;
-    font-size: 12px;
+    font-size: 1.3rem;
+    color: #C1BFBF;
+    margin-bottom: 15px;
 }
 .breadcrumb-item {
     cursor: pointer;
     line-height: 20px;
     display: inline-block;
+    color: #C1BFBF !important;
 }
 .breadcrumb-item:hover {
-    color: #d7272e;
+    color: #777777;
+    text-decoration: underline;
 }
 .breadcrumb-item:last-of-type {
-    color: #d7272e;
+    color: #C1BFBF;
     cursor: unset;
+    text-decoration: none;
 }
 /**
  * Toast mesage

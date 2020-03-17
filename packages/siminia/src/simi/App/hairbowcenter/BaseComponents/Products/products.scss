@@ -139,22 +139,78 @@
         right: 4px;
     }
     .mb-filtered-container {
-        .mb-child-filtered ,
-        .mb-filtered-clear-all{
+        .mb-child-filtered,
+        .mb-filtered-clear-all {
             padding: 7px 10px;
             border: 1px solid #ccc;
             margin-right: 4px;
             float: left;
             margin-bottom: 3px;
         }
+    }
+    .product-list-filter-panel {
+        padding: 0 !important;
+        .panel-header.flex {
+            background-color: #f5f5f5;
+        }
+        .panel-content {
+            background-color: #fbfbfb;
+            border-radius: 0 0 7px 7px;
+        }
+    }
+    .clear-filter-disable {
+        opacity: 0.5;
+        cursor: default;
+        pointer-events: none;
+    }
+    .easycatalogimg {
+        clear: both;
+        float: left;
+        display: flex;
+        flex-wrap: wrap;
+        .easycatalog-grid {
+            background: 0 0;
+            margin: 0;
+            list-style: none;
+            li.item {
+                padding: 10px !important;
+                float: left;
+                box-sizing: border-box;
+                img {
+                    width: auto;
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+            &.easycatalogimg-cols-3 {
+                li.item {
+                    width: 33.33333333%;
+                }
+            }
+        }
+    }
+}
 
+.product-grid-pagination {
+    .pagination {
+        flex-direction: row-reverse;
+        #page-numbers {
+            margin-left: 10px;
+        }
+    }
+    &.product-grid-pag-top {
+        .pagination {
+            #page-numbers {
+                display: none;
+            }
+        }
     }
 }
 
 @media screen and (max-width: 1023px) {
     .top-toolbar {
         .models-bar {
-            float: right;
+            // float: right;
         }
         .sort-dropdown {
             > div {
@@ -166,6 +222,30 @@
                 margin-left: 140px;
                 margin-top: 7px;
             }
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #siminia-main-page {
+        .easycatalogimg {
+            .easycatalog-grid.easycatalogimg-cols-3 li.item {
+                width: 50%;
+            }
+        }
+    }
+    .top-toolbar {
+        .sort-dropdown .sorter-action{
+            margin-left: 100px;
+        }
+        .models-bar{
+            float: right;
+        }
+        .product-grid-pag-top{
+            clear: both;
+            margin-top: 10px;
+            float: left;
+            display: block;
         }
     }
 }

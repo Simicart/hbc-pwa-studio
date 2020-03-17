@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'src/drivers';
 import { StaticRate } from 'src/simi/App/hairbowcenter/BaseComponents/Rate'
 import Image from 'src/simi/BaseComponents/Image'
-import { productUrlSuffix, saveDataToUrl, resourceUrl } from 'src/simi/Helper/Url';
+import { productUrlSuffix, resourceUrl } from 'src/simi/Helper/Url';
 import AliceCarousel from 'react-alice-carousel'
 import "react-alice-carousel/lib/scss/alice-carousel.scss";
 require('./rating-list.scss');
@@ -14,8 +14,11 @@ const RatingList = (props) => {
     if (!data) {
         return null;
     }
+    const [currentIndex, setCurrentIndex] = useState(1);
 
-    const handleOnDragStart = (e) => e.preventDefault()
+    const handleOnDragStart = (e) => e.preventDefault();
+
+    const onSlideChanged = (e) => setCurrentIndex(e.item);
 
     const renderItem = (items) => {
         let html = null;
@@ -55,14 +58,14 @@ const RatingList = (props) => {
         <div className="rating-list-block">
             <div className="block-title">Featured</div>
             <nav className="custom-nav-react">
-                <span onClick={() => carouselRef.current.slidePrev()}>
+                <span onClick={() => setCurrentIndex(currentIndex - 1)} className={`${currentIndex === 1 ? 'nav-disabled' : ''}`}>
                     <em className="porto-icon-left-open-huge"></em>
                 </span>
-                <span onClick={() => carouselRef.current.slideNext()}>
+                <span onClick={() => setCurrentIndex(currentIndex + 1)} className={`${currentIndex === data.length -1 ? 'nav-disabled' : ''}`}>
                     <em className="porto-icon-right-open-huge"></em>
                 </span>
             </nav>
-            <AliceCarousel mouseTrackingEnabled dotsDisabled={true} buttonsDisabled={true} ref={carouselRef} infinite={false}>
+            <AliceCarousel mouseTrackingEnabled slideToIndex={currentIndex} dotsDisabled={true} buttonsDisabled={true} ref={carouselRef} infinite={false} onSlideChanged={onSlideChanged}>
                 {renderItem(data)}
             </AliceCarousel>
             <hr />

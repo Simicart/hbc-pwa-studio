@@ -15,6 +15,7 @@ import RatingList from './../Blocks/RatingList';
 import CategoryHeader from './../../RootComponents/Category/categoryHeader'
 import { resourceUrl } from 'src/simi/Helper/Url'
 import CloseIcon from 'src/simi/BaseComponents/Icon/TapitaIcons/Close';
+import SubCategories from './SubCategories';
 
 require("./products.scss");
 const $ = window.$;
@@ -172,7 +173,7 @@ class Products extends React.Component {
     }
 
     renderItem = () => {
-        const { pagination } = this
+        const { pagination, paginationB } = this
         const { history, location, currentPage, pageSize } = this.props
         if (
             pagination &&
@@ -185,6 +186,20 @@ class Products extends React.Component {
             const queryParams = new URLSearchParams(search);
             queryParams.set('product_list_limit', pagination.state.limit);
             queryParams.set('page', pagination.state.currentPage);
+            history.push({ search: queryParams.toString() });
+        }
+
+        if (
+            paginationB &&
+            paginationB.state &&
+            paginationB.state.limit &&
+            paginationB.state.currentPage &&
+            (paginationB.state.limit !== pageSize ||
+                paginationB.state.currentPage !== currentPage)) {
+            const { search } = location;
+            const queryParams = new URLSearchParams(search);
+            queryParams.set('product_list_limit', paginationB.state.limit);
+            queryParams.set('page', paginationB.state.currentPage);
             history.push({ search: queryParams.toString() });
         }
     };
@@ -212,10 +227,10 @@ class Products extends React.Component {
         const list_type = Identify.ApiDataStorage('product_list_mode') || 'grid';
 
         return <div className="models-bar">
-            <strong className={`models-mode mode-grid ${list_type === 'grid' ? 'active' : ''}`} onClick={() => this.setModelMode('grid')}>
+            <strong className={`models-mode mode-grid ${list_type === 'grid' ? 'active' : ''}`} onClick={() => this.setModelMode('grid')} title={Identify.__("Grid")}>
                 <span>Grid</span>
             </strong>
-            <strong className={`models-mode mode-list ${list_type === 'list' ? 'active' : ''}`} onClick={() => this.setModelMode('list')}>
+            <strong className={`models-mode mode-list ${list_type === 'list' ? 'active' : ''}`} onClick={() => this.setModelMode('list')} title={Identify.__("List")}>
                 <span>List</span>
             </strong>
         </div>
@@ -239,12 +254,22 @@ class Products extends React.Component {
                         sortByData={sortByData}
                     />
                     {this.renderSwitchTypes()}
+                    <div className={`${classes['product-grid-pagination']} product-grid-pagination product-grid-pag-top`}>
+                        <Pagination
+                            renderItem={this.renderItem.bind(this)}
+                            itemCount={data.products.total_count}
+                            limit={pageSize}
+                            currentPage={currentPage}
+                            itemsPerPageOptions={[20, 60, 120]}
+                            showInfoItem={false}
+                            // showPageNumber={false}
+                            ref={(page) => { this.paginationB = page }} />
+                    </div>
                 </div>
-
                 <section className={classes.gallery}>
                     <Gallery data={items} pageSize={pageSize} history={history} location={location} />
                 </section>
-                <div className={classes['product-grid-pagination']} style={{ marginBottom: 20, clear: "both" }}>
+                <div className={`${classes['product-grid-pagination']} product-grid-pagination`} style={{ marginBottom: 20, clear: "both" }}>
                     <Pagination
                         renderItem={this.renderItem.bind(this)}
                         itemCount={data.products.total_count}
@@ -261,7 +286,7 @@ class Products extends React.Component {
 
     render() {
         const { props } = this
-        const { data, classes, description, categoryImage, title } = props;
+        const { data, classes, description, categoryImage, title, cateId } = props;
         const styleH = this.state.isPhone ? {} : { width: '75%', display: 'inline-block' };
 
         return (
@@ -269,6 +294,7 @@ class Products extends React.Component {
                 <div className={classes["product-list-container-siminia"]}>
                     {this.renderLeftNavigation(classes)}
                     <div style={styleH}>
+                        <SubCategories cateId={cateId} />
                         {
                             categoryImage &&
                             <CategoryHeader

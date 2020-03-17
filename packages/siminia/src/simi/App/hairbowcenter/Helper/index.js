@@ -105,3 +105,14 @@ function recursiveBlogCateTree(trees, id) {
     }
     return null;
 }
+
+export function getRootCategoriesArray(root, id) {
+    let node;
+    for (let i = 0; i < root.length; i++) {
+        node = root[i];
+        if (Number(node.entity_id) === id || node.child_cats && (node = getRootCategoriesArray(node.child_cats, id))) {
+            return node;
+        }
+    }
+    return null;
+}

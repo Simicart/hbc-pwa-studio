@@ -6,9 +6,9 @@ import Products from 'src/simi/App/hairbowcenter/BaseComponents/Products';
 import Identify from 'src/simi/Helper/Identify';
 import ObjectHelper from 'src/simi/Helper/ObjectHelper';
 import { withRouter } from 'react-router-dom';
-import {Simiquery} from 'src/simi/Network/Query'
+import { Simiquery } from 'src/simi/Network/Query'
 import TitleHelper from 'src/simi/Helper/TitleHelper'
-import {applySimiProductListItemExtraField} from 'src/simi/Helper/Product'
+import { applySimiProductListItemExtraField } from 'src/simi/Helper/Product'
 import BreadCrumb from "src/simi/BaseComponents/BreadCrumb"
 import { cateUrlSuffix } from 'src/simi/Helper/Url';
 import { smoothScrollToView } from 'src/simi/Helper/Behavior';
@@ -17,15 +17,24 @@ var sortByData = null
 var filterData = null
 
 const genPath = (item, id, pathArray) => {
-    if (item.id && item.id === id) {
+    if (item.entity_id && Number(item.entity_id) === id) {
         return true
-    } else if (item.children && Array.isArray(item.children)) {
+    } else if (item.child_cats && Array.isArray(item.child_cats)) {
         let hasTheOne = false
-        item.children.map(child => {
+        item.child_cats.map(child => {
             if (!hasTheOne) hasTheOne = genPath(child, id, pathArray)
         })
         if (hasTheOne) {
-            if (item.url_path) pathArray.unshift({name: item.name, link: '/' + item.url_path + cateUrlSuffix()})
+            if (item.url_path) pathArray.unshift({ name: item.name, link: '/' + item.url_path + cateUrlSuffix() })
+            return true
+        }
+    } else if (item.categorytrees && Array.isArray(item.categorytrees)) {
+        let hasCOne = false
+        item.categorytrees.map(child => {
+            if (!hasCOne) hasCOne = genPath(child, id, pathArray)
+        })
+        if (hasCOne) {
+            if (item.url_path) pathArray.unshift({ name: item.name, link: '/' + item.url_path + cateUrlSuffix() })
             return true
         }
     }
@@ -35,20 +44,20 @@ const genPath = (item, id, pathArray) => {
 const Category = props => {
     const { id } = props;
     let pageSize = Identify.findGetParameter('product_list_limit')
-    pageSize = pageSize?Number(pageSize):window.innerWidth < 1024?12:24
+    pageSize = pageSize ? Number(pageSize) : 20
     let currentPage = Identify.findGetParameter('page')
-    currentPage = currentPage?Number(currentPage):1
+    currentPage = currentPage ? Number(currentPage) : 1
     sortByData = null
     const productListOrder = Identify.findGetParameter('product_list_order')
     const productListDir = Identify.findGetParameter('product_list_dir')
-    const newSortByData = productListOrder?productListDir?{[productListOrder]: productListDir.toUpperCase()}:{[productListOrder]: 'ASC'}:null
+    const newSortByData = productListOrder ? productListDir ? { [productListOrder]: productListDir.toUpperCase() } : { [productListOrder]: 'ASC' } : null
     if (newSortByData && (!sortByData || !ObjectHelper.shallowEqual(sortByData, newSortByData))) {
         sortByData = newSortByData
     }
     filterData = null
     const productListFilter = Identify.findGetParameter('filter')
     if (productListFilter) {
-        if (JSON.parse(productListFilter)){
+        if (JSON.parse(productListFilter)) {
             filterData = productListFilter
         }
     }
@@ -61,9 +70,9 @@ const Category = props => {
     }
     if (filterData)
         variables.simiFilter = filterData
-    if (sortByData){
+    if (sortByData) {
         const sortAtt = {};
-        for(let i in sortByData){
+        for (let i in sortByData) {
             sortAtt['attribute'] = i;
             sortAtt['direction'] = sortByData[i];
         }
@@ -88,17 +97,18 @@ const Category = props => {
                 const categoryImage = data && data.category ? data.category.image : '';
                 const pathArray = [];
                 const storeConfig = Identify.getStoreConfig();
-                if (storeConfig && storeConfig.simiRootCate && data.category.id) {
-                    genPath(storeConfig.simiRootCate, data.category.id, pathArray)
+                if (storeConfig && storeConfig.simiCateTrees && data.category.id) {
+                    const jsonParseCateTrees = JSON.parse(storeConfig.simiCateTrees.config_json);
+                    genPath(jsonParseCateTrees, data.category.id, pathArray);
                 }
-                pathArray.unshift({name: Identify.__("Home"), link: '/'})
-                pathArray.push({name: data.category.name, link: '#'})
+                pathArray.unshift({ name: Identify.__("Home"), link: '/' })
+                pathArray.push({ name: data.category.name, link: '#' })
 
                 return (
                     <div className="container">
-                        <BreadCrumb breadcrumb={pathArray}/>
+                        <BreadCrumb breadcrumb={pathArray} />
                         {TitleHelper.renderMetaHeader({
-                            title: data.category.meta_title?data.category.meta_title:data.category.name,
+                            title: data.category.meta_title ? data.category.meta_title : data.category.name,
                             desc: data.category.meta_description
                         })}
 
@@ -112,7 +122,8 @@ const Category = props => {
                             pageSize={pageSize}
                             data={loading ? null : data}
                             sortByData={sortByData}
-                            filterData={filterData?JSON.parse(productListFilter):null}
+                            filterData={filterData ? JSON.parse(productListFilter) : null}
+                            cateId={data.category.id}
                         />
                     </div>
                 )

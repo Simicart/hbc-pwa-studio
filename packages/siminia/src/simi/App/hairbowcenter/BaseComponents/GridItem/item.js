@@ -60,6 +60,7 @@ const Griditem = props => {
     }
 
     let isNew = false;
+    let hoverImage = null;
     if (simiExtraField.attribute_values ) {
         if (productLabelConfig && productLabelConfig.new_label){
             const now = new Date()
@@ -81,6 +82,9 @@ const Griditem = props => {
         if (simiExtraField.attribute_values.small_image){
             small_image = resourceUrl(simiExtraField.attribute_values.small_image, {type: 'image-product', width: 300});
         }
+        if (simiExtraField.attribute_values.product_image_behind){
+            hoverImage = resourceUrl(simiExtraField.attribute_values.product_image_behind, {type: 'image-product', width: 300});
+        }
     }
 
     let spLabel = null;
@@ -94,6 +98,7 @@ const Griditem = props => {
         <div className="product photo product-item-photo">
             <Link to={location}>
                 {<Image src={small_image} alt={name} />}
+                {hoverImage && <Image src={hoverImage} alt={name} className="hover_image" />}
             </Link>
             <div className="product-labels">
                 {spLabel}
@@ -153,7 +158,7 @@ const Griditem = props => {
             }}
             className="grid-item-add-cart-btn"
             onClick={() => addToCart()}
-            text={window.innerWidth > 639 ? (stockAvai ? Identify.__('Add to cart') : Identify.__('Out of stock')) : ''} />
+            text={stockAvai ? Identify.__('Add to cart') : Identify.__('Out of stock')} />
     );
 
     const addToWishlist = () => {
@@ -250,7 +255,7 @@ const Griditem = props => {
                     {item.short_description && <div className="short-description">{ReactHTMLParse(item.short_description.html)}</div>}
                     {!hideActionButton && <div className="product-actions">
                         <div className="actions product-item-actions">
-                            {window.innerWidth > 639 && addToWishlistBtn}
+                            {addToWishlistBtn}
                             {addToCartBtn}
                         </div>
                     </div>}

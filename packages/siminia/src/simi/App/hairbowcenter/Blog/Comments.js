@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Identify from 'src/simi/Helper/Identify';
 import { showFogLoading, hideFogLoading } from 'src/simi/BaseComponents/Loading/GlobalLoading';
-import { submitComment } from 'src/simi/app/hairbowcenter/Model/Blogcomments';
+import { submitComment } from 'src/simi/App/hairbowcenter/Model/BlogComments';
 import { showToastMessage } from 'src/simi/Helper/Message';
 import amBlogComments from 'src/simi/App/hairbowcenter/queries/blog/amBlogComments';
 import { Simiquery } from 'src/simi/Network/Query';
