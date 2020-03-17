@@ -18,7 +18,7 @@
     --venia-teal-alt: 224, 240, 241;
     --venia-teal-dark: 0, 104, 108;
     --venia-teal-light: 212, 243, 238;
-    --venia-text: 33, 33, 33;
+    --venia-text: 119, 119, 119;
     --venia-text-alt: 112, 112, 112;
     --venia-text-hint: 158, 158, 158;
     --venia-text-spot: 255, 99, 51;
@@ -38,7 +38,7 @@ html {
 }
 
 body {
-    color: rgb(var(--venia-text));
+    /* color: rgb(var(--venia-text)); */
     font-family: var(--venia-font);
     font-style: normal;
     font-weight: 400;

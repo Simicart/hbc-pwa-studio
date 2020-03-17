@@ -12,6 +12,7 @@ import { simiSignedIn } from 'src/simi/Redux/actions/simiactions';
 import {showToastMessage} from 'src/simi/Helper/Message';
 import {setRememberMe} from '../../Model/Customer';
 import Loading from 'src/simi/BaseComponents/Loading'
+import { addToWishlist as simiAddToWishlist } from 'src/simi/Model/Wishlist';
 
 require('./login.scss')
 
@@ -26,6 +27,11 @@ class CustomerLogin extends Component {
     constructor(props) {
         super(props);
         this.remeberMe = null
+        this.addWishList = null;
+        const {history} = this.props;
+        if(history.location.state && history.location.state.hasOwnProperty('params_wishlist') && history.location.state.params_wishlist) {
+            this.addWishList = true
+        }
         this.state = {
             type: 'login'
         }
@@ -49,6 +55,14 @@ class CustomerLogin extends Component {
         showFogLoading()
     };
 
+    addToWishlistCallBack = (data) => {
+        hideFogLoading();
+        if(!data.errors) {
+            this.props.history.push('/wishlist.html');
+        }
+
+    }
+
     signinCallback = (data) => {
         hideFogLoading()
         if (this.props.simiSignedIn) {
@@ -63,6 +77,13 @@ class CustomerLogin extends Component {
                     Identify.storeDataToStoreage(Identify.LOCAL_STOREAGE, Constants.SIMI_SESS_ID, null)
                     setToken(data)
                     this.props.simiSignedIn(data)
+                }
+                const {history} = this.props;
+                if(history.location.state && history.location.state.hasOwnProperty('params_wishlist') && history.location.state.params_wishlist) {
+                    console.log('run');
+                    const params = history.location.state.params_wishlist;
+                    showFogLoading()
+                    simiAddToWishlist(this.addToWishlistCallBack, params)
                 }
                 if(this.remeberMe) {
                     let setCheckout = false
@@ -109,7 +130,7 @@ class CustomerLogin extends Component {
                 showMessage = false
                 Identify.ApiDataStorage('run-alert', 'update', true);
                 history.push({pathname: '/' + history.location.state.link + '.html'})
-            }else{
+            } if(!this.addWishList) {
                 history.push('/')
             }
         

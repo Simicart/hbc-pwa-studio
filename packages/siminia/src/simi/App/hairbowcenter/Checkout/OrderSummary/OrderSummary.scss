@@ -64,18 +64,21 @@ li.order-item .item-image {
 .cart-total {
     margin-top: 20px;
     font-size: 16px;
-    color: #333132;
+    color: #777777;
     max-width: 444px;
     margin-left: auto;
 }
 
 .cart-total .label {
     font-size: 16px;
-    color: #333132;
+    color: #777777;
     padding: 0;
     line-height: 24px;
     font-weight: 400;
     white-space: unset;
+}
+.cart-total .price{
+    color: #000000 !important;
 }
 .checkout-bg-rtl .cart-total .label {
     text-align: right;

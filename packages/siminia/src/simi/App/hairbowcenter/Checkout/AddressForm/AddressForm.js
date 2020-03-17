@@ -147,7 +147,7 @@ const AddressForm = props => {
         $(`#${formId} input, #${formId} select`).each(function () {
             const inputField = $(this)
             if (inputField) {
-                const value = inputField.val()
+                const value = inputField.val().trim()
                 if ((inputField.hasClass('isrequired') || inputField.attr('isrequired') === 'isrequired') && !value) {
                     inputField.addClass('warning')
                     formValid = false

@@ -28,12 +28,13 @@ const ListQuestion = props => {
     }
 
     const formatDate = (currentDate, format = ('Y-m-d')) => {
-        const date = new Date(currentDate);
+        const arr = currentDate.split(/[- :]/);
+        const date = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
         let m = date.getMonth() + 1;
         m = m < 10 ? "0" + m : m;
         let d = date.getDate();
         d = d < 10 ? '0' + d : d
-        let y = date.getFullYear()
+        const y = date.getFullYear()
         return format.replace('d',d).replace('m',m).replace('Y',y);
     }
 

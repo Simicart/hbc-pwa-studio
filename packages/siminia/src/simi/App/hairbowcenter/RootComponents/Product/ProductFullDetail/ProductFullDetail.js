@@ -213,11 +213,17 @@ class ProductFullDetail extends Component {
 
     addToWishlist = () => {
         const {product, isSignedIn, history} = this.props
+        const params = this.prepareParams()
         if (!isSignedIn) {
-            history.push('/login.html')
+            const location = {
+                pathname: '/login.html',
+                state: {
+                    params_wishlist: params
+                }
+            }
+            history.push(location)
         } else if (product && product.id) {
             this.missingOption = false
-            const params = this.prepareParams()
             showFogLoading()
             simiAddToWishlist(this.addToWishlistCallBack, params)
         }
@@ -390,18 +396,26 @@ class ProductFullDetail extends Component {
             const html = tierPrices.map((tierPrice, index) => {
                 if(tierPrice.price > 0) {
                     let percentageValue = null
+                    console.log(tierPrice.percentage_value);
                     if(!tierPrice.percentage_value && tierPricesData && tierPricesData[index]) {
                         const tierPricesText = tierPricesData[index]
                         const tierPriceArray = tierPricesText.split(' ');
                         percentageValue = tierPriceArray[tierPriceArray.length - 1];
                     } else {
-                        percentageValue = parseInt(tierPrice.percentage_value) + '%'
+                        percentageValue = parseInt(tierPrice.percentage_value);
                     }
-                    return (
-                        <li className="item" key={index}>
-                            {`Buy ${parseInt(tierPrice.price_qty)} for `}<span className="price">{formatPrice(tierPrice.price)}</span> {` each and `} <strong className="benefit">{` save `}<span className="">{percentageValue}</span></strong>
-                        </li>
-                    )
+
+                    console.log(percentageValue);
+
+                    if(!isNaN(percentageValue)) {
+                        return (
+                            <li className="item" key={index}>
+                                {`Buy ${parseInt(tierPrice.price_qty)} for `}<span className="price">{formatPrice(tierPrice.price)}</span> {` each and `} <strong className="benefit">{` save `}<span className="">{percentageValue + '%'}</span></strong>
+                            </li>
+                        )
+                    }
+                    
+                    return null;
                 }
 
                 return null
@@ -470,7 +484,7 @@ class ProductFullDetail extends Component {
                         </div>
                     </div>
                     <div className="clearer"></div>
-                    <div className="prdetail">
+                    <div id="prdetail" className="prdetail">
                         {productOptions}
                         <div className="product-info-detail">
                             <div className="product-data-items">
@@ -488,9 +502,9 @@ class ProductFullDetail extends Component {
                     <RelatedProduct product={product} setProduct={this.setProductRelatedAddToCart}/>
                     <SideBanner />
                 </div>
-                <div className="right-side-open" onClick={this.handleOnSideBar}>
+                {/* <div className="right-side-open" onClick={this.handleOnSideBar}>
                     <em className="porto-icon-reply"></em>
-                </div>
+                </div> */}
             </div>
         );
     }

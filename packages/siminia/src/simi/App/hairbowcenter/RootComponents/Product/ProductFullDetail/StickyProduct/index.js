@@ -13,7 +13,7 @@ const StickyProduct = props => {
         if(!position) {
             position = document.body;
         }
-        const optionOptions = document.getElementById('product-options-wrapper')
+        const optionOptions = document.getElementById('prdetail')
         if(optionOptions && optionOptions.offsetTop <= position) {
             $('.sticky-product').show()
         } else {

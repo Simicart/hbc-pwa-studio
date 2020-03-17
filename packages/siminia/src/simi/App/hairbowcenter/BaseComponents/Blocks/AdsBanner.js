@@ -5,7 +5,7 @@ require("./ads-banner.scss");
 
 const AdsBanner = (props) => {
     const { data } = props;
-    const { target } = data;
+    // const { target } = data;
 
     const countPoint = () => {
         if (!data.banner_id) {
@@ -18,8 +18,8 @@ const AdsBanner = (props) => {
     const handleOnpenPopup = (e) => {
         e.preventDefault();
         countPoint();
-        window.open(data.url, 'easybanners23', 'width=600,height=400');
-        
+        window.open('/' + data.url, 'easybanners23', 'width=600,height=400');
+
     }
 
     function countCallBack(data) {
@@ -50,6 +50,7 @@ const AdsBanner = (props) => {
         </Link>
     }
 
+    if(parseInt(data.status) !== 1) return null;
 
     return <div {...props} className="easybanner-banner banner-left-sidebar-reviews-banner">
         {linkHTML}

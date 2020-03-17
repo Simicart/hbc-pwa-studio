@@ -314,7 +314,7 @@ class Cart extends Component {
                     {couponView}
                     <CrossSellProducts
                         cartId={cart.details.id}
-                        handleLink={this.handleLink}
+                        handleLink={this.handleLink.bind(this)}
                         toggleMessages={toggleMessages}
                         updateItemInCart={updateItemInCart}
                     />

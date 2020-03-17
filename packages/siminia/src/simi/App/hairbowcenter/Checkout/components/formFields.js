@@ -252,7 +252,7 @@ const FormFields = (props) => {
     }
 
     const forgotPasswordLocation = {
-        pathname: '/login.html',
+        pathname: '/forgot-password.html',
         state: {
             forgot: true
         }
@@ -283,7 +283,7 @@ const FormFields = (props) => {
             for (const key in queryString) {
                 const item = queryString[key];
                 const itemName = item.name;
-                const itemValue = item.value;
+                const itemValue = item.value.trim();
                 const inputItem = form.find(`input[name='${itemName}']`);
                 const slbItem = form.find(`select[name='${itemName}']`);
                 if (inputItem.length || slbItem.length) {

@@ -85,7 +85,6 @@ const ProductRelated = props => {
                             typeof small_image === 'object' ? small_image.url : small_image
                     }
                     if (itemData)
-                        console.log(itemData);
                         return (
                             <div className="product-item-info" key={index}>
                                 <Link to={itemData.url_key + cateUrlSuffix()} className="product photo product-item-photo">

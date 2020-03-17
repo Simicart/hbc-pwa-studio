@@ -52,8 +52,9 @@ const Detail = (props) => {
         let monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
-        let t = new Date(dt);
-        return t.getDate() + ' ' + monthNames[t.getMonth()] + ', ' + t.getFullYear();
+        const arr = dt.split(/[- :]/);
+        const date = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
+        return date.getDate() + ' ' + monthNames[date.getMonth()] + ', ' + date.getFullYear();
     }
 
     if (!data) {
@@ -83,10 +84,20 @@ const Detail = (props) => {
                             {billingAddress.company}
                             <br/>
                             {billingAddress.street[0]}
-                            <br/>
-                            {billingAddress.street[1] ? billingAddress.street[1] : billingAddress.street[0]}
-                            <br/>
-                            {billingAddress.street[2] ? billingAddress.street[2] : billingAddress.street[0]}
+                            {billingAddress.street[1] && ( 
+                                <React.Fragment>
+                                    <br/> 
+                                    {billingAddress.street[1]}
+                                </React.Fragment>
+                                )
+                            }
+                            {billingAddress.street[2] && ( 
+                                <React.Fragment>
+                                    <br/> 
+                                    {billingAddress.street[2]}
+                                </React.Fragment>
+                                )
+                            }
                             <br/>
                             {billingAddress.city + ', ' + billingAddress.region + ', ' + billingAddress.postcode}
                             <br/>
@@ -104,7 +115,7 @@ const Detail = (props) => {
                         {data.shipping_method}
                     </div>
                 </div>}
-                <div className="box box-order-shipping-address">
+                {data.status !== 'closed' && <div className="box box-order-shipping-address">
                     <strong className="box-title">
                         <span>{Identify.__('Shipping Address')}</span>
                     </strong>
@@ -115,10 +126,20 @@ const Detail = (props) => {
                             {shippingAddress.company}
                             <br/>
                             {shippingAddress.street[0]}
-                            <br/>
-                            {shippingAddress.street[1] ? shippingAddress.street[1] : shippingAddress.street[0]}
-                            <br/>
-                            {shippingAddress.street[2] ? shippingAddress.street[2] : shippingAddress.street[0]}
+                            {billingAddress.street[1] && ( 
+                                <React.Fragment>
+                                    <br/> 
+                                    {billingAddress.street[1]}
+                                </React.Fragment>
+                                )
+                            }
+                            {billingAddress.street[2] && ( 
+                                <React.Fragment>
+                                    <br/> 
+                                    {billingAddress.street[2]}
+                                </React.Fragment>
+                                )
+                            }
                             <br/>
                             {shippingAddress.city + ', ' + billingAddress.region + ', ' + billingAddress.postcode}
                             <br/>
@@ -127,7 +148,7 @@ const Detail = (props) => {
                             T: <a href={`tel:${shippingAddress.telephone}`}>{shippingAddress.telephone}</a> 
                         </address>
                     </div>
-                </div>
+                </div>}
                 <div className="box box-order-billing-method">
                     <strong className="box-title">
                         <span>{Identify.__('Payment Method')}</span>
@@ -135,6 +156,20 @@ const Detail = (props) => {
                     <div className="box-content">
                         <dl className="payment-method">
                             <dt className="title">{data.payment_method ? data.payment_method : Identify.__('No Payment Information Required')}</dt>
+                            <dd className="content">
+                                <table className="table">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">{Identify.__('Credit Card Type')}</th>
+                                            {data.cc_name && <td>{data.cc_name}</td>}
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">{Identify.__('Credit Card Number')}</th>
+                                            {data.cc_last_4 && <td>{`xxxx-` + data.cc_last_4}</td>}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </dd>
                         </dl>
                     </div>
                 </div>

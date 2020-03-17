@@ -16,6 +16,7 @@
         width: 100%;
         .blog-site-content {
             margin: 1.714285714rem 0 0;
+            clear: both;
             article {
                 border-bottom: 4px double #ededed;
                 margin-bottom: 72px;
@@ -99,7 +100,7 @@
                             color: #9f9f9f;
                         }
                     }
-                    b{
+                    b {
                         margin-left: 2px;
                         font-size: 12px;
                         color: #444;
@@ -212,6 +213,141 @@
             display: block;
         }
     }
+    .amblog-comments-wrapper {
+        border: 1px solid #e9e9e9;
+        border-radius: 4px;
+        margin-top: 40px;
+        .amblog-title {
+            position: relative;
+            padding: 20px;
+            border-bottom: 1px solid #e9e9e9;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #0e6bd7;
+            margin-bottom: 30px;
+        }
+        .amblog-comments-action {
+            padding: 20px 20px 40px;
+            .amblog-comment {
+                margin-bottom: 60px;
+            }
+            .amblog-form-comment {
+                position: relative;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-flex-direction: column;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                .amblog-customer {
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-flex-direction: column;
+                    -ms-flex-direction: column;
+                    flex-direction: column;
+                }
+                .amblog-input {
+                    width: 100%;
+                    padding: 9px 10px 9px 36px;
+                    border-radius: 3px;
+                    font-size: 14px;
+                    border: 1px solid #e9e9e9;
+                    background: #f9f9f9;
+                    color: #525252;
+                    outline: none;
+                }
+                .amblog-input.-textarea {
+                    margin-bottom: 0;
+                    height: 100px;
+                    box-sizing: border-box;
+                    resize: vertical;
+                }
+                .amblog-wrapper {
+                    margin-bottom: 15px;
+                }
+                .mage-error {
+                    color: #e02b27;
+                    font-size: 1.2rem;
+                    margin-top: 7px;
+                }
+                .amblog-btn {
+                    width: 100%;
+                    padding: 12px 0;
+                    border: none;
+                    border-radius: 3px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #fff;
+                    box-shadow: none;
+                    background: #0e6bd7;
+                    margin-top: 15px;
+                    height: auto;
+                }
+                .amblog-svg {
+                    width: 25px;
+                    height: 24px;
+                    fill: #499bf8;
+                    position: absolute;
+                    top: -40px;
+                    left: 0;
+                }
+            }
+        }
+        .amblog-comments-container {
+            margin: 30px 20px 0;
+            .amblog-comment {
+                margin-bottom: 40px;
+                .amblog-comment-content {
+                    padding-left: 35px;
+                    .amblog-header {
+                        margin-bottom: 15px;
+                        .amblog-author {
+                            position: relative;
+                            display: inline-block;
+                            margin: 0 20px 0 0;
+                            padding-left: 0;
+                            svg {
+                                position: absolute;
+                                top: 0;
+                                left: -35px;
+                                fill: #499bf8;
+                                width: 25px;
+                                height: 25px;
+                            }
+                        }
+                        .amblog-date {
+                            display: inline-block;
+                            margin: 0;
+                            font-size: 14px;
+                            color: #999;
+                        }
+                        .amblog-thesis {
+                            font-style: italic;
+                            font-size: 16px;
+                            word-break: break-word;
+                            word-wrap: break-word;
+                            overflow-wrap: anywhere;
+                        }
+                        .amblog-reply {
+                            margin-top: 10px;
+                            text-align: right;
+                            span {
+                                font-size: 14px;
+                                font-weight: 600;
+                                color: #0e6bd7;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+                .amblog-replies {
+                    display: none;
+                }
+            }
+        }
+    }
 }
 .archive-header {
     margin-bottom: 3.428571429rem;
@@ -248,11 +384,21 @@
         padding: 0 12px;
         height: 32px;
         background-color: #fff;
+        outline: none;
     }
     ul {
         li {
             font-size: 12px;
             line-height: 1.42857143;
+        }
+    }
+}
+.wp-header-banner {
+    .easybanner-image-link {
+        img {
+            float: left;
+            max-width: 190px;
+            vertical-align: top;
         }
     }
 }
@@ -360,6 +506,78 @@
                     overflow: inherit;
                     height: inherit;
                     width: inherit;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .blog-post-content {
+        .amblog-comments-wrapper {
+            .amblog-title {
+                padding: 20px 30px;
+            }
+            .amblog-comments-action {
+                padding: 10px 30px 50px;
+                .amblog-form-comment {
+                    padding-left: 45px;
+                    .amblog-fieldset {
+                        margin: 0;
+                        padding: 0;
+                        border: none;
+                        min-inline-size: initial;
+                    }
+                    .amblog-customer {
+                        -webkit-flex-direction: row;
+                        -ms-flex-direction: row;
+                        flex-direction: row;
+                    }
+                    .amblog-input {
+                        padding-left: 15px;
+                    }
+                    .amblog-wrapper:first-child {
+                        margin: 0 20px 15px 0;
+                    }
+                    .amblog-btn {
+                        width: 230px;
+                        padding: 14px 0;
+                    }
+                    .amblog-svg {
+                        top: 10px;
+                    }
+                }
+            }
+            .amblog-comments-container {
+                margin: 30px 30px 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 599px) {
+    .blog-data-page {
+        padding-top: 0;
+        .blog-container {
+            padding: 0 1.714285714rem;
+            .blog-sidebar {
+                clear: both;
+            }
+        }
+        .main-navigation {
+            .menu-menu-1-container {
+                display: none;
+                &.toggle-on {
+                    display: inline-block;
+                }
+                li {
+                    margin-top: 1.714285714rem;
+                    font-size: 12px;
+                    line-height: 1.42857143;
+                    margin-bottom: 0.9rem;
+                    a {
+                        color: #5e5e5e;
+                    }
                 }
             }
         }

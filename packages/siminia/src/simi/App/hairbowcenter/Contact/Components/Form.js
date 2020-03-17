@@ -10,6 +10,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import {getGooglePublicKey} from '../../Helper'
 import {validateEmail, validateEmpty} from 'src/simi/Helper/Validation'
 import Loading from 'src/simi/BaseComponents/Loading'
+import {smoothScrollToView} from 'src/simi/Helper/Behavior'
 
 const $ = window.$;
 
@@ -30,7 +31,6 @@ class Form extends Component {
     }
 
     callBackGetTickets = (data) => {
-        console.log(data)
         if (data.errors) {
 
         } else if (data.departments) {
@@ -41,7 +41,7 @@ class Form extends Component {
     proceedData = (data) => {
         if (data) {
             hideFogLoading()
-            if (data.errors.length) {
+            if (data.errors && data.err) {
                 const errors = data.errors.map(error => {
                     return {
                         type: 'error',
@@ -49,19 +49,21 @@ class Form extends Component {
                         auto_dismiss: true
                     }
                 });
+                smoothScrollToView($('#root')) 
                 this.props.toggleMessages(errors)
                 if(window.grecaptcha) {
                     grecaptcha.reset();
                 }
+            } else {
+                $('#contact-form input').val('')
+                $('#contact-form textarea').val('')
+                if(window.grecaptcha) {
+                    grecaptcha.reset();
+                }
+                smoothScrollToView($('#root'))
+                this.props.toggleMessages([{ type: 'success', message: Identify.__('Thank you, we will contact you soon'), auto_dismiss: true }])
             }
-        } else {
-            $('#contact-form input').val('')
-            $('#contact-form textarea').val('')
-            if(window.grecaptcha) {
-                grecaptcha.reset();
-            }
-            this.props.toggleMessages([{ type: 'success', message: Identify.__('Thank you, we will contact you soon'), auto_dismiss: true }])
-        }
+        } 
     }
 
     validateForm = (form) => {
@@ -119,7 +121,7 @@ class Form extends Component {
     renderDepartment(departments) {
         let dpt = [];
         for (const key in departments) {
-            dpt.push(<option value={key}>{departments[key]}</option>);
+            dpt.push(<option value={key} key={key}>{departments[key]}</option>);
         }
 
         return (

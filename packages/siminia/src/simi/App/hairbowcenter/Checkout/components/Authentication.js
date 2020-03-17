@@ -6,6 +6,7 @@ import { smoothScrollToView } from 'src/simi/Helper/Behavior';
 import { simiSignIn } from 'src/simi/Model/Customer';
 import { showFogLoading, hideFogLoading } from 'src/simi/BaseComponents/Loading/GlobalLoading';
 import { Util } from '@magento/peregrine';
+import * as Constants from 'src/simi/Config/Constants';
 
 require('./authentication.scss');
 
@@ -21,7 +22,7 @@ const Authentication = (props) => {
         const email = $(`#form-login-ck input[name=emailaddress]`).val()
         const password = $(`#form-login-ck input[name=password]`).val()
         if (!email || !password || !email.trim() || !password.trim()) {
-            smoothScrollToView($("#id-message"));
+            smoothScrollToView($("#root"));
             if (toggleMessages) {
                 toggleMessages([{ type: 'error', message: Identify.__('Email and password is required to login!'), auto_dismiss: true }])
             }
@@ -44,7 +45,7 @@ const Authentication = (props) => {
                 handleActionSignIn(data)
             }
         } else {
-            smoothScrollToView($("#id-message"));
+            smoothScrollToView($("#root"));
             if (toggleMessages) {
                 toggleMessages([{ type: 'error', message: Identify.__('The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.'), auto_dismiss: true }])
             }
@@ -83,7 +84,7 @@ const Authentication = (props) => {
                 } else {
                     $(this).closest('.authentication-dropdown').removeClass('_show');
                 }
-        
+
                 /* $(this).closest('.authentication-ck').find('div.modal-custom-overlay').remove(); */
             });
 

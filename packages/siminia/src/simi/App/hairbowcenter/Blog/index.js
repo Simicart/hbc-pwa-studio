@@ -3,21 +3,18 @@ import Identify from 'src/simi/Helper/Identify'
 import ReactHTMLParser from 'react-html-parser';
 import { Link } from 'src/drivers';
 import Loading from 'src/simi/BaseComponents/Loading'
-import { Whitebtn } from 'src/simi/BaseComponents/Button';
 import TitleHelper from 'src/simi/Helper/TitleHelper';
-import { getFormattedDate, getFormatMonth } from './../Helper';
+import { getEasyBanner } from './../Helper';
 import { smoothScrollToView } from 'src/simi/Helper/Behavior';
-import { showFogLoading, hideFogLoading } from 'src/simi/BaseComponents/Loading/GlobalLoading';
-import { showToastMessage } from 'src/simi/Helper/Message';
 import { toggleMessages } from 'src/simi/Redux/actions/simiactions';
 import { connect } from 'src/drivers';
 import amBlogPosts from 'src/simi/App/hairbowcenter/queries/blog/amBlogPosts';
-import amBlogRecentPostsWidget from 'src/simi/App/hairbowcenter/queries/blog/amBlogRecentPostsWidget';
 import amBlogPostsByCategory from 'src/simi/App/hairbowcenter/queries/blog/amBlogPostsByCategory';
 import amBlogPostsByTag from 'src/simi/App/hairbowcenter/queries/blog/amBlogPostsByTag';
 import { Simiquery } from 'src/simi/Network/Query';
 import BlogItem from './BlogItem';
 import Post from './Post';
+import AdsBanner from 'src/simi/App/hairbowcenter/BaseComponents/Blocks/AdsBanner';
 
 require('./style.scss');
 const $ = window.$;
@@ -25,6 +22,7 @@ const $ = window.$;
 const Blog = (props) => {
 
     const { history, location } = props;
+    const [bData, setBData] = useState(null);
     smoothScrollToView($("#root"));
     const simiStoreConfig = Identify.getStoreConfig();
 
@@ -143,7 +141,7 @@ const Blog = (props) => {
                 return <li className="cate-item" key={idx}>
                     <Link to={`/blog/category/${itemX.url_key}`}>{ReactHTMLParser(itemX.label)}</Link>
                     {hasCount && itemX.hasOwnProperty('post_count') ? <b>({itemX.post_count})</b> : ''}
-                    {itemX.hasOwnProperty('optgroup') && itemX.optgroup.length ? renderTreeCates(itemX.optgroup, true) : ''}
+                    {itemX.hasOwnProperty('optgroup') && itemX.optgroup.length ? renderTreeCates(itemX.optgroup, hasCount) : ''}
                 </li>
             });
         }
@@ -163,18 +161,28 @@ const Blog = (props) => {
     }
 
     const renderRecentPosts = () => {
-        /* const recentPostVariables = {
+        if (bData && bData.items && bData.items.length) {
+            const b5Items = bData.items.slice(0, 5);
+            const htmlRecent = b5Items.map((bItem, idk) => {
+                return <li key={idk}><Link to={`/blog/${bItem.url_key}`} key={idk}>{ReactHTMLParser(bItem.title)}</Link></li>
+            });
 
+            return <aside className="widget widget_recent_posts">
+                <div className="widget-title">{Identify.__("Recent Posts")}</div>
+                <ul>{htmlRecent}</ul>
+            </aside>
         }
+    }
 
-        return (<Simiquery query={amBlogPosts} variables={variables} fetchPolicy="no-cache" >
-
-        </Simiquery>); */
+    const toggleMobileMenu = (e) => {
+        $(document).ready(function () {
+            $('.main-navigation').find('.menu-menu-1-container').toggleClass('toggle-on');
+        });
     }
 
     const renderNavigation = () => {
         return <nav className="main-navigation">
-            <button className="menu-toggle">{Identify.__("Menu")}</button>
+            <button className="menu-toggle" onClick={toggleMobileMenu}>{Identify.__("Menu")}</button>
             <div className="menu-menu-1-container">
                 <ul className="nav-menu">
                     <li className="menu-object-item">
@@ -191,11 +199,30 @@ const Blog = (props) => {
         </nav>
     }
 
+    const renderEasyBanners = () => {
+        if (blog_configs && blog_configs.hasOwnProperty('blog_banners') && blog_configs.blog_banners.length) {
+            const { blog_banners } = blog_configs;
+            const bannerHtml = blog_banners.map((bn, idc) => {
+                const bannerData = getEasyBanner(bn);
+                if (bannerData) {
+                    return <AdsBanner data={bannerData} key={idc} />
+                } else {
+                    return null;
+                }
+            });
+
+            return <div className="wp-header-banner">
+                {bannerHtml}
+            </div>
+        }
+    }
+
     return (
         <div className="blog-data-page">
             <div className="blog-container">
+                {renderNavigation()}
+                {renderEasyBanners()}
                 <div className="blog-site-content">
-                    {renderNavigation()}
                     {props.post_id ? <Post post_id={props.post_id} /> : <Simiquery query={hasCateId ? amBlogPostsByCategory : (hasTagId ? amBlogPostsByTag : amBlogPosts)} variables={variables} fetchPolicy="no-cache" >
                         {({ loading, error, data }) => {
                             if (error) return <div>{Identify.__('Data Fetch Error')}</div>;
@@ -205,6 +232,7 @@ const Blog = (props) => {
                                 blogData = data.amBlogPosts;
                             }
                             if (blogData) {
+                                setBData(blogData);
                                 return <Fragment>
                                     {data && data.amBlogCategory ? renderArchive(data.amBlogCategory) : ''}
                                     {data && data.amBlogTag ? renderArchiveTag(data.amBlogTag) : ''}

@@ -1,0 +1,18 @@
+query amBlogComments($postId: Int, $type: String) {
+    amBlogComments(postId: $postId, type: $type) {
+        items {
+            comment_id
+            post_id
+            store_id
+            status
+            customer_id
+            reply_to
+            message
+            name
+            email
+            session_id
+            updated_at
+            created_at
+        }
+    }
+}

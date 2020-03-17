@@ -17,7 +17,6 @@ import { showFogLoading, hideFogLoading } from 'src/simi/BaseComponents/Loading/
 
 const OrderList = props => {
     const { showForDashboard, data, getCartDetails } = props
-    console.log(getCartDetails);
     const [limit, setLimit] = useState(10);
     const [title, setTitle] = useState(10)
     const cols =
@@ -42,8 +41,8 @@ const OrderList = props => {
     }
 
     const renderOrderItem = (item, index) => {
-        let date = Date.parse(item.created_at);
-        date = new Date(date);
+        const arr = item.created_at.split(/[- :]/);
+        let date = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
         let m = date.getMonth() + 1;
         m = m < 10 ? "0" + m : m;
         date = date.getDate() + "/" + m + "/" + date.getFullYear();

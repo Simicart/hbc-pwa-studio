@@ -6,6 +6,9 @@ const Quantity = props => {
     const changedValue = (type) => {
         const qtyField = $('#product-detail-qty')
         let qty = parseInt(qtyField.val())
+        if(qty === 0) {
+            qty = 1;
+        }
         if(type === 'plus') {
             qty = qty + 1;
         } else if (type === 'minus' && qty - 1 > 0) {
