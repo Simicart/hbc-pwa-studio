@@ -10,7 +10,7 @@
             -moz-osx-font-smoothing: grayscale;
             font-size: 35px;
             line-height: 40px;
-            color: #00CCCC;
+            color: #00cccc;
             content: '\f815';
             font-family: 'porto-icons';
             margin: 0;
@@ -250,8 +250,40 @@
                                     &:hover {
                                         text-decoration: underline;
                                     }
-                                    a{
+                                    a {
                                         white-space: normal;
+                                    }
+                                }
+                                .product.options {
+                                    .toggle {
+                                        border: 0;
+                                        padding: 0 36px 4.5px 0;
+                                        font-size: 12px;
+                                        font-weight: 700;
+                                        &::after {
+                                            font-family: 'porto-icons';
+                                            content: '\f807';
+                                            position: static;
+                                            margin: 0 0 0 4.5px;
+                                            color: #8f8f8f;
+                                        }
+                                    }
+                                    .content {
+                                        display: none;
+                                        dl {
+                                            margin-bottom: 18px;
+                                            margin-top: 0;
+                                        }
+                                        dt {
+                                            font-weight: 700;
+                                            margin-bottom: 4.5px;
+                                            margin-top: 0;
+                                        }
+                                        dd {
+                                            margin-bottom: 9px;
+                                            margin-top: 0;
+                                            margin-left: 0;
+                                        }
                                     }
                                 }
                                 .product-item-pricing {
@@ -312,7 +344,7 @@
                                             -moz-osx-font-smoothing: grayscale;
                                             font-size: 18px;
                                             line-height: 20px;
-                                            color: #00CCCC;
+                                            color: #00cccc;
                                             font-family: 'porto-icons';
                                             vertical-align: middle;
                                             display: inline-block;

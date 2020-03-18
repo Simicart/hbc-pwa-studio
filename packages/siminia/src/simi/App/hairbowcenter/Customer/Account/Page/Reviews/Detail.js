@@ -34,12 +34,13 @@ const ReviewDetail = (props) => {
     let m = date.getMonth() + 1;
     m = m < 10 ? "0" + m : m;
     date = date.getDate() + "/" + m + "/" + date.getFullYear();
+    const image = data.product_image ? resourceUrl(data.product_image, { type: 'image-product', width: 640 }) : null;
 
     return <div className="customer-review view">
         <div className="product-details">
             <div className="product-media">
                 <Link to={productLocation}>
-                    {<Image src={resourceUrl(data.product_image, { type: 'image-product', width: 640 })} alt={data.name} />}
+                    {<Image src={image} alt={data.name} />}
                 </Link>
             </div>
             <div className="product-info">

@@ -121,7 +121,7 @@
         box-sizing: border-box;
         border-radius: 6px;
         font-size: 13px;
-        background: #fff url(../Cart/img/select-bg.svg) no-repeat 100% 48%;
+        background: #fff url('/simistatic/image/select-bg.svg') no-repeat 100% 48%;
     }
 
     .actions-toolbar .primary.action {
@@ -171,4 +171,11 @@
     .contact-info {
         padding: 145px 80px 70px;
     }
+}
+
+@media screen and (max-width: 767px) {
+    .contact-page .actions-toolbar .primary.action {
+        width:100%;
+    }
+
 }

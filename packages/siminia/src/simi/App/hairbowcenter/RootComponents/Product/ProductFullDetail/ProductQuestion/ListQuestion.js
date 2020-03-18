@@ -57,8 +57,7 @@ const ListQuestion = props => {
                 <p className="askit-item-body">{question.text}</p>
                 <div className="askit-item-actions">
                     <div className="askit-item-trigger" onClick={(e) => handleHideAnswers(e, question.id)}>
-                        {question.answers && question.answers.length ? question.answers.length : 0}
-                        <span> answer</span>
+                        {question.answers && question.answers.length > 0 ? question.answers.length + ' answer' : null}
                     </div>
                     <ol id={`answer-${question.id}`} className="items askit-item-answers" style={{display: 'none'}}>
                         {question.answers && renderAnswers(question.answers)}

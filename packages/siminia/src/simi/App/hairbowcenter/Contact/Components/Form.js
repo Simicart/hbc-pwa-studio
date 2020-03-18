@@ -70,7 +70,7 @@ class Form extends Component {
         let isAllow = true;
         const data = {}
         form.map((value, index) => {
-            if(!validateEmpty(value.value)) {
+            if(!validateEmpty(value.value) && value.name !== 'phone') {
                 isAllow = false
                 $(`#${value.name}`).addClass('mage-error')
                 $(`#${value.name}-error`).text('This is a required field.')

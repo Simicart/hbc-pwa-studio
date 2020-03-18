@@ -237,8 +237,10 @@ class ProductFullDetail extends Component {
             this.props.toggleMessages([{
                 type: 'success',
                 message: Identify.__('Product was added to your wishlist'),
-                auto_dismiss: true
+                auto_dismiss: false
             }])
+
+            this.props.history.push('/wishlist.html');
         }
     }
 
@@ -367,15 +369,15 @@ class ProductFullDetail extends Component {
         );
     }
 
-    renderCartButton(isStock, addToCart) {
+    renderCartButton(isStock, addToCart, isDummyData) {
         let text = Identify.__('Add to Cart')
         let display = true;
         let disable = false;
-        if(typeof isStock === 'undefined') {
+        if(isDummyData) {
             disable = true
             text = Identify.__('Loading ...');
-        } else if(!isStock) {
-            display = true
+        } else {
+            display = isStock
         }
 
         if(display) {
@@ -396,7 +398,6 @@ class ProductFullDetail extends Component {
             const html = tierPrices.map((tierPrice, index) => {
                 if(tierPrice.price > 0) {
                     let percentageValue = null
-                    console.log(tierPrice.percentage_value);
                     if(!tierPrice.percentage_value && tierPricesData && tierPricesData[index]) {
                         const tierPricesText = tierPricesData[index]
                         const tierPriceArray = tierPricesText.split(' ');
@@ -404,8 +405,6 @@ class ProductFullDetail extends Component {
                     } else {
                         percentageValue = parseInt(tierPrice.percentage_value);
                     }
-
-                    console.log(percentageValue);
 
                     if(!isNaN(percentageValue)) {
                         return (
@@ -438,6 +437,7 @@ class ProductFullDetail extends Component {
         const { type_id, name, simiExtraField } = product;
         const {simiStoreConfig} = Identify.getStoreConfig()
         const isStock = product.simiExtraField.attribute_values.product_is_stock;
+        const {is_dummy_data} = product;
         return (
             <div className="container product-detail-root">
                 {TitleHelper.renderMetaHeader({
@@ -470,8 +470,8 @@ class ProductFullDetail extends Component {
                         <div className="product-options-bottom">
                             <div className="box-tocart">
                                 <div className="fieldset">
-                                    {type_id === 'simple' && <Quantity initialValue={this.quantity} onValueChange={this.setQuantity}/>}
-                                    {this.renderCartButton(isStock, addToCart)}
+                                    {type_id === 'simple' && isStock && <Quantity initialValue={this.quantity} onValueChange={this.setQuantity}/>}
+                                    {this.renderCartButton(isStock, addToCart, is_dummy_data)}
                                    <div className="moved-add-to-links">
                                         <div className="product-addto-links">
                                             <div className="action towishlist" onClick={addToWishlist}>
@@ -502,9 +502,6 @@ class ProductFullDetail extends Component {
                     <RelatedProduct product={product} setProduct={this.setProductRelatedAddToCart}/>
                     <SideBanner />
                 </div>
-                {/* <div className="right-side-open" onClick={this.handleOnSideBar}>
-                    <em className="porto-icon-reply"></em>
-                </div> */}
             </div>
         );
     }

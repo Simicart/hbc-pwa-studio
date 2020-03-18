@@ -5,9 +5,17 @@ import Identify from "src/simi/Helper/Identify";
 const TableBody = props => {
     const {data, cols, tab} = props;
 
-    const renderOptions = (options) => {
+    const renderOptions = (type, options) => {
         let html = null
-        if(options.attributes_info) {
+
+        if(type === "downloadable") {
+            html = options.map((option, index) => (
+                <React.Fragment key={index}>
+                    <dt>{Identify.__('Download:')}</dt>
+                    <dd>{option.option_title}</dd>
+                </React.Fragment>
+            ))
+        } else if(options.attributes_info) {
             html = options.attributes_info.map((option, index) => (
                 <React.Fragment key={index}>
                     <dt>{option.label}</dt>
@@ -22,17 +30,19 @@ const TableBody = props => {
             </dl>
         )
     }
+
     
     const renderItem = () => {
         let html = null
         if(data.order_items) {
             html = data.order_items.map((item, index) => {
+                console.log(item);
                 if(tab === 'shipment' && parseInt(item.qty_shipped, 10) === 0) return null
                 return (
                     <tr key={index}>
                         {cols.name && cols.name.status && <td className="col name" data-th="Product Name"> 
                             <strong className="product name product-item-name">{item.name}</strong>
-                            {item.product_options && renderOptions(item.product_options)}
+                            {item.product_options && renderOptions(item.product_type, item.product_type === 'downloadable' ? item.option : item.product_options)}
                         </td>}
                         {cols.sku && cols.sku.status && <td className="col sku" data-th="SKU">{item.sku}</td>}
                         {cols.price && cols.price.status && <td className="col price" data-th="Price">

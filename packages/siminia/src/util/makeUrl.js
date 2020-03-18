@@ -45,6 +45,9 @@ const makeOptimizedUrl = (path, { type, width } = {}) => {
     /* customize banner category */
     let locationHref = location.href;
     if (type === 'image-category'){
+        if (path && path.indexOf('/media') !== -1){
+            path = path.replace('/media','');
+        }
         let lPath = location.pathname.match(/\/[^\/]+$/,"")[0];
         locationHref = location.origin + lPath;
     }
@@ -76,7 +79,7 @@ const makeOptimizedUrl = (path, { type, width } = {}) => {
     }
 
     // return unaltered path if we didn't operate on it
-    return type ? urlObject.pathname : path;
+    return type ? (type === 'image-category' ? urlObject.href : urlObject.pathname) : path;
 };
 
 export default makeOptimizedUrl;

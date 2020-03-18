@@ -120,13 +120,25 @@ const Wishlist = props => {
             toggleMessages(errors)
         } else {
             if (data.message && data.message.length) {
-                const errors = data.message.map(success => {
-                    return {
-                        type: 'success',
-                        message: success,
-                        auto_dismiss: true
-                    }
-                });
+                let errors = null
+                if(data.message.length && data.message[0].indexOf('You need to choose options for your item.') !== -1) {
+                    errors = 
+                        [{
+                            type: 'error',
+                            message: 'You need to choose options for your items.',
+                            auto_dismiss: true
+                        }]
+                    
+                } else {
+                    errors = data.message.map(success => {
+                        return {
+                            type: 'success',
+                            message: success,
+                            auto_dismiss: true
+                        }
+                    });
+                }
+             
                 toggleMessages(errors)
             }
             setData(null)

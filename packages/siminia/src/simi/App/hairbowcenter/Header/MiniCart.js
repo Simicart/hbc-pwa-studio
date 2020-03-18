@@ -33,13 +33,36 @@ const MiniCart = (props) => {
         }
     }
 
+    const toggleProductOption = (e) => {
+        const targetItem = $(e.target);
+        targetItem.closest('.product.options').find('.content').toggle();
+    }
+
     const renderCartItem = (items) => {
         let html = null;
+        console.log(items);
         if (items && items.length) {
             html = items.map((item, idx) => {
-                const { simi_image, simi_sku, name, price, qty } = item;
-
+                const { simi_image, simi_sku, name, price, qty, options } = item;
                 const itemLocation = `/product.html?sku=${simi_sku}`;
+
+                let htmlOptions = null;
+                if (options && options.length) {
+                    const htmlC = options.map((otp, ic) => {
+                        return <dl className="product options list">
+                            <dt className="label">{otp.label}</dt>
+                            <dd className="values">
+                                <span data-bind="html: option.value">{otp.value}</span>
+                            </dd>
+                        </dl>
+                    });
+                    htmlOptions = <div className="product options">
+                        <span className="toggle" onClick={(e) => toggleProductOption(e)}><span>{Identify.__("See Details")}</span></span>
+                        <div className="content">
+                            {htmlC}
+                        </div>
+                    </div>
+                }
 
                 return <li className="item product product-item" id={`mini-cart-item-${item.item_id}`} key={idx}>
                     <div className="product">
@@ -54,6 +77,7 @@ const MiniCart = (props) => {
                             <strong className="product-item-name">
                                 <Link to={itemLocation} onClick={() => handleCloseMiniCart()} >{name}</Link>
                             </strong>
+                            {htmlOptions}
                             <div className="product-item-pricing">
                                 <div className="price-container">
                                     <span className="price-wrapper">{formatLabelPrice(price)}</span>

@@ -32,6 +32,8 @@
 .no-avatar .askit-item-actions {
     width: calc(100% + 15px + 15px);
     margin-left: -15px;   
+    min-height: 41px;
+
 }
 .askit-item--commenting .askit-item-answers {
     display: block;

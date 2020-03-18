@@ -3,7 +3,7 @@ import Identify from './Identify'
 
 export const resourceUrl = (path, { type, width } = {}) => {
     const urlBuffer = window.SMCONFIGS.media_url_prefix?window.SMCONFIGS.media_url_prefix:''
-    let result = makeOptimizedUrl(path, {type, width})
+    let result = makeOptimizedUrl(path, {type, width});
     //fix error when path is not full url, when the result does not directory ./pub
     if ((path.indexOf('http://') === -1) && (path.indexOf('https://') === -1)) { //url does not have protocol
         if (urlBuffer) {
@@ -14,10 +14,11 @@ export const resourceUrl = (path, { type, width } = {}) => {
             }
         }
     } else { //url has protocol
-        if (path.indexOf('place_holder')) {
+        if (path.indexOf('place_holder') !== -1) {
             return path
         }
     }
+
     return result
 }
 

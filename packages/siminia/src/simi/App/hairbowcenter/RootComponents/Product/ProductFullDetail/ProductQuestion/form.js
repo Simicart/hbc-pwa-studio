@@ -97,7 +97,7 @@ const QuestionForm = props => {
             <div className="block-content">
                 <form method="post" onSubmit={handleSubmit} id="question-form">
                     <div className="field note no-label">{Identify.__('Jot us a note and we’ll get back to you as quickly as possible.')}</div>
-                    <input type="hidden" value={1} name="type_item_id"/>
+                    <input type="hidden" value={1} name="item_type_id"/>
                     <input type="hidden" value={productId} name="item_id"/>
                     <div className="question-fieldset">
                         <div className="field name required">
