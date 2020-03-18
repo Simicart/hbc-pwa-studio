@@ -48,11 +48,9 @@ const CartItem = props => {
                     </dl>
                 )
             })
-       
         }
 
         return null;
-     
     }
 
     const changeQuantity = (e, type) => {
@@ -73,7 +71,7 @@ const CartItem = props => {
             selector.val(1);
 
         }
-    }   
+    }
 
     const location = item.url_key ? `/${item.url_key + cateUrlSuffix()}` : `/product.html?sku=${item.simi_sku?item.simi_sku:item.sku}`
     const image = (item.image && item.image.file)?item.image.file:item.simi_image
@@ -101,7 +99,7 @@ const CartItem = props => {
                     <td className="col qty" data-th="Qty">
                         <div className="field-qty">
                             <div className="control qty">
-                                <input id={`cart-quantity-${item.item_id}`} type="number" min={1} pattern="[1-9]*" defaultValue={item.qty} className="input-text qty"/>
+                                <input id={`cart-quantity-${item.item_id}`} type="number" min={1} pattern="[1-9]*" defaultValue={item.qty} className="input-text qty" key={Identify.randomString(2)}/>
                             </div>
                             <div className="qty-changer">
                                 <div className="qty-inc" onClick={(e) => changeQuantity(e, 'plus')}>
@@ -113,7 +111,7 @@ const CartItem = props => {
                             </div>
                             <div id={`error-${item.item_id}`} className="error"></div>
                         </div>
-                        
+
                     </td>
                     <td className="col subtotal" data-th="Subtotal">
                         <span className="cart-price">{subtotal}</span>
@@ -124,11 +122,11 @@ const CartItem = props => {
                         <div className="actions-toolbar">
                             <span className="action action-edit" onClick={() => handleLink(location)}></span>
                             <span className="action action-delete" onClick={()=>props.removeFromCart(item)}></span>
-                        </div> 
+                        </div>
                     </td>
                 </tr>
             </tbody>
-  
+
     );
 }
 export default CartItem;

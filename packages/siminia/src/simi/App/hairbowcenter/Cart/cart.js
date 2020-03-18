@@ -109,7 +109,7 @@ class Cart extends Component {
         $('.cart-item .col.qty .input-text.qty').removeClass('error-input');
         $('.cart-item .col.qty .error').text('');
         const checkQuantity = this.validateItem(cart.details.items);
- 
+
         if(checkQuantity) {
             for (const i in cart.details.items) {
                 const item = cart.details.items[i];
@@ -122,7 +122,7 @@ class Cart extends Component {
                 this.props.updateItemInCart(payload, item.item_id);
             }
         }
-       
+
     }
 
     get cartId() {
@@ -149,7 +149,7 @@ class Cart extends Component {
         if (cartId) {
             const obj = [];
             obj.push(
-               <thead>
+               <thead key={Identify.randomString(2)}>
                    <tr>
                        <th className="col item"><span>Item</span></th>
                        <th className="col price"><span>Price</span></th>
@@ -280,7 +280,7 @@ class Cart extends Component {
                 <div className="cart-container">
                     {isSignedIn && <CartTooltip reward={this.state.rewardPoint}/>}
                     {
-                        !this.state.isPhone 
+                        !this.state.isPhone
                         ? <div className={`form-cart body ${Identify.isRtl() ? 'body-cart-rtl' : ''}`}>
                             {productList}
                             <div className="cart main-actions">
@@ -296,7 +296,7 @@ class Cart extends Component {
                         />
                     }
                     {
-                        this.state.isPhone 
+                        this.state.isPhone
                         ? <div className={`form-cart body ${Identify.isRtl() ? 'body-cart-rtl' : ''}`}>
                             {productList}
                             <div className="cart main-actions">

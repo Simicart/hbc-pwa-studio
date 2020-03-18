@@ -159,11 +159,11 @@ const router = {
     },
     blog: {
         path: '/blog',
-        render : location => <Blog {...location}/>
+        render : (location) => <Blog {...location} />
     },
     /* blog_detail: {
         path: '/blog/slug?',
-        render : location => <BlogDetail {...location}/>
+        render : location => <Blog {...location}/>
     }, */
     noMatch: {
         component : location => <NoMatch {...location} />

@@ -203,8 +203,8 @@ resource:
       use:
         inline:
           # See the top-level 'cmsPage' object for details on its resolved data
-          model: cmsPage
-          template: './templates/cmspage-shell.mst'
+          # model: cmsPage
+          template: './templates/generic-shell.mst'
     - matches: urlResolver.type
       pattern: 'CATEGORY'
       use:

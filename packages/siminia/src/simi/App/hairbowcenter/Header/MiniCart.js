@@ -8,9 +8,7 @@ const $ = window.$;
 
 const MiniCart = (props) => {
     const { cart, history } = props;
-
     const { details, totals } = cart;
-
 
     const handleRedirect = (link) => {
         handleCloseMiniCart();
@@ -27,9 +25,27 @@ const MiniCart = (props) => {
         })
     }
 
-    const updateRowItem = (e, item) => {
+    const changeRowItem = (e, item) => {
+        const tget = $(e.target);
+        const btnTarget = tget.closest('.details-qty').find('button.update-mini-item');
         if (item) {
-            props.updateItem(e.target.value, item)
+            if (item.qty !== Number(e.target.value) && Number(e.target.value) !== 0) {
+                btnTarget.fadeIn();
+            } else {
+                btnTarget.fadeOut();
+            }
+        }
+    }
+
+    const updateRowItem = (e, item) => {
+        const tget = $(e.target);
+        const txtTarget = tget.closest('.details-qty').find('input[name="qty"]').val();
+        if (item) {
+            if (Number(txtTarget) !== 0) {
+                props.updateItem(txtTarget, item);
+            }
+            console.log(tget)
+            tget.fadeOut();
         }
     }
 
@@ -40,7 +56,6 @@ const MiniCart = (props) => {
 
     const renderCartItem = (items) => {
         let html = null;
-        console.log(items);
         if (items && items.length) {
             html = items.map((item, idx) => {
                 const { simi_image, simi_sku, name, price, qty, options } = item;
@@ -49,7 +64,7 @@ const MiniCart = (props) => {
                 let htmlOptions = null;
                 if (options && options.length) {
                     const htmlC = options.map((otp, ic) => {
-                        return <dl className="product options list">
+                        return <dl className="product options list" key={ic}>
                             <dt className="label">{otp.label}</dt>
                             <dd className="values">
                                 <span data-bind="html: option.value">{otp.value}</span>
@@ -84,7 +99,8 @@ const MiniCart = (props) => {
                                 </div>
                                 <div className="details-qty qty">
                                     <label htmlFor="" className="label">{Identify.__("Qty")}</label>
-                                    <input type="number" name="qty" className="item-qty cart-item-qty" defaultValue={qty} onChange={(e) => updateRowItem(e, item)} />
+                                    <input type="number" name="qty" className="item-qty cart-item-qty" min={0} defaultValue={qty} onChange={(e) => changeRowItem(e, item)} key={Identify.randomString(2)} />
+                                    <button className="update-mini-item" onClick={(e) => updateRowItem(e, item)}>{Identify.__("Update")}</button>
                                 </div>
                             </div>
                             <div className="product actions">

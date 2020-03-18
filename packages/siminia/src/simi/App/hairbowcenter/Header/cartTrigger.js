@@ -42,14 +42,15 @@ class Trigger extends Component {
 
     showAPIloading = (props) => {
         const { cart } = props;
-        if (cart && cart.isUpdatingItem)
+        if (cart && (cart.isUpdatingItem || this.localUpdating))
             return true
         return false
     }
 
-    shouldComponentUpdate(nextProps){
+    shouldComponentUpdate(nextProps) {
         if (this.showAPIloading(nextProps)) {
-            showFogLoading()
+            showFogLoading();
+            if (this.localUpdating) this.localUpdating = false;
             return false
         }
 
@@ -73,6 +74,7 @@ class Trigger extends Component {
     removeItem = (item) => {
         if (confirm(Identify.__("Are you sure to remove item?")) === true) {
             showFogLoading();
+            this.localUpdating = true;
             $(`#mini-cart-item-${item.item_id}`).hide();
             removeItemFromCart(() => this.props.getCartDetails(), item.item_id, this.props.user.isSignedIn)
         }
@@ -85,6 +87,7 @@ class Trigger extends Component {
                 quantity: qty
             }
             showFogLoading();
+            this.localUpdating = true;
             this.props.updateItemInCart(payload, item.item_id);
         }
 

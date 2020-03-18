@@ -326,12 +326,19 @@
                                     padding: 10px;
                                     vertical-align: baseline;
                                     box-sizing: border-box;
+                                    outline: none;
 
                                     &[type='number']::-webkit-inner-spin-button,
                                     &[type='number']::-webkit-outer-spin-button {
                                         -webkit-appearance: none;
                                         margin: 0;
                                     }
+                                }
+                                button.update-mini-item {
+                                    vertical-align: top;
+                                    font-size: 1.1rem;
+                                    display: none;
+                                    outline: none;
                                 }
                                 .actions.product {
                                     margin: -26px 0 0;

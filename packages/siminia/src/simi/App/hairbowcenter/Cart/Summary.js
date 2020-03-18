@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Identify from 'src/simi/Helper/Identify';
-import {estimateShippingMethods, applyRewardsPoint, totalsInfomation} from 'src/simi/App/hairbowcenter/Model/Cart';
+import { estimateShippingMethods, applyRewardsPoint, totalsInfomation } from 'src/simi/App/hairbowcenter/Model/Cart';
 import { Util, Price } from '@magento/peregrine'
 import CartTotals from './CartTotals';
-import {showFogLoading, hideFogLoading} from 'src/simi/BaseComponents/Loading/GlobalLoading';
+import { showFogLoading, hideFogLoading } from 'src/simi/BaseComponents/Loading/GlobalLoading';
 require('./summary.scss');
 const $ = window.$;
 
@@ -15,10 +15,10 @@ class Summary extends Component {
         super(props);
         this.storeConfig = Identify.getStoreConfig();
         this.allowedCountries = null
-        if(this.storeConfig.simiStoreConfig && this.storeConfig.simiStoreConfig.config && this.storeConfig.simiStoreConfig.config.allowed_countries) {
+        if (this.storeConfig.simiStoreConfig && this.storeConfig.simiStoreConfig.config && this.storeConfig.simiStoreConfig.config.allowed_countries) {
             this.allowedCountries = this.storeConfig.simiStoreConfig.config.allowed_countries;
         }
-        const firstCountry = this.allowedCountries.length > 0 ? this.allowedCountries[0]  : null;
+        const firstCountry = this.allowedCountries.length > 0 ? this.allowedCountries[0] : null;
         this.country = firstCountry
         this.cartId = this.props.cartId
         this.isSignedIn = this.props.isSignedIn
@@ -39,14 +39,14 @@ class Summary extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if(props.totals && props.totals.total_segments) {
-            return {newTotals: props.totals}
-            
+        if (props.totals && props.totals.total_segments) {
+            return { newTotals: props.totals }
+
         }
         return null
     }
 
-   
+
     checkFormatPostCode = (code) => {
         return /[0-9]{5}-[0-9]{4}/.test(code) || (/[0-9]{5}/.test(code) && parseInt(code, 10) > 10000);
     }
@@ -57,14 +57,14 @@ class Summary extends Component {
             countryId: params.country_id,
             postcode: params.postcode
         }
-        if(params.region) {
+        if (params.region) {
             address.region = params.region
         }
-        if(params.region_id) {
+        if (params.region_id) {
             address.regionId = params.region_id
         }
         let payloadShippingMethod = {}
-        if(selectShippingMethod) {
+        if (selectShippingMethod) {
             payloadShippingMethod = {
                 shipping_carrier_code: selectShippingMethod.carrier_code,
                 shipping_method_code: selectShippingMethod.method_code
@@ -86,25 +86,25 @@ class Summary extends Component {
 
     callBackEstimateShipping = (data) => {
         hideFogLoading()
-        this.setState({shipping: data});
+        this.setState({ shipping: data });
     }
 
     callBackTotalsInformation = (data) => {
         hideFogLoading()
-        this.setState({newTotals: data});
+        this.setState({ newTotals: data });
     }
-    
+
     handleOnChangeCountry = (e) => {
         const selectedCountry = this.allowedCountries.find(country => country.country_code === e.target.value)
-        if(selectedCountry) {
+        if (selectedCountry) {
             this.country = selectedCountry
             const newPayloadEstimate = {
                 country_id: selectedCountry.country_code
             }
-            if(selectedCountry.states.length === 0 && this.payloadEstimate.region) {
+            if (selectedCountry.states.length === 0 && this.payloadEstimate.region) {
                 newPayloadEstimate.region = this.payloadEstimate.region
-            } 
-            if(this.payloadEstimate.postcode) {
+            }
+            if (this.payloadEstimate.postcode) {
                 newPayloadEstimate.postcode = this.payloadEstimate.postcode
             }
             this.payloadEstimate = newPayloadEstimate
@@ -114,7 +114,7 @@ class Summary extends Component {
 
     handleOnChangeState = (e) => {
         const selectedIndex = e.nativeEvent.target.selectedIndex;
-        if(selectedIndex) {
+        if (selectedIndex) {
             this.payloadEstimate['region_id'] = e.target.value
             this.payloadEstimate['region'] = e.nativeEvent.target[selectedIndex].text
             this.payloadEstimate['region_code'] = e.nativeEvent.target[selectedIndex].dataset.regionCode
@@ -126,7 +126,7 @@ class Summary extends Component {
 
     handleOnBlurPostCode = (e) => {
         const postCode = e.target.value;
-        if(!this.checkFormatPostCode(postCode)) {
+        if (!this.checkFormatPostCode(postCode)) {
             $('#postcode-alert').show()
         } else {
             $('#postcode-alert').hide()
@@ -136,14 +136,14 @@ class Summary extends Component {
     }
 
     handleOnSelectShipingMethod = (e) => {
-        const {shipping} = this.state;
+        const { shipping } = this.state;
         const methodCode = e.target.value
         let selectShippingMethod = shipping
-        if(shipping instanceof Array) {
+        if (shipping instanceof Array) {
             selectShippingMethod = shipping.find(item => item.method_code === methodCode);
         }
-        
-        if(selectShippingMethod) {
+
+        if (selectShippingMethod) {
             this.shippingMethod = selectShippingMethod;
             this.loadTotal(this.payloadEstimate, selectShippingMethod)
         }
@@ -152,7 +152,7 @@ class Summary extends Component {
     mergeShippingMethods = (shipping) => {
         const shippingMethod = {}
         shipping.forEach(item => {
-            if(shippingMethod[item.carrier_code]) {
+            if (shippingMethod[item.carrier_code]) {
                 shippingMethod[item.carrier_code].push(item);
             } else {
                 shippingMethod[item.carrier_code] = [item]
@@ -165,25 +165,25 @@ class Summary extends Component {
         let point = $('#points_amount').val()
         const payload = {}
         payload['remove-points'] = cancel ? 1 : 0
-        if(!isNaN(point) && parseInt(point, 10) <= this.props.rewardPoint.chechout_rewards_points_max) {
+        if (!isNaN(point) && parseInt(point, 10) <= this.props.rewardPoint.chechout_rewards_points_max) {
             payload.points_amount = point
         } else {
             payload.points_amount = this.props.rewardPoint.chechout_rewards_points_max
             payload['points_all'] = 'on'
             $('#points_all').prop('checked', true)
             $('#points_amount').val(this.props.rewardPoint.chechout_rewards_points_max)
-        } 
-        if(!payload.points_all) {
-            if($('#points_all').is(':checked')) {
+        }
+        if (!payload.points_all) {
+            if ($('#points_all').is(':checked')) {
                 payload['points_all'] = 'on'
             }
         }
         showFogLoading()
         applyRewardsPoint(this.callBackApplyRewardsPoint, payload);
-    } 
+    }
 
     callBackApplyRewardsPoint = (data) => {
-        if(data.success && data.message) {
+        if (data.success && data.message) {
             $('.rewards-message-block > div').html(
                 `<div class="message message-success success">${data.message}</div>`
             )
@@ -198,14 +198,14 @@ class Summary extends Component {
 
     handleToggleBlock = () => {
         const selector = $('#block-rewards-form .title')
-        if(!selector.hasClass('block-active')) {
+        if (!selector.hasClass('block-active')) {
             selector.addClass('block-active');
             $('#block-rewards-form .block-rewards-points-form').show();
         } else {
             selector.removeClass('block-active')
             $('#block-rewards-form .block-rewards-points-form').hide();
         }
-   
+
     }
 
     handleMoveCheckOut = () => {
@@ -218,15 +218,15 @@ class Summary extends Component {
     renderEstimateShipping = () => {
         const { shipping, newTotals } = this.state;
         const shippingEle = [];
-        if(shipping) {
-            if(shipping.length) {
+        if (shipping) {
+            if (shipping.length) {
                 const shippingMethods = this.mergeShippingMethods(shipping)
-                for(let i in shippingMethods) {
+                for (let i in shippingMethods) {
                     const shippingMethod = shippingMethods[i];
-                    if(shippingMethod.length > 0) {
+                    if (shippingMethod.length > 0) {
                         const firstShippingMethod = shippingMethod[0];
                         let itemShippingMethod = null;
-                        if(firstShippingMethod.error_message) {
+                        if (firstShippingMethod.error_message) {
                             itemShippingMethod = (
                                 <div className="message error">
                                     {firstShippingMethod.error_message}
@@ -235,15 +235,15 @@ class Summary extends Component {
                         } else {
                             itemShippingMethod = shippingMethod.map((itemShipping, index) => (
                                 <div className="field choice item" key={index}>
-                                    <input value={itemShipping.method_code} type="radio" className="radio" name="shipping-method-select" onChange={this.handleOnSelectShipingMethod}/>
+                                    <input value={itemShipping.method_code} type="radio" className="radio" name="shipping-method-select" onChange={this.handleOnSelectShipingMethod} />
                                     <label htmlFor="" className="label">
                                         {itemShipping.method_title}
-                                        <span className="price"><Price currencyCode={newTotals.base_currency_code} value={itemShipping.amount}/></span>
+                                        <span className="price"><Price currencyCode={newTotals.base_currency_code} value={itemShipping.amount} /></span>
                                     </label>
                                 </div>
                             ))
                         }
-    
+
                         shippingEle.push(
                             <React.Fragment>
                                 <dt className="item-title">
@@ -256,7 +256,7 @@ class Summary extends Component {
                         )
                     }
                 }
-            } else if(shipping.carrier_title && shipping.method_title) {
+            } else if (shipping.carrier_title && shipping.method_title) {
                 shippingEle.push(
                     <React.Fragment>
                         <dt className="item-title">
@@ -264,10 +264,10 @@ class Summary extends Component {
                         </dt>
                         <dd className="item-options">
                             <div className="field choice item">
-                                <input value={shipping.method_code} type="radio" className="radio" name="shipping-method-select" onChange={this.handleOnSelectShipingMethod}/>
+                                <input value={shipping.method_code} type="radio" className="radio" name="shipping-method-select" onChange={this.handleOnSelectShipingMethod} />
                                 <label htmlFor="" className="label">
                                     {shipping.method_title}
-                                    <span className="price"><Price currencyCode={newTotals.base_currency_code} value={shipping.amount}/></span>
+                                    <span className="price"><Price currencyCode={newTotals.base_currency_code} value={shipping.amount} /></span>
                                 </label>
                             </div>
                         </dd>
@@ -289,7 +289,7 @@ class Summary extends Component {
 
     renderSelectConutry = () => {
         const countries = [];
-        if(this.allowedCountries) {
+        if (this.allowedCountries) {
             this.allowedCountries.forEach((country, index) => {
                 countries.push(<option key={index} value={country.country_code}>{country.country_name}</option>)
             })
@@ -302,8 +302,8 @@ class Summary extends Component {
     }
 
     renderSelectState = () => {
-        if(this.country.states && this.country.states.length > 0) {
-            const stateElement = [<option value="">{Identify.__('Please select a region, state or province')}</option>]
+        if (this.country.states && this.country.states.length > 0) {
+            const stateElement = [<option value="" key={Identify.randomString(2)}>{Identify.__('Please select a region, state or province')}</option>]
             this.country.states.forEach((state, index) => {
                 stateElement.push(<option key={index} data-region-code={state.state_code} value={state.state_id}>{state.state_name}</option>)
             })
@@ -315,7 +315,7 @@ class Summary extends Component {
             )
         }
         return (
-            <input type="text" className="input-text" name="state" onBlur={this.handleOnChangeState}/>
+            <input type="text" className="input-text" name="state" onBlur={this.handleOnChangeState} />
         )
     }
 
@@ -328,9 +328,9 @@ class Summary extends Component {
                 <strong className="summary title">{Identify.__('Summary')}</strong>
                 {rewardPoint && <div id="block-rewards-form" className="block shipping">
                     <div className="title" onClick={() => this.handleToggleBlock()}>
-                        <strong className="block-rewards-form-heading">{Identify.__('Use Reward Points')}</strong> 
+                        <strong className="block-rewards-form-heading">{Identify.__('Use Reward Points')}</strong>
                     </div>
-                    <div className="block-rewards-points-form" style={{display: 'none'}}>
+                    <div className="block-rewards-points-form" style={{ display: 'none' }}>
                         <form id="reward-points-form" action="" method="POST">
                             <div className="rewards-message-block">
                                 <div className="messages"></div>
@@ -343,13 +343,13 @@ class Summary extends Component {
                                         <span>{Identify.__(' available.')}</span>
                                     </p>
                                     <div className="input-box">
-                                        <input id="points_amount" type="text" className="input-text valid" name="points_amount" defaultValue={rewardPoint.chechout_rewards_points_used}/>
+                                        <input id="points_amount" type="text" className="input-text valid" name="points_amount" defaultValue={rewardPoint.chechout_rewards_points_used} />
                                         <label htmlFor="points_amount">
                                             <span>{Identify.__('Enter amount of points to spend')}</span>
                                         </label>
                                     </div>
                                     <div className="buttons-container">
-                                        <button type="button" className="button action" style={{marginRight: '5px'}} onClick={() => this.handleApplyPoint(false)}>
+                                        <button type="button" className="button action" style={{ marginRight: '5px' }} onClick={() => this.handleApplyPoint(false)}>
                                             <span>{Identify.__('Apply Points')}</span>
                                         </button>
                                         <button type="button" className="button action" onClick={() => this.handleApplyPoint(true)}>
@@ -357,8 +357,8 @@ class Summary extends Component {
                                         </button>
                                     </div>
                                     <div className="onestepcheckout-newsletter checkbox-group">
-                                        <input type="checkbox" id="points_all" name="points_all" value={rewardPoint.chechout_rewards_points_max} className="checkbox osc-additional-data" onClick={(e) => $('#points_amount').val(e.target.value)}/>
-                                        <label htmlFor="points_all" className="label--checkbox"> 
+                                        <input type="checkbox" id="points_all" name="points_all" value={rewardPoint.chechout_rewards_points_max} className="checkbox osc-additional-data" onClick={(e) => $('#points_amount').val(e.target.value)} />
+                                        <label htmlFor="points_all" className="label--checkbox">
                                             <span>{Identify.__('Use maximum ')}</span>
                                             <b>{rewardPoint.chechout_rewards_points_availble}</b>
                                         </label>
@@ -396,8 +396,8 @@ class Summary extends Component {
                                         <span>{Identify.__('Zip/Postal Code')}</span>
                                     </label>
                                     <div className="control">
-                                        <input type="text" className="input-text" name="postcode" onBlur={this.handleOnBlurPostCode}/>
-                                        <div className="message warning" id="postcode-alert" style={{display: 'none'}}>
+                                        <input type="text" className="input-text" name="postcode" onBlur={this.handleOnBlurPostCode} />
+                                        <div className="message warning" id="postcode-alert" style={{ display: 'none' }}>
                                             {Identify.__('Provided Zip/Postal Code seems to be invalid. Example: 12345-6789; 12345. If you believe it is the right one you can ignore this notice.')}
                                         </div>
                                     </div>
@@ -407,7 +407,7 @@ class Summary extends Component {
                         {this.renderEstimateShipping()}
                     </div>
                 </div>
-                <CartTotals totals={newTotals} shippingMethod={shippingMethod} rewardPoint={rewardPoint}/>
+                <CartTotals totals={newTotals} shippingMethod={shippingMethod} rewardPoint={rewardPoint} />
                 <ul className="checkout methods items checkout-methods-items">
                     <li className="item">
                         <button className="action primary checkout" onClick={() => this.handleMoveCheckOut()}>
@@ -431,10 +431,10 @@ async function saveShippingAddress(address) {
 
     address = (({ id, default_billing, default_shipping, ...others }) => ({ ...others }))(address);
     return storage.setItem('shipping_address', address);
-} 
+}
 
-async function saveAvailableShippingMethod(methods) {  
-    return storage.setItem('availableShippingMethod', methods); 
+async function saveAvailableShippingMethod(methods) {
+    return storage.setItem('availableShippingMethod', methods);
 }
 
 

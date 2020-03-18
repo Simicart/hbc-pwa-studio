@@ -144,7 +144,7 @@ class Navigation extends React.Component {
                         )
                     }
                 });
-                const customMenus = <React.Fragment>
+                const customMenus = <React.Fragment key={Identify.randomString(3)}>
                     <li className="ui-menu-item level0" key={Identify.randomString(2)}>
                         <Link className="level-top" to={'/new-product'} >
                             <span>{Identify.__("New")}</span>
