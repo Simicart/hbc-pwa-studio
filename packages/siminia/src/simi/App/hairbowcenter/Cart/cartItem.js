@@ -74,7 +74,7 @@ const CartItem = props => {
     }
 
     const location = item.url_key ? `/${item.url_key + cateUrlSuffix()}` : `/product.html?sku=${item.simi_sku?item.simi_sku:item.sku}`
-    const image = (item.image && item.image.file)?item.image.file:item.simi_image
+    const image = (item.hasOwnProperty('simi_image_configuration') && item.simi_image_configuration )? item.simi_image_configuration :((item.image && item.image.file)?item.image.file:item.simi_image)
     return (
             <tbody className="cart-item">
                 <tr className="item-info">

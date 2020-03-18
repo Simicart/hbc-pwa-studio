@@ -4,6 +4,7 @@ import { Link } from 'src/drivers'
 import { formatLabelPrice } from 'src/simi/Helper/Pricing';
 import Image from 'src/simi/BaseComponents/Image';
 import { withRouter } from 'react-router-dom';
+import { productUrlSuffix } from 'src/simi/Helper/Url';
 const $ = window.$;
 
 const MiniCart = (props) => {
@@ -58,8 +59,8 @@ const MiniCart = (props) => {
         let html = null;
         if (items && items.length) {
             html = items.map((item, idx) => {
-                const { simi_image, simi_sku, name, price, qty, options } = item;
-                const itemLocation = `/product.html?sku=${simi_sku}`;
+                const { simi_image, simi_sku, name, price, qty, options, url_key } = item;
+                const product_url = `/${url_key}${productUrlSuffix()}`;
 
                 let htmlOptions = null;
                 if (options && options.length) {
@@ -81,16 +82,16 @@ const MiniCart = (props) => {
 
                 return <li className="item product product-item" id={`mini-cart-item-${item.item_id}`} key={idx}>
                     <div className="product">
-                        <Link to={itemLocation} onClick={() => handleCloseMiniCart()} className="product-item-photo">
+                        <Link to={product_url} onClick={() => handleCloseMiniCart()} className="product-item-photo">
                             <span className="product-image-container">
                                 <span className="product-image-wrapper">
-                                    <Image src={simi_image} alt={name} />
+                                    <Image src={item.hasOwnProperty('simi_image_configuration') && item.simi_image_configuration ? item.simi_image_configuration : simi_image} alt={name} />
                                 </span>
                             </span>
                         </Link>
                         <div className="product-item-details">
                             <strong className="product-item-name">
-                                <Link to={itemLocation} onClick={() => handleCloseMiniCart()} >{name}</Link>
+                                <Link to={product_url} onClick={() => handleCloseMiniCart()} >{name}</Link>
                             </strong>
                             {htmlOptions}
                             <div className="product-item-pricing">
@@ -104,7 +105,7 @@ const MiniCart = (props) => {
                                 </div>
                             </div>
                             <div className="product actions">
-                                <span className="edit-item" onClick={() => handleRedirect(itemLocation)}></span>
+                                <span className="edit-item" onClick={() => handleRedirect(product_url)}></span>
                                 <span className="del-item" onClick={() => props.removeItem(item)} />
                             </div>
                         </div>

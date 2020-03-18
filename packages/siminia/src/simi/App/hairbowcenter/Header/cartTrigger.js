@@ -75,7 +75,7 @@ class Trigger extends Component {
         if (confirm(Identify.__("Are you sure to remove item?")) === true) {
             showFogLoading();
             this.localUpdating = true;
-            $(`#mini-cart-item-${item.item_id}`).hide();
+            // $(`#mini-cart-item-${item.item_id}`).hide();
             removeItemFromCart(() => this.props.getCartDetails(), item.item_id, this.props.user.isSignedIn)
         }
     }

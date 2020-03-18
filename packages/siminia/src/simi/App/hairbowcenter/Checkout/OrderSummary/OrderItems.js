@@ -41,7 +41,7 @@ const OrderItems = (props) => {
                 </div>
             );
         }
-        const image = (o_item.image && o_item.image.file) ? o_item.image.file : o_item.simi_image
+        const image = (o_item.hasOwnProperty('simi_image_configuration') && o_item.simi_image_configuration )? o_item.simi_image_configuration : ((o_item.image && o_item.image.file) ? o_item.image.file : o_item.simi_image)
 
         return (
             <li key={Identify.randomString()} className='order-item'>
