@@ -142,7 +142,7 @@ class Cart extends Component {
     }
 
     get productList() {
-        const { cart } = this.props;
+        const { cart, toggleMessages, isSignedIn } = this.props;
         if (!cart)
             return
         const { cartCurrencyCode, cartId } = this;
@@ -174,11 +174,12 @@ class Cart extends Component {
                     const element = <CartItem
                         key={item.item_id}
                         item={item}
-                        isPhone={this.state.isPhone}
+                        isSignedIn={isSignedIn}
                         currencyCode={cartCurrencyCode}
                         itemTotal={itemTotal}
                         removeFromCart={this.removeFromCart.bind(this)}
                         history={this.props.history}
+                        toggleMessages={toggleMessages}
                         handleLink={this.handleLink.bind(this)}/>;
                     obj.push(element);
                 }

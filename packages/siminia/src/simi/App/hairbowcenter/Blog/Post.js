@@ -7,7 +7,7 @@ import BlogItem from './BlogItem';
 
 const Post = (props) => {
     const { post_id } = props;
-console.log(post_id);
+
     if (!post_id) return null;
 
     const variables = { id: post_id }

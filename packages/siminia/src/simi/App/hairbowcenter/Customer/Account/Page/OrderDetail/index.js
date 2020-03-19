@@ -73,48 +73,6 @@ const Detail = (props) => {
         const shippingAddress = data.shipping_address;
         return (
             <div className="block-content">
-                {billingAddress && <div className="box box-order-billing-address">
-                    <strong className="box-title">
-                        <span>{Identify.__('Billing Address')}</span>
-                    </strong>
-                    <div className="box-content">
-                        <address>
-                            {billingAddress.firstname + ' ' + billingAddress.lastname}
-                            <br/>
-                            {billingAddress.company}
-                            <br/>
-                            {billingAddress.street[0]}
-                            {billingAddress.street[1] && ( 
-                                <React.Fragment>
-                                    <br/> 
-                                    {billingAddress.street[1]}
-                                </React.Fragment>
-                                )
-                            }
-                            {billingAddress.street[2] && ( 
-                                <React.Fragment>
-                                    <br/> 
-                                    {billingAddress.street[2]}
-                                </React.Fragment>
-                                )
-                            }
-                            <br/>
-                            {billingAddress.city + ', ' + billingAddress.region + ', ' + billingAddress.postcode}
-                            <br/>
-                            {billingAddress.country_name}
-                            <br/>
-                            T: <a href={`tel:${billingAddress.telephone}`}>{billingAddress.telephone}</a> 
-                        </address>
-                    </div>
-                </div>}
-                {data.shipping_method && <div className="box box-order-billing-method">
-                    <strong className="box-title">
-                        <span>{Identify.__('Shipping Method')}</span>
-                    </strong>
-                    <div className="box-content">
-                        {data.shipping_method}
-                    </div>
-                </div>}
                 {data.status !== 'closed' && <div className="box box-order-shipping-address">
                     <strong className="box-title">
                         <span>{Identify.__('Shipping Address')}</span>
@@ -146,6 +104,48 @@ const Detail = (props) => {
                             {shippingAddress.country_name}
                             <br/>
                             T: <a href={`tel:${shippingAddress.telephone}`}>{shippingAddress.telephone}</a> 
+                        </address>
+                    </div>
+                </div>}
+                {data.shipping_method && <div className="box box-order-billing-method">
+                    <strong className="box-title">
+                        <span>{Identify.__('Shipping Method')}</span>
+                    </strong>
+                    <div className="box-content">
+                        {data.shipping_method}
+                    </div>
+                </div>}
+                {billingAddress && <div className="box box-order-billing-address">
+                    <strong className="box-title">
+                        <span>{Identify.__('Billing Address')}</span>
+                    </strong>
+                    <div className="box-content">
+                        <address>
+                            {billingAddress.firstname + ' ' + billingAddress.lastname}
+                            <br/>
+                            {billingAddress.company}
+                            <br/>
+                            {billingAddress.street[0]}
+                            {billingAddress.street[1] && ( 
+                                <React.Fragment>
+                                    <br/> 
+                                    {billingAddress.street[1]}
+                                </React.Fragment>
+                                )
+                            }
+                            {billingAddress.street[2] && ( 
+                                <React.Fragment>
+                                    <br/> 
+                                    {billingAddress.street[2]}
+                                </React.Fragment>
+                                )
+                            }
+                            <br/>
+                            {billingAddress.city + ', ' + billingAddress.region + ', ' + billingAddress.postcode}
+                            <br/>
+                            {billingAddress.country_name}
+                            <br/>
+                            T: <a href={`tel:${billingAddress.telephone}`}>{billingAddress.telephone}</a> 
                         </address>
                     </div>
                 </div>}

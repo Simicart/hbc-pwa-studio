@@ -35,8 +35,8 @@ class CustomerLogin extends Component {
         this.state = {
             type: 'login'
         }
-       
-    }    
+
+    }
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (!nextProps.page || nextProps.page === prevState.page) {
@@ -103,7 +103,7 @@ class CustomerLogin extends Component {
         return (
             <Suspense fallback={<Loading />}>
                 {
-                    page === 'login' 
+                    page === 'login'
                     && <SignIn onSignIn={this.onSignIn.bind(this)} getRememberMe={this.getRememberMe} />
                 }
                 {
@@ -133,7 +133,7 @@ class CustomerLogin extends Component {
             } if(!this.addWishList) {
                 history.push('/')
             }
-        
+
             const message = firstname?
                 Identify.__("Welcome %s Start shopping now").replace('%s', firstname):
                 Identify.__("You have succesfully logged in, Start shopping now")

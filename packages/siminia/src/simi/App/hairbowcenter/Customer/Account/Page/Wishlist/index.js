@@ -122,13 +122,13 @@ const Wishlist = props => {
             if (data.message && data.message.length) {
                 let errors = null
                 if(data.message.length && data.message[0].indexOf('You need to choose options for your item.') !== -1) {
-                    errors = 
+                    errors =
                         [{
                             type: 'error',
                             message: 'You need to choose options for your items.',
                             auto_dismiss: true
                         }]
-                    
+
                 } else {
                     errors = data.message.map(success => {
                         return {
@@ -138,7 +138,7 @@ const Wishlist = props => {
                         }
                     });
                 }
-             
+
                 toggleMessages(errors)
             }
             setData(null)
@@ -166,6 +166,8 @@ const Wishlist = props => {
                     addAllToCart={addAllToCart}
                 />
             )
+        }else{
+            rows = null;
         }
     } else {
         rows = <Loading />

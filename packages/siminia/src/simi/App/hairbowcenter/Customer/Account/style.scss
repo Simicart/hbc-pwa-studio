@@ -63,6 +63,7 @@
     margin: 0;
     border-bottom: 1px solid #ddd;
     font-size: 1.3rem;
+    white-space: normal;
 
     &.active {
         font-weight: 700;
@@ -197,7 +198,7 @@
         }
     }
     button.save-profile {
-        margin-top: 36px;
+        margin-top: 6px;
         padding: 7px 15px;
         font-size: 1.4rem;
         box-sizing: border-box;
@@ -240,6 +241,12 @@
 .account-information-area .checkbox-item .checkbox-item-icon,
 .account-information-area .checkbox-item.selected .checkbox-item-icon {
     margin-top: 0;
+}
+#harlows-edit-profile .field.password-info{
+    margin-top: 36px;
+    a{
+        color: #00CCCC;
+    }
 }
 
 /* book addresses */
@@ -1193,6 +1200,21 @@ Order history
 
     .product-grid .siminia-product-list-item.first {
         margin-left: 40px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .dashboard-layout {
+        .dashboard-menu {
+            order: 1;
+        }
+        .page-title-wrapper {
+            order: 0;
+        }
+        .dashboard-content {
+            order: 2;
+            width: calc(77% - 42px);
+        }
     }
 }
 

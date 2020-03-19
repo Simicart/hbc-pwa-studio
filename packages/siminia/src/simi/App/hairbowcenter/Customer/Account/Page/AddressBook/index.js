@@ -296,7 +296,7 @@ const AddressBook = props => {
 
     return (
         <div className="address-book">
-            {addressEditing ?
+            {/* {addressEditing ?
                 <Edit dispatchEdit={dispatch} addressData={addressEditing} countries={countries}
                     address_fields_config={addressConfig} address_option={address_option}
                     user={user} />
@@ -326,7 +326,7 @@ const AddressBook = props => {
                         <button className="add-new-address" onClick={addNewAddress}><span>{Identify.__("Add New Address")}</span></button>
                     </div>
                 </>
-            }
+            } */}
         </div>
     );
 }

@@ -278,7 +278,12 @@ export const submitOrder = () =>
         const shipping_address = await retrieveShippingAddress();
 
         if (!billing_address || billing_address.sameAsShippingAddress) {
-            billing_address = shipping_address;
+            if (billing_address.sameAsShippingAddress && shipping_address.hasOwnProperty('save_in_address_book') && shipping_address.save_in_address_book){
+                // avoid duplicate save same address book for both shipping address & billing address
+                billing_address = {...shipping_address, save_in_address_book : 0}
+            }else{
+                billing_address = shipping_address;
+            }
         } else {
             if (shipping_address && shipping_address.email) {
                 const { email, firstname, lastname, telephone } = shipping_address;

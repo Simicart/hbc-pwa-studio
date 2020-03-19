@@ -4,11 +4,13 @@ import { Price } from '@magento/peregrine'
 import { Link } from 'react-router-dom';
 import ReactHTMLParse from 'react-html-parser';
 import {cateUrlSuffix} from 'src/simi/Helper/Url';
+import {showFogLoading, hideFogLoading} from 'src/simi/BaseComponents/Loading/GlobalLoading';
+import { addToWishlist as simiAddToWishlist } from 'src/simi/Model/Wishlist';
 require('./cartItem.scss')
 const $ = window.$;
 
 const CartItem = props => {
-    const { currencyCode, item, isPhone, itemTotal, handleLink } = props
+    const { currencyCode, item, isSignedIn, itemTotal, handleLink } = props
     const tax_cart_display_price = 3; // 1 - exclude, 2 - include, 3 - both
 
     const rowPrice = tax_cart_display_price == 1 ? itemTotal.price : itemTotal.price_incl_tax
@@ -73,6 +75,61 @@ const CartItem = props => {
         }
     }
 
+    const handleEditItem = (e, location) => {
+        e.preventDefault();
+        handleLink(location)
+    }
+
+    const handleDeleteItem = (e, item) => {
+        e.preventDefault();
+        props.removeFromCart(item)
+    }
+
+    const handleWishlistAction = (e, item) => {
+        showFogLoading()
+        const selector = $(`#cart-quantity-${item.item_id}`)
+        const qty = parseInt(selector.val()) > 0 ? parseInt(selector.val()) : 1;
+
+        e.preventDefault();
+        const params = {
+            product: item.product_id,
+            qty
+        }
+        simiAddToWishlist(callBackAddToWishlist, params)
+    }
+
+    const callBackAddToWishlist = (data) => {
+        if(data.errors) {
+            showError(data);
+        } else {
+            showSuccess(data)
+            props.removeFromCart(item)
+        }
+    }
+
+    const showError = (data) => {
+        if (data.errors.length) {
+            const errors = data.errors.map(error => {
+                return {
+                    type: 'error',
+                    message: error.message,
+                    auto_dismiss: true
+                }
+            });
+            this.props.toggleMessages(errors)
+        }
+    }
+
+    const showSuccess = (data) => {
+        if (data.message) {
+            this.props.toggleMessages([{
+                type: 'success',
+                message: Array.isArray(data.message)?data.message[0]:data.message,
+                auto_dismiss: true
+            }])
+        }
+    }
+
     const location = item.url_key ? `/${item.url_key + cateUrlSuffix()}` : `/product.html?sku=${item.simi_sku?item.simi_sku:item.sku}`
     const image = (item.hasOwnProperty('simi_image_configuration') && item.simi_image_configuration )? item.simi_image_configuration :((item.image && item.image.file)?item.image.file:item.simi_image)
     return (
@@ -120,8 +177,9 @@ const CartItem = props => {
                 <tr className="item-actions">
                     <td colSpan="100">
                         <div className="actions-toolbar">
-                            <span className="action action-edit" onClick={() => handleLink(location)}></span>
-                            <span className="action action-delete" onClick={()=>props.removeFromCart(item)}></span>
+                            {isSignedIn && <a href="#" className="action wishlistaction" onClick={(e) => handleWishlistAction(e, item)}>Move to Wishlist</a>}
+                            <a href="#" title="Edit item parameters" className="action action-edit" onClick={(e) => handleEditItem(e, location)}></a>
+                            <a href="#" title="Delete" className="action action-delete" onClick={(e)=>  handleDeleteItem(e, item)}></a>
                         </div>
                     </td>
                 </tr>

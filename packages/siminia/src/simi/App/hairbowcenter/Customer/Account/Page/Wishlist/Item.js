@@ -75,6 +75,13 @@ class Item extends React.Component {
         removeWlItem(id, this.processData.bind(this))
     }
 
+    handleOnChangeQuantity = (e, id) => {   
+        const value = e.target.value;
+        if(parseInt(value) <= 0) {
+            $(`#item-qty-${id}`).val(1);
+        }
+    }
+
     render() {
         const storeConfig = Identify.getStoreConfig()
         if (!this.currencyCode)
@@ -139,15 +146,15 @@ class Item extends React.Component {
                     <textarea name={`description[${item.wishlist_item_id}]`} className="product-item-comment" cols="20" rows="2" defaultValue={item.description} />
                     <div className="box-tocart">
                         <div className="qty-field">
-                            <input type="number" name="item-qty" id={`item-qty-${item.wishlist_item_id}`} defaultValue={Number(item.qty)} />
+                            <input type="number" name="item-qty" id={`item-qty-${item.wishlist_item_id}`} defaultValue={Number(item.qty)} onChange={(e) => this.handleOnChangeQuantity(e, item.wishlist_item_id)}/>
                         </div>
-                        <div className="product-item-actions">
+                        {item.stock_status ? <div className="product-item-actions">
                             <Colorbtn
                                 style={{ backgroundColor: "#00CCCC", color: configColor.button_text_color }}
                                 className="grid-add-cart-btn"
                                 onClick={() => this.addToCart(item.wishlist_item_id, this.location)}
                                 text={addToCartString} />
-                        </div>
+                        </div> : <div className="product-out-stock">{Identify.__('Out of Stock')}</div>}
                     </div>
                     <div className="product-item-actions">
                         <Link

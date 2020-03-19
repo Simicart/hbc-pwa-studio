@@ -1,0 +1,11 @@
+.cart-total {
+    &.cart-total-customize {
+        .label {
+            font-size: 13px;
+        }
+        .price {
+            font-size: 14px;
+            text-align: right;
+        }
+    }
+}

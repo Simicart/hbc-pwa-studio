@@ -79,6 +79,7 @@
                 display: flex;
                 align-items: center;
                 margin-bottom: 27px;
+                flex-wrap: wrap;
                 .qty-field {
                     max-width: 52px;
 
@@ -96,7 +97,7 @@
                     }
                 }
                 .product-item-actions {
-                    width: 100%;
+                    width: 70%;
                     margin-left: 8px;
                     .grid-add-cart-btn {
                         border-radius: 5px;
@@ -113,6 +114,12 @@
                             font-size: 15px;
                         }
                     }
+                }
+
+                .product-out-stock {
+                    width: 100%;
+                    padding: 20px 0;
+                    text-align: center;
                 }
             }
             .product-item-actions {

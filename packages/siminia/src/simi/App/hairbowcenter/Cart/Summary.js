@@ -35,12 +35,16 @@ class Summary extends Component {
         this.state = {
             newTotals: this.props.totals,
             shipping: null,
+            updateState: false
         }
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (props.totals && props.totals.total_segments) {
-            return { newTotals: props.totals }
+        if(props.totals && props.totals.total_segments) {
+            if(state.updateState) {
+                return {updateState: false}
+            }
+            return {newTotals: props.totals}
 
         }
         return null
@@ -86,12 +90,13 @@ class Summary extends Component {
 
     callBackEstimateShipping = (data) => {
         hideFogLoading()
-        this.setState({ shipping: data });
+        this.setState({shipping: data, updateState: true});
     }
 
     callBackTotalsInformation = (data) => {
         hideFogLoading()
-        this.setState({ newTotals: data });
+        // console.log(data);
+        this.setState({newTotals: data, updateState: true});
     }
 
     handleOnChangeCountry = (e) => {
@@ -162,7 +167,7 @@ class Summary extends Component {
     }
 
     handleApplyPoint = (cancel = false) => {
-        let point = $('#points_amount').val()
+        const point = $('#points_amount').val()
         const payload = {}
         payload['remove-points'] = cancel ? 1 : 0
         if (!isNaN(point) && parseInt(point, 10) <= this.props.rewardPoint.chechout_rewards_points_max) {

@@ -165,6 +165,13 @@ class CustomerLayout extends React.Component {
         return null;
     }
 
+    clickMenuItem = (url) => {
+        if (this.state.isPhone){
+            this.handleToggleMenu()
+        }
+        this.handleLink(url);
+    }
+
     renderMenu = () => {
         const { firstname, lastname } = this.props
         const menuConfig = this.getMenuConfig()
@@ -174,7 +181,7 @@ class CustomerLayout extends React.Component {
 
             return item.enable ?
                 <MenuItem key={item.title}
-                    onClick={() => this.handleLink(item.url)}
+                    onClick={() => this.clickMenuItem(item.url)}
                     className={`customer-menu-item ${item.page} ${active}`}>
                     <div className="menu-item-title">
                         {Identify.__(item.title)}
@@ -218,7 +225,6 @@ class CustomerLayout extends React.Component {
             extension_attributes
         }
         let content = null;
-        console.log(this.props);
         switch (page) {
             case 'dashboard':
                 content = <Dashboard customer={data} history={this.props.history} isPhone={this.state.isPhone} />
@@ -259,7 +265,7 @@ class CustomerLayout extends React.Component {
             case 'reward-points':
                 content = <RewardPoints history={this.props.history} />
                 break;
-            case 'print': 
+            case 'print':
                 content = <OrderDetail history={this.props.history} isPhone={this.state.isPhone} print={true} match={this.props.match}/>
                 break;
             default:

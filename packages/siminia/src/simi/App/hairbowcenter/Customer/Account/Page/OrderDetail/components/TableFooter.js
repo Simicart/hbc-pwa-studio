@@ -6,7 +6,7 @@ const TableFooter = props => {
     const {data} = props;
     const {total} = data;
 
-    return (
+    return (    
         <tfoot>
             <tr className="subtotal">
                 <th colSpan={4} className="mark" scope="row">{Identify.__('Subtotal')}</th>
@@ -14,6 +14,12 @@ const TableFooter = props => {
                     <span className="price">{formatPrice(total.subtotal_incl_tax)}</span>
                 </td>
             </tr>
+            {data.reward_point_spend_amount && parseFloat(data.reward_point_spend_amount) > 0 && <tr className="shipping">
+                <th colSpan={4} className="mark" scope="row">{Identify.__('Rewards Dicount')}</th>
+                <td className="amount" data-th="Shipping & Handling">
+                    <span className="price">-{formatPrice(data.reward_point_spend_amount)}</span>
+                </td>
+            </tr>}
             <tr className="shipping">
                 <th colSpan={4} className="mark" scope="row">{Identify.__('Shipping & Handling')}</th>
                 <td className="amount" data-th="Shipping & Handling">

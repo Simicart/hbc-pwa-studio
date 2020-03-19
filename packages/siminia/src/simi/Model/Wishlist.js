@@ -9,7 +9,7 @@ export const shareWishlist = (callBack , params) => {
 }
 
 export const getWishlist = (callBack, params) => {
-    sendRequest('rest/V1/simiconnector/wishlistitems', callBack, 'GET', params)
+    sendRequest('/rest/V1/simiconnector/wishlistitems', callBack, 'GET', params)
 }
 
 export const removeWlItem = (id, callBack) => {

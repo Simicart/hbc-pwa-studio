@@ -53,7 +53,7 @@ class CheckoutStep extends React.Component {
         const form = $(`#shippingAddressForm`);
         const queryString = form.serializeArray();
         const validCheck = this.checkFormAddressData(form, queryString);
-        if (validCheck){
+        if (validCheck) {
             if (step === 2 && (!stepProps.hasShippingAddress)) return;
 
             Identify.storeDataToStoreage(Identify.SESSION_STOREAGE, 'checkout_step', step);
@@ -63,8 +63,8 @@ class CheckoutStep extends React.Component {
             } else {
                 this.setState({ step });
             }
-        }else{
-            if (stepProps.toggleMessages){
+        } else {
+            if (stepProps.toggleMessages) {
                 stepProps.toggleMessages([{ type: 'error', message: Identify.__('Required field is empty!'), auto_dismiss: true }])
             }
         }
@@ -86,7 +86,7 @@ class CheckoutStep extends React.Component {
                 if (itemName) {
                     if (itemName === 'save_in_address_book') {
                         submitValues.save_in_address_book = form.find(`input[name='${itemName}']`).is(":checked") ? 1 : 0;
-                    }else if (itemName === 'street[0]') {
+                    } else if (itemName === 'street[0]') {
                         submitValues.street = [itemValue]
                     } else if (itemName === 'street[1]' || itemName === 'street[2]') {
                         submitValues.street.push(itemValue)
@@ -188,6 +188,8 @@ class CheckoutStep extends React.Component {
     }
 
     renderSummaryMobile = () => {
+        const { stepProps } = this.props;
+        const { user } = stepProps;
         return (
             <div className="opc-estimated-wrapper">
                 <div className="estimated-block">
@@ -200,9 +202,9 @@ class CheckoutStep extends React.Component {
                             <span className="counter-number">{this.props.qty}</span>
                         </span>
                     </button>
-                    <button className="action action-auth-toggle" onClick={() => this.handleOpenSidebar('login')}>
+                    {(!user || (user && !user.isSignedIn)) ? <button className="action action-auth-toggle" onClick={() => this.handleOpenSidebar('login')}>
                         <span>{Identify.__('Sign In')}</span>
-                    </button>
+                    </button> : ''}
                     <div className="clearfix"></div>
                 </div>
                 <div className="clearfix"></div>
