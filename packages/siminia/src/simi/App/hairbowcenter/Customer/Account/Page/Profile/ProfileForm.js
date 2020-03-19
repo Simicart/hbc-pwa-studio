@@ -168,6 +168,7 @@ const ProfileForm = props => {
                             name="new_email"
                             type="email"
                             className="required"
+                            required={true}
                             defaultValue={data.email}
                             onChange={e => handleOnChange(e)}
                         />
@@ -176,6 +177,7 @@ const ProfileForm = props => {
                             name="old_password"
                             type="password"
                             className={`required`}
+                            required={true}
                             onChange={e => handleOnChange(e)}
                         />
                         {/* <div className='email-not-edit'>{Identify.__('Email cannot be edit')}</div> */}

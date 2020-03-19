@@ -8,6 +8,7 @@ import { SimiMutation } from 'src/simi/Network/Query';
 import CUSTOMER_ADDRESS_UPDATE from 'src/simi/queries/customerAddressUpdate.graphql';
 import CUSTOMER_ADDRESS_CREATE from 'src/simi/queries/customerAddressCreate.graphql';
 import { smoothScrollToView } from 'src/simi/Helper/Behavior';
+import {getUserDetails} from 'src/actions/user';
 
 const renderRegionField = (selectedCountry, initialCountry, countries, addressConfig, addressData) => {
     const country_id = (selectedCountry !== -1) ? selectedCountry : initialCountry
@@ -256,6 +257,7 @@ const Edit = props => {
                                     var addressResult = data.createCustomerAddress;
                                 }
                                 props.dispatchEdit({ changeType: addressData.addressType, changeData: addressResult });
+                                props.getUserDetails();
                             }
                             return (
                                 <>
@@ -282,6 +284,11 @@ const mapStateToProps = ({ user }) => {
     };
 }
 
+const mapDispatchToProps = {
+    getUserDetails
+};
+
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Edit);

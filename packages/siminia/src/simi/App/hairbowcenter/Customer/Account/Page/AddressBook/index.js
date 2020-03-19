@@ -9,6 +9,7 @@ import Loading from "src/simi/BaseComponents/Loading";
 import { simiUseQuery, SimiMutation } from 'src/simi/Network/Query';
 import CUSTOMER_ADDRESS from 'src/simi/queries/customerAddress.graphql';
 import CUSTOMER_ADDRESS_DELETE from 'src/simi/queries/customerAddressDelete.graphql';
+import { smoothScrollToView } from 'src/simi/Helper/Behavior';
 // import GET_COUNTRIES from 'src/simi/queries/getCountries.graphql';
 import List from './list';
 import Edit from './edit';
@@ -185,6 +186,7 @@ const AddressBook = props => {
         //     default_billing: false,
         //     default_shipping: false
         // });
+        smoothScrollToView($('#root'));
         // dispatch edit address
         dispatch({
             changeType: 'edit', addressData: {
@@ -296,7 +298,7 @@ const AddressBook = props => {
 
     return (
         <div className="address-book">
-            {/* {addressEditing ?
+            {addressEditing ?
                 <Edit dispatchEdit={dispatch} addressData={addressEditing} countries={countries}
                     address_fields_config={addressConfig} address_option={address_option}
                     user={user} />
@@ -326,7 +328,7 @@ const AddressBook = props => {
                         <button className="add-new-address" onClick={addNewAddress}><span>{Identify.__("Add New Address")}</span></button>
                     </div>
                 </>
-            } */}
+            }
         </div>
     );
 }

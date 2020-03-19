@@ -64,6 +64,7 @@ const ReviewDetail = (props) => {
             </div>
             <div className="customer-review-rating">
                 <div className="rating-summary item">
+                    <span>{Identify.__("Rating ")}</span>
                     <StaticRate rate={data.rate_points} classes={{}} />
                 </div>
                 <div className="review-title">

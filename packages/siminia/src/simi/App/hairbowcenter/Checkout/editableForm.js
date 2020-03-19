@@ -124,8 +124,8 @@ const EditableForm = props => {
                         simiSignedIn={simiSignedIn}
                         toggleMessages={toggleMessages}
                     />
-                    {/* {shippingAddress && !isObjectEmpty(shippingAddress) ?
-                        <AddressItem data={shippingAddress} /> : null} */}
+                    {shippingAddress && !isObjectEmpty(shippingAddress) && simiSignedIn ?
+                        <AddressItem data={shippingAddress} /> : null}
                 </Fragment>
             );
         }

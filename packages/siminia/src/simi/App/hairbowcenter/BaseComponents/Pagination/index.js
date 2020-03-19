@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Identify from 'src/simi/Helper/Identify';
-import {smoothScrollToView} from 'src/simi/Helper/Behavior'
+import { smoothScrollToView } from 'src/simi/Helper/Behavior'
 require('./pagination.scss')
-
+const imgBgSelect = require('./../../Images/select-bg.svg');
 class Pagination extends React.Component {
     constructor(props) {
         super(props);
@@ -18,13 +18,13 @@ class Pagination extends React.Component {
     }
 
     changePage(event) {
-        const {currentPage} = this.state
+        const { currentPage } = this.state
         this.setState({
             currentPage: Number(event.target.id)
         });
-        if(this.props.scrollEffect) smoothScrollToView($(this.props.scrollEffect))
+        if (this.props.scrollEffect) smoothScrollToView($(this.props.scrollEffect))
         if (this.props.changedPage) {
-            if(currentPage > 3 && currentPage <= this.endPage) {
+            if (currentPage > 3 && currentPage <= this.endPage) {
                 this.startPage = this.currentPage - 2;
                 this.endPage = this.currentPage + 2
             }
@@ -57,14 +57,14 @@ class Pagination extends React.Component {
         //     this.startPage = this.startPage - 1;
         //     this.endPage = this.endPage - 1;
         // }
-        if(currentPage > 3 && currentPage <= this.endPage) {
+        if (currentPage > 3 && currentPage <= this.endPage) {
             this.startPage = this.state.currentPage - 2;
             this.endPage = this.state.currentPage + 2
         }
         this.setState({
             currentPage: currentPage
         })
-        if(this.props.scrollEffect) smoothScrollToView($(this.props.scrollEffect))
+        if (this.props.scrollEffect) smoothScrollToView($(this.props.scrollEffect))
         if (this.props.changedPage) {
             this.props.changedPage(event.target.id)
         }
@@ -109,7 +109,7 @@ class Pagination extends React.Component {
             <ul id="page-numbers" classes="pagination-items">
                 {this.state.currentPage > this.startPage && <li role="presentation" className="icon-page-number icon-next" onClick={() => this.handleChangePage(false)}></li>}
                 {renderPageNumbers}
-                {this.state.currentPage < total  && <li role="presentation" className="icon-page-number icon-back" onClick={() => this.handleChangePage(true)}></li>}
+                {this.state.currentPage < total && <li role="presentation" className="icon-page-number icon-back" onClick={() => this.handleChangePage(true)}></li>}
             </ul>
         ) : '';
         const { currentPage, limit } = this.state;
@@ -138,7 +138,8 @@ class Pagination extends React.Component {
                             border: 'none',
                             borderRadius: '0',
                             borderBottom: 'solid #2d2d2d 1px',
-                            fontSize: 14
+                            fontSize: 14,
+                            backgroundImage: `url(${imgBgSelect})`
                         }}
                     >
                         {option_limit}

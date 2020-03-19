@@ -24,6 +24,8 @@ import ProductReviews from './Page/Reviews';
 import ReviewDetail from './Page/Reviews/Detail';
 import HelpDesk from './Page/HelpDesk';
 import RewardPoints from './Page/RewardPoints';
+import { Simiquery } from 'src/simi/Network/Query'
+import getCustomerInfoQuery from 'src/simi/queries/getCustomerInfo.graphql';
 
 class CustomerLayout extends React.Component {
 
@@ -166,7 +168,7 @@ class CustomerLayout extends React.Component {
     }
 
     clickMenuItem = (url) => {
-        if (this.state.isPhone){
+        if (this.state.isPhone) {
             this.handleToggleMenu()
         }
         this.handleLink(url);
@@ -260,13 +262,13 @@ class CustomerLayout extends React.Component {
                 content = <ReviewDetail history={this.props.history} reviewId={this.props.match.params.reviewId} />
                 break;
             case 'help-desk':
-                content = <HelpDesk history={this.props.history} orderId={this.props.match.params.orderId}/>
+                content = <HelpDesk history={this.props.history} orderId={this.props.match.params.orderId} />
                 break;
             case 'reward-points':
                 content = <RewardPoints history={this.props.history} />
                 break;
             case 'print':
-                content = <OrderDetail history={this.props.history} isPhone={this.state.isPhone} print={true} match={this.props.match}/>
+                content = <OrderDetail history={this.props.history} isPhone={this.state.isPhone} print={true} match={this.props.match} />
                 break;
             default:
                 content = 'customer dashboard 2'
@@ -275,12 +277,26 @@ class CustomerLayout extends React.Component {
     }
 
     componentDidMount() {
-        this.setIsPhone()
-        $('body').addClass('body-customer-dashboard')
+        this.setIsPhone();
+        $('body').addClass('body-customer-dashboard');
+        this.callCustomerInformation();
     }
 
     componentWillUnmount() {
         $('body').removeClass('body-customer-dashboard')
+    }
+
+    callCustomerInformation = () => {
+
+        return <Simiquery query={getCustomerInfoQuery} fetchPolicy="no-cache">
+            {({ error, data }) => {
+                console.log('call api graphql')
+                if (error) return null;
+                if (data) {
+                    console.log(data);
+                }
+            }}
+        </Simiquery>
     }
 
     renderTitle = (pageT) => {

@@ -4,19 +4,19 @@ import userActions from 'src/actions/user/actions';
 import checkoutActions from 'src/actions/checkout/actions';
 import checkoutReceiptActions from 'src/actions/checkoutReceipt';
 import cartActions from 'src/actions/cart/actions';
-import { getCartDetails, clearCartId, removeCart } from 'src/actions/cart';
+import { getCartDetails, clearCartId, removeCart, createCart } from 'src/actions/cart';
 import { getUserDetails } from 'src/actions/user';
 import isObjectEmpty from 'src/util/isObjectEmpty';
 import Identify from 'src/simi/Helper/Identify';
 import { refresh } from 'src/util/router-helpers';
+import {getShippingMethods} from 'src/actions/checkout/asyncActions';
+import { getCountries } from 'src/actions/directory';
 
 //const { request } = RestApi.Magento2;
 import { request } from 'src/simi/Network/RestMagento'
 
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
-
-
 
 export const changeSampleValue = value => async dispatch => {
     dispatch(actions.changeSampleValue(value));
@@ -440,3 +440,59 @@ async function saveAvailableShippingMethod(methods) {
 export const saveCustomerDetail = value => async dispatch => {
     dispatch(userActions.getDetails.receive(value));
 }
+
+export const beginCheckout = () =>
+    async function thunk(dispatch) {
+        dispatch(checkoutActions.begin());
+        dispatch(fullFillAddress());
+        dispatch(getCountries());
+        dispatch(getShippingMethodsCustomize());
+    };
+
+export const getShippingMethodsCustomize = () => {
+    return async function thunk(dispatch, getState) {
+        const { cart, user, checkout } = getState();
+        const { cartId } = cart;
+
+        try {
+            // if there isn't a guest cart, create one
+            // then retry this operation
+            if (!cartId) {
+                await dispatch(createCart());
+                return thunk(...arguments);
+            }
+
+            dispatch(checkoutActions.getShippingMethods.request(cartId));
+
+            const guestEndpoint = `/rest/V1/guest-carts/${cartId}/estimate-shipping-methods`;
+            const authedEndpoint =
+                '/rest/V1/carts/mine/estimate-shipping-methods';
+            const endpoint = user.isSignedIn ? authedEndpoint : guestEndpoint;
+            const s_address = checkout.shippingAddress ? checkout.shippingAddress : {
+                country_id: 'US',
+                postcode: null
+            };
+
+            const response = await request(endpoint, {
+                method: 'POST',
+                body: JSON.stringify({
+                    address: s_address
+                })
+            });
+
+            dispatch(checkoutActions.getShippingMethods.receive(response));
+        } catch (error) {
+            const { response } = error;
+
+            dispatch(checkoutActions.getShippingMethods.receive(error));
+
+            // check if the guest cart has expired
+            if (response && response.status === 404) {
+                // if so, clear it out, get a new one, and retry.
+                await clearCartId();
+                await dispatch(createCart());
+                return thunk(...arguments);
+            }
+        }
+    };
+};
