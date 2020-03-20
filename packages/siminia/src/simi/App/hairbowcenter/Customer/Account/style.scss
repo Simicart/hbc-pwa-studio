@@ -242,10 +242,10 @@
 .account-information-area .checkbox-item.selected .checkbox-item-icon {
     margin-top: 0;
 }
-#harlows-edit-profile .field.password-info{
+#harlows-edit-profile .field.password-info {
     margin-top: 36px;
-    a{
-        color: #00CCCC;
+    a {
+        color: #00cccc;
     }
 }
 
@@ -485,6 +485,7 @@
 }
 .view-recent-orders {
     background: transparent;
+    margin-top: 10px;
 }
 .customer-recent-orders #page-numbers li {
     background-color: #ffffff;
@@ -765,6 +766,45 @@
     padding: 10px 18px;
     margin-top: 24px;
     background: transparent;
+}
+.block.block-reviews-dashboard {
+    margin-top: 45px;
+    strong {
+        font-weight: 600;
+    }
+    .block-title {
+        .action {
+            float: right;
+            font-size: 13px;
+            line-height: 19px;
+        }
+    }
+    .items {
+        margin: 0;
+        padding: 0;
+        list-style: none none;
+        .item {
+            margin-bottom: 18px;
+            .product-name {
+                font-weight: 400;
+                display: inline-block;
+                &:not(:last-child) {
+                    margin-bottom: 4.5px;
+                }
+                a {
+                    color: #00cccc;
+                }
+            }
+            .rating-summary {
+                overflow: hidden;
+                white-space: nowrap;
+                .label {
+                    font-weight: 600;
+                    margin-right: 9px;
+                }
+            }
+        }
+    }
 }
 
 @media (max-width: 767px) {
@@ -1122,6 +1162,9 @@
     .order-detail__summary .line-num b {
         min-width: 121px;
     }
+    .block.block-reviews-dashboard {
+        margin-top: 36px;
+    }
 }
 
 .is-invalid {
@@ -1143,7 +1186,7 @@
 Order history
 */
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
     .table-siminia > tbody > tr > td,
     .table-siminia > tbody > tr > th,
     .table-siminia > tfoot > tr > td,

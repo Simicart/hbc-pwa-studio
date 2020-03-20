@@ -365,7 +365,7 @@ class Summary extends Component {
                                         <input type="checkbox" id="points_all" name="points_all" value={rewardPoint.chechout_rewards_points_max} className="checkbox osc-additional-data" onClick={(e) => $('#points_amount').val(e.target.value)} />
                                         <label htmlFor="points_all" className="label--checkbox">
                                             <span>{Identify.__('Use maximum ')}</span>
-                                            <b>{rewardPoint.chechout_rewards_points_availble}</b>
+                                            <b>{`${rewardPoint.chechout_rewards_points_max} ${Identify.__('Reward Points')}`}</b>
                                         </label>
                                     </div>
                                 </div>

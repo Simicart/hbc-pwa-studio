@@ -13,12 +13,12 @@ const Print = React.lazy(() => import('./Print'))
 const TableOrder = props => {
     const [tab, setTab] = useState('detail')
     const {data, print} = props
-    console.log(data);
 
     const getDataReOrder = (data) => {
         if (data) {
             hideFogLoading();
             props.toggleMessages([{ type: 'success', message: data.message, auto_dismiss: true }])
+            props.getCartDetails()
         }
     }
 

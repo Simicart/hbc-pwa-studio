@@ -172,6 +172,8 @@
             background: 0 0;
             margin: 0;
             list-style: none;
+            display: flex;
+            flex-wrap: wrap;
             li.item {
                 padding: 10px !important;
                 float: left;
@@ -180,6 +182,24 @@
                     width: auto;
                     max-width: 100%;
                     height: auto;
+                }
+                .parent-category a {
+                    color: #777;
+                    font-size: 15px;
+                }
+                .list-subcategories {
+                    padding: 0;
+                    margin: 5px 0;
+                    list-style: none;
+                    font-size: 0.95em;
+                    li {
+                        margin: 8px 0;
+                        padding: 0 0 0 10px;
+                        line-height: 1.1em;
+                        a{
+                            color: #00CCCC;
+                        }
+                    }
                 }
             }
             &.easycatalogimg-cols-3 {
@@ -235,13 +255,13 @@
         }
     }
     .top-toolbar {
-        .sort-dropdown .sorter-action{
+        .sort-dropdown .sorter-action {
             margin-left: 100px;
         }
-        .models-bar{
+        .models-bar {
             float: right;
         }
-        .product-grid-pag-top{
+        .product-grid-pag-top {
             clear: both;
             margin-top: 10px;
             float: left;

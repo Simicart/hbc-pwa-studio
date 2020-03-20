@@ -6,11 +6,12 @@ import { getCustomerReviewById } from 'src/simi/App/hairbowcenter/Model/Customer
 import { StaticRate } from 'src/simi/App/hairbowcenter/BaseComponents/Rate'
 import Image from 'src/simi/BaseComponents/Image'
 import { productUrlSuffix, resourceUrl } from 'src/simi/Helper/Url';
+import { smoothScrollToView } from 'src/simi/Helper/Behavior';
 import { Link } from 'src/drivers';
 
 const ReviewDetail = (props) => {
     const { history, reviewId } = props;
-
+    smoothScrollToView($('#root'));
     const defaultData = history.location.state.hasOwnProperty('reviewData') && history.location.state.reviewData ? history.location.state.reviewData : null;
     const [data, setData] = useState(defaultData);
 

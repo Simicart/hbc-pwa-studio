@@ -16,8 +16,8 @@ const OrderSummary = (props) => {
     const { details } = cart;
     const { shippingAddress } = checkout;
 
-    const totalLabel = details && details.hasOwnProperty('items_count') && details.items_count + Identify.__(' items in cart');
-
+    let totalLabel = details && details.hasOwnProperty('items_count') && details.items_count || 0;
+        totalLabel = totalLabel > 1 ? totalLabel + Identify.__(' items in cart') : totalLabel + Identify.__(' item in cart');
     const { is_virtual } = details;
 
     const orderItem = useMemo(() => details && details.items && <OrderItems items={details.items} cartCurrencyCode={cartCurrencyCode} />, [details.items]);

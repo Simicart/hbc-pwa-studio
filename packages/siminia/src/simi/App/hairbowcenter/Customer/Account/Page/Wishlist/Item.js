@@ -58,6 +58,7 @@ class Item extends React.Component {
         if (!qty || qty.trim().length < 1) {
             return;
         }
+        showFogLoading();
         addWlItemToCart(id, this.processData.bind(this), qty)
     }
 

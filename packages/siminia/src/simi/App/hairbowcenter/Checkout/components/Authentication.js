@@ -50,6 +50,8 @@ const Authentication = (props) => {
                 toggleMessages([{ type: 'error', message: Identify.__('The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.'), auto_dismiss: true }])
             }
         }
+        $('.custom-slide').removeClass('show');
+        $('.modal-custom-overlay').removeClass('has-modal')
     }
 
     const handleActionSignIn = useCallback(

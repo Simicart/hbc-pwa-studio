@@ -37,8 +37,10 @@ const $ = window.$;
 
 require('./productFullDetail.scss');
 class ProductFullDetail extends Component {
+    
     state = {
         optionCodes: new Map(),
+        isPhone: window.innerWidth < 768
     };
     quantity = 1
 
@@ -71,7 +73,6 @@ class ProductFullDetail extends Component {
                 container.removeClass('open');
             }
         });
-
     }
 
     componentWillUnmount() {

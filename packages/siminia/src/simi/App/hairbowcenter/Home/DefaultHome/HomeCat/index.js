@@ -40,7 +40,8 @@ const HomeCat = props => {
     const renderItems = () => {
         if(data.home && data.home.homecategories && data.home.homecategories.homecategories && data.home.homecategories.homecategories.length > 0) {
             const dataCat = data.home.homecategories.homecategories;
-            return dataCat.map((item, index) => (
+            const sortData = dataCat.sort((a, b) => a.sort_order - b.sort_order)
+            return sortData.map((item, index) => (
                 <li className="item" key={index}>
                     <h5 className="category-name parent-category">
                         <Link to={item.url_path + cateUrlSuffix()}>{item.cat_name}</Link>

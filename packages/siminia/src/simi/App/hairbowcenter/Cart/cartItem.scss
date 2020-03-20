@@ -223,6 +223,7 @@
             &:hover {
                 text-decoration: underline;
             }
+            
             color: #00CCCC;
         }
         min-height: 20px;
@@ -280,5 +281,30 @@
         padding-left: 15px;
         padding-right: 15px;
         white-space: normal;
+    }
+    .cart-item .actions-toolbar .wishlistaction {
+        left: 43px;
+        position: absolute;
+    
+    }
+    
+    .cart-item .actions-toolbar .wishlistaction:before {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 18px;
+        line-height: 20px;
+        color: #0088cc;
+        content: '\f816';
+        font-family: 'porto-icons';
+        vertical-align: middle;
+        display: inline-block;
+        font-weight: normal;
+        overflow: hidden;
+        speak: none;
+        text-align: center;
+    }
+
+    .cart-item .actions-toolbar .wishlistaction > span {
+        display: none;
     }
 }

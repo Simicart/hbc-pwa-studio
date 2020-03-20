@@ -8,6 +8,7 @@ import { simiUseQuery } from 'src/simi/Network/Query'
 import getCustomerInfoQuery from 'src/simi/queries/getCustomerInfo.graphql'
 import AddressItem from './AddressItem';
 import TitleHelper from 'src/simi/Helper/TitleHelper';
+import RecentReview from './../Reviews';
 
 const Dashboard = props => {
     const { isPhone, customer } = props;
@@ -136,6 +137,7 @@ const Dashboard = props => {
                     {renderDefaultAddress(data.customer.addresses, data.customer.default_billing, data.customer.default_shipping)}
                 </div>
             )}
+            <RecentReview recent={true} />
             {!isPhone ? (
                 <div className="dashboard-recent-orders">
                     <div className="customer-page-title">

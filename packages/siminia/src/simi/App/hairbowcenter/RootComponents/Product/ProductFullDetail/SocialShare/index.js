@@ -21,12 +21,12 @@ class SocialShare extends Component {
         if(config.product_detail_configs.social_share) {
             const {social_share} = config.product_detail_configs;
             return (
-                <div className="rewardssocial-buttons">
+                <div className={`rewardssocial-buttons`}>
                     {social_share.facebook && <Facebook url={currentUrl} facebook={social_share.facebook} product={this.props.product}/>}
                     {social_share.twitter && social_share.twitter.is_active && <Twitter url={currentUrl} product={this.props.product}/>}
                     {social_share.pinterest && social_share.pinterest.is_active && <Pinterest url={currentUrl} product={this.props.product}/>}
                     {social_share.google_plus && social_share.google_plus.is_active && <Googleplus url={currentUrl} product={this.props.product}/>}
-                    <div className="status-message" id="status-message">{Identify.__('Earn Reward Points for sharing!')}</div>
+                    {this.props.isSignedIn && <div className="status-message" id="status-message">{Identify.__('Earn Reward Points for sharing!')}</div>}
                 </div>
             );
         }

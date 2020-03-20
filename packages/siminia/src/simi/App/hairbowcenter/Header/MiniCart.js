@@ -5,6 +5,7 @@ import { formatLabelPrice } from 'src/simi/Helper/Pricing';
 import Image from 'src/simi/BaseComponents/Image';
 import { withRouter } from 'react-router-dom';
 import { productUrlSuffix } from 'src/simi/Helper/Url';
+import ReactHTMLParser from 'react-html-parser';
 const $ = window.$;
 
 const MiniCart = (props) => {
@@ -45,7 +46,6 @@ const MiniCart = (props) => {
             if (Number(txtTarget) !== 0) {
                 props.updateItem(txtTarget, item);
             }
-            console.log(tget)
             tget.fadeOut();
         }
     }
@@ -68,7 +68,7 @@ const MiniCart = (props) => {
                         return <dl className="product options list" key={ic}>
                             <dt className="label">{otp.label}</dt>
                             <dd className="values">
-                                <span data-bind="html: option.value">{otp.value}</span>
+                                <span data-bind="html: option.value">{ReactHTMLParser(otp.value)}</span>
                             </dd>
                         </dl>
                     });
@@ -80,12 +80,14 @@ const MiniCart = (props) => {
                     </div>
                 }
 
+                const productImage = (item.hasOwnProperty('simi_image_configuration') && item.simi_image_configuration) ? item.simi_image_configuration : simi_image;
+
                 return <li className="item product product-item" id={`mini-cart-item-${item.item_id}`} key={idx}>
                     <div className="product">
                         <Link to={product_url} onClick={() => handleCloseMiniCart()} className="product-item-photo">
                             <span className="product-image-container">
                                 <span className="product-image-wrapper">
-                                    <Image src={item.hasOwnProperty('simi_image_configuration') && item.simi_image_configuration ? item.simi_image_configuration : simi_image} alt={name} />
+                                    <Image src={productImage} alt={name} key={Identify.randomString(3)} />
                                 </span>
                             </span>
                         </Link>

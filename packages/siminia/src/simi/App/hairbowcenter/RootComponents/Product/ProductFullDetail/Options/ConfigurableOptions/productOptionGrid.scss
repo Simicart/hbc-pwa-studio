@@ -6,6 +6,11 @@
 .product-options-wrapper {
     padding-bottom: 10px;
     border-bottom: 1px solid #ebebeb;
+    .reset-button {
+        background: url('/icons/ico_reset.png') no-repeat;
+        cursor: pointer;
+        min-height: 14px;
+    }
 }
 
 .table-wrapper {
@@ -129,6 +134,9 @@
         line-height: 18.2px;
     }
     .swatch-option {
+        &:hover {
+            outline: 2px solid #c34000;
+        }
         border: none !important;
         display: inline-block;
         float: none;

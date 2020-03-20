@@ -4,7 +4,7 @@ import {cateUrlSuffix} from 'src/simi/Helper/Url';
 const $ = window.$
 
 const Twitter = props => {
-    const {url, product} = props
+    const {url, product, className} = props
 
     const handleCallBack = (data) => {
         if(data.message) {
@@ -49,7 +49,7 @@ const Twitter = props => {
     }, []);
 
     return (
-        <div id="twitter-embed" className="buttons-twitter-like">
+        <div id={`twitter-embed`} className="buttons-twitter-like">
             {/* <a href={`https://twitter.com/share?${url}`} className="twitter-share-button" data-show-count="false">Tweet</a> */}
         </div>
     );

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ResetImage from './images/ico_reset.png';
 import ItemOption from './items';
 require('./productOptionGrid.scss');
 
@@ -20,7 +19,7 @@ const ConfigurableOptions = props => {
                         <ItemOption {...props} reset={reset}/>
                     </ul>
                 </div>
-                <img src={ResetImage} alt="reset" className="v-middle reset-configurablegridview" onClick={handleResetOption}/>
+                <div className="reset-button" onClick={handleResetOption}></div>
             </div>
         </div>
     );

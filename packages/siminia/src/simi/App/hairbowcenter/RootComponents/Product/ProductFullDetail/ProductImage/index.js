@@ -21,7 +21,7 @@ class ProductImage extends React.Component {
         this.showArrows = this.props.showArrows || true;
         this.showIndicators = this.props.showIndicators || false;
         this.autoPlay = this.props.autoPlay || true;
-        this.showStatus = this.props.showStatus || true;
+        // this.showStatus = this.props.showStatus || true;
         this.itemClick = this.props.itemClick || function (e) {
         };
         this.onChange = this.props.onChange || function (e) {
@@ -136,17 +136,20 @@ class ProductImage extends React.Component {
                         showArrows={this.showArrows}  
                         showThumbs={this.showThumbs}
                         showIndicators={this.showIndicators}
-                        showStatus={this.showStatus}
+                        showStatus={false}
+
                         onClickItem={(e) => this.openImageLightbox(e)}
                         onClickThumb={(e) => this.onClickThumbDefault(e)}
                         onChange={(e) => this.onChangeItemDefault(e)}
-                        infiniteLoop={true}
+                        infiniteLoop={false}
                         autoPlay={this.autoPlay}
                         thumbWidth={80}
                         statusFormatter={this.statusFormatter}
                 >
+                    
                     {this.renderImage()}
                 </Carousel>
+                <div className="fullscreen-icon"></div>
                 {this.renderImageLighboxBlock()}
                 {this.renderJs()}
             </div>

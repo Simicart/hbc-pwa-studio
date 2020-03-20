@@ -1,3 +1,89 @@
 .product-detail-carousel .carousel-slider {
     border: solid #eaeaea 1px;
 }
+
+.ReactModalPortal {
+    button {
+        border: none;
+        padding: 0;
+        height: 35px;
+        background-color: unset;
+    }
+}
+
+.product-detail-carousel {
+    position: relative;
+    .fullscreen-icon {
+        color: #00CCCC;
+        position: absolute;
+        top: 0;
+        right: 15px;
+        &::before {
+            content: "\f859";
+            font-size: 20px;
+            line-height: 50px;
+            font-family: 'porto-icons';
+            display: block;
+            text-align: center;
+        }
+    }
+}
+
+
+
+.product-detail-carousel .carousel.carousel-slider .control-arrow {
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+   
+}
+
+.product-detail-carousel .carousel.carousel-slider .control-arrow::before {
+    font-family: 'porto-icons';
+    display: block;
+    text-align: center;
+    color: #00CCCC;
+    border: none;
+}
+
+.product-detail-carousel .carousel.carousel-slider .control-arrow.control-next::before {
+    content: "\f809";
+    font-size: 35px;
+    line-height: 1;
+}
+
+.product-detail-carousel .carousel.carousel-slider .control-arrow.control-prev::before {
+    content: "\f80a";
+    font-size: 35px;
+    line-height: 1;
+}
+
+.product-detail-carousel .carousel.carousel-slider .control-arrow:hover {
+    background: none;
+}
+
+.product-detail-carousel .carousel .control-disabled.control-arrow {
+    opacity: 0.4;
+    display: block;
+}
+
+@media (min-width: 1024px) {
+    .product-detail-carousel:hover {
+        .carousel.carousel-slider .control-arrow {
+            display: block !important;
+        }
+    
+        .fullscreen-icon {
+            display: block;
+        }
+    }
+
+    .product-detail-carousel .carousel.carousel-slider .control-arrow {
+        display: none !important;
+    }
+
+    .product-detail-carousel .fullscreen-icon {
+        display: none;
+    }
+
+}

@@ -72,7 +72,6 @@
                 width: 100%;
                 border-collapse: collapse;
                 > thead {
-
                 }
                 tr:nth-child(2n) {
                     background-color: #eaeaea;
@@ -114,20 +113,21 @@
                 text-align: right;
 
                 li {
-                    min-width: 30px;
-                    height: 22px;
-                    margin: 5px;
+                    font-size: 1.3rem;
+                    line-height: 2.4rem;
+                    letter-spacing: normal;
+                    margin: 0 5px 0 0;
                     display: inline-block;
-                    background-color: #ffffff;
-                    text-align: center;
-                    vertical-align: middle;
-                    line-height: 22px;
-
-                    &:hover {
-                        background-color: #fbc96a;
+                    &.active{
+                        background-color: transparent;
                     }
-                    &.active {
-                        background-color: #fbc96a;
+                    &.active,
+                    &:hover {
+                        a {
+                            background-color: #00cccc;
+                            border-color: #00cccc;
+                            color: #ffffff;
+                        }
                     }
                     &.disabled {
                         background-color: #eaeaea;
@@ -138,11 +138,15 @@
                         }
                     }
                     > a {
+                        background: #ffffff;
+                        border: 1px solid #cccccc;
+                        color: #00cccc;
+                        display: inline-block;
+                        padding: 0 4.5px;
                         text-decoration: none;
-                        user-select: none;
-                        display: block;
-                        line-height: 22px;
-                        padding: 0px;
+                        padding: 0 9px;
+                        border-radius: 4px;
+                        font-weight: 600;
                         &:visited {
                             text-decoration: none;
                             user-select: none;

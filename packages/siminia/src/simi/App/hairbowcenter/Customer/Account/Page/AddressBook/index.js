@@ -46,16 +46,9 @@ const AddressBook = props => {
     var defaultShipping = {};
     var addressList = []; //other address list
 
-    var defaultBillingCountry = {}
-    var defaultShippingCountry = {}
-    for (var idx in countries) {
-        if (countries[idx].id === defaultBilling.country_id) {
-            defaultBillingCountry = countries[idx];
-        }
-        if (countries[idx].id === defaultShipping.country_id) {
-            defaultShippingCountry = countries[idx];
-        }
-    }
+    let defaultBillingCountry = {}
+    let defaultShippingCountry = {};
+
 
     // create a reducer to use hook to rerender page after save changed
     const reducerEdit = (state, action) => {
@@ -232,6 +225,11 @@ const AddressBook = props => {
 
     const deleteAddressOther = (id) => {
         dispatch({ changeType: 'delete', id: id });
+    }
+
+    if (countries && countries.length){
+        defaultBillingCountry = countries.find(country => country.id === defaultBilling.country_id);
+        defaultShippingCountry = countries.find(country => country.id === defaultShipping.country_id);
     }
 
     const renderDefaultAddress = () => {

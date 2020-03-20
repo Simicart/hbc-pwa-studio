@@ -10,7 +10,7 @@ require('./cartItem.scss')
 const $ = window.$;
 
 const CartItem = props => {
-    const { currencyCode, item, isSignedIn, itemTotal, handleLink } = props
+    const { currencyCode, item, isSignedIn, itemTotal, handleLink, removeItemFromCart } = props
     const tax_cart_display_price = 3; // 1 - exclude, 2 - include, 3 - both
 
     const rowPrice = tax_cart_display_price == 1 ? itemTotal.price : itemTotal.price_incl_tax
@@ -102,8 +102,12 @@ const CartItem = props => {
         if(data.errors) {
             showError(data);
         } else {
-            showSuccess(data)
-            props.removeFromCart(item)
+            props.toggleMessages([{
+                type: 'success',
+                message: `${item.name} has been moved to your wish list.`,
+                auto_dismiss: true
+            }])
+            removeItemFromCart(item)
         }
     }
 
@@ -116,17 +120,7 @@ const CartItem = props => {
                     auto_dismiss: true
                 }
             });
-            this.props.toggleMessages(errors)
-        }
-    }
-
-    const showSuccess = (data) => {
-        if (data.message) {
-            this.props.toggleMessages([{
-                type: 'success',
-                message: Array.isArray(data.message)?data.message[0]:data.message,
-                auto_dismiss: true
-            }])
+            props.toggleMessages(errors)
         }
     }
 
@@ -177,7 +171,7 @@ const CartItem = props => {
                 <tr className="item-actions">
                     <td colSpan="100">
                         <div className="actions-toolbar">
-                            {isSignedIn && <a href="#" className="action wishlistaction" onClick={(e) => handleWishlistAction(e, item)}>Move to Wishlist</a>}
+                            {isSignedIn && <a href="#" className="action wishlistaction" onClick={(e) => handleWishlistAction(e, item)}><span>Move to Wishlist</span></a>}
                             <a href="#" title="Edit item parameters" className="action action-edit" onClick={(e) => handleEditItem(e, location)}></a>
                             <a href="#" title="Delete" className="action action-delete" onClick={(e)=>  handleDeleteItem(e, item)}></a>
                         </div>

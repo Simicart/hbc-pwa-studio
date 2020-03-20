@@ -61,8 +61,8 @@ const Griditem = props => {
 
     let isNew = false;
     let hoverImage = null;
-    if (simiExtraField.attribute_values ) {
-        if (productLabelConfig && productLabelConfig.new_label){
+    if (simiExtraField.attribute_values) {
+        if (productLabelConfig && productLabelConfig.new_label) {
             const now = new Date()
             let newsFrom = null;
             let newsTo = null;
@@ -79,11 +79,11 @@ const Griditem = props => {
                 }
             }
         }
-        if (simiExtraField.attribute_values.small_image){
-            small_image = resourceUrl(simiExtraField.attribute_values.small_image, {type: 'image-product', width: 300});
+        if (simiExtraField.attribute_values.small_image) {
+            small_image = resourceUrl(simiExtraField.attribute_values.small_image, { type: 'image-product', width: 300 });
         }
-        if (simiExtraField.attribute_values.product_image_behind){
-            hoverImage = resourceUrl(simiExtraField.attribute_values.product_image_behind, {type: 'image-product', width: 300});
+        if (simiExtraField.attribute_values.product_image_behind) {
+            hoverImage = resourceUrl(simiExtraField.attribute_values.product_image_behind, { type: 'image-product', width: 300 });
         }
     }
 
@@ -143,7 +143,7 @@ const Griditem = props => {
             return;
         }
         showFogLoading()
-        simiAddToCart(addToCartCallBack, { product: item.id});
+        simiAddToCart(addToCartCallBack, { product: item.id });
     }
 
     const addToCartBtn = (
@@ -187,15 +187,13 @@ const Griditem = props => {
     }
 
     const addToWishlistCallBack = (data) => {
+        const { isSignedIn, handleLink } = props;
         hideFogLoading()
         if (data.errors) {
             showError(data)
         } else {
-            props.toggleMessages([{
-                type: 'success',
-                message: Identify.__('Product was added to your wishlist'),
-                auto_dismiss: true
-            }])
+            showToastMessage(Identify.__('Product was added to your wishlist'));
+            if(isSignedIn) handleLink('/wishlist.html');
         }
     }
 

@@ -46,7 +46,7 @@ const DataTable = (props) => {
                     <Link to={productLocation}>{Identify.__(item.name)}</Link>
                 </td>
                 <td data-title={Identify.__("Rating")}>
-                    <StaticRate rate={item.rate_points} classes={''} />
+                    <StaticRate rate={item.rate_points} classes={{}} />
                 </td>
                 <td data-title={Identify.__("Review")}>
                     {item.detail}

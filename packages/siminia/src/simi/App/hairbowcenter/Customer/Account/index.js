@@ -168,8 +168,8 @@ class CustomerLayout extends React.Component {
     }
 
     clickMenuItem = (url) => {
-        if (this.state.isPhone) {
-            this.handleToggleMenu()
+        if (window.innerWidth < 768) {
+            this.handleToggleMenu();
         }
         this.handleLink(url);
     }

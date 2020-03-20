@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Identify from 'src/simi/Helper/Identify';
 import { smoothScrollToView } from 'src/simi/Helper/Behavior'
 require('./pagination.scss')
-const imgBgSelect = require('./../../Images/select-bg.svg');
+const imgBgSelect = require('./images/select-bg.svg');
+
 class Pagination extends React.Component {
     constructor(props) {
         super(props);

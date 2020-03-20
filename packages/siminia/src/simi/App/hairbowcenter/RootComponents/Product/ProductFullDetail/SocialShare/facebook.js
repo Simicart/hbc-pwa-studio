@@ -4,7 +4,7 @@ import {cateUrlSuffix} from 'src/simi/Helper/Url';
 const $ = window.$;
 
 const Facebook = props => {
-    const {url, facebook, product} = props
+    const {url, facebook, product, className} = props
 
     const callBackSocialShare = (data) => {
         if(data.message) {

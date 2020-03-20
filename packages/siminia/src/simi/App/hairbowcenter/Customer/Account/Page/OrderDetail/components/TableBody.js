@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatPrice } from "src/simi/Helper/Pricing";
+import { formatLabelPrice } from "src/simi/Helper/Pricing";
 import Identify from "src/simi/Helper/Identify";
 
 const TableBody = props => {
@@ -36,7 +36,6 @@ const TableBody = props => {
         let html = null
         if(data.order_items) {
             html = data.order_items.map((item, index) => {
-                console.log(item);
                 if(tab === 'shipment' && parseInt(item.qty_shipped, 10) === 0) return null
                 return (
                     <tr key={index}>
@@ -47,7 +46,7 @@ const TableBody = props => {
                         {cols.sku && cols.sku.status && <td className="col sku" data-th="SKU">{item.sku}</td>}
                         {cols.price && cols.price.status && <td className="col price" data-th="Price">
                             <span className="cart-price">
-                                <span className="price">{formatPrice(item.price)}</span>
+                                <span className="price">{formatLabelPrice(item.price)}</span>
                             </span>
                         </td>}
                         {cols.qty && cols.qty.status && <td className="col qty" data-th="Qty">
@@ -66,7 +65,7 @@ const TableBody = props => {
                         </td>}
                         {cols.subtotal && cols.subtotal.status && <td className="col subtotal" data-th="Subtotal">
                             <span className="cart-price">
-                                <span className="price">{formatPrice(item.row_total)}</span>
+                                <span className="price">{formatLabelPrice(item.row_total)}</span>
                             </span>
                         </td>}
                     </tr>

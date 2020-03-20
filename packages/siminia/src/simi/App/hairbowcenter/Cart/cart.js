@@ -178,6 +178,7 @@ class Cart extends Component {
                         currencyCode={cartCurrencyCode}
                         itemTotal={itemTotal}
                         removeFromCart={this.removeFromCart.bind(this)}
+                        removeItemFromCart={this.removeItem}
                         history={this.props.history}
                         toggleMessages={toggleMessages}
                         handleLink={this.handleLink.bind(this)}/>;
@@ -228,6 +229,10 @@ class Cart extends Component {
     handleGoCheckout() {
         this.props.history.push('/checkout.html')
     }
+
+    removeItem = (item) => {
+        removeItemFromCart(()=>{this.props.getCartDetails()},item.item_id, this.props.isSignedIn)
+    } 
 
     removeFromCart(item) {
         if (confirm(Identify.__("Are you sure?")) === true) {
