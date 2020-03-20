@@ -8,7 +8,7 @@ import CloseIcon from 'src/simi/BaseComponents/Icon/TapitaIcons/Close'
 import MenuIcon from 'src/simi/BaseComponents/Icon/Menu'
 import BreadCrumb from "src/simi/BaseComponents/BreadCrumb"
 import classify from 'src/classify';
-import { Link } from 'react-router-dom'
+import { Link } from 'src/drivers';
 import { compose } from 'redux';
 import { connect } from 'src/drivers';
 import Dashboard from './Page/Dashboard';
@@ -24,8 +24,7 @@ import ProductReviews from './Page/Reviews';
 import ReviewDetail from './Page/Reviews/Detail';
 import HelpDesk from './Page/HelpDesk';
 import RewardPoints from './Page/RewardPoints';
-import { Simiquery } from 'src/simi/Network/Query'
-import getCustomerInfoQuery from 'src/simi/queries/getCustomerInfo.graphql';
+import CustomerRecentOrdered from 'src/simi/App/hairbowcenter/BaseComponents/Customer/RecentOrdered';
 
 class CustomerLayout extends React.Component {
 
@@ -213,6 +212,7 @@ class CustomerLayout extends React.Component {
                         {menu}
                     </MenuList>
                 </div>
+                <CustomerRecentOrdered />
             </div>
         )
     }
@@ -279,24 +279,10 @@ class CustomerLayout extends React.Component {
     componentDidMount() {
         this.setIsPhone();
         $('body').addClass('body-customer-dashboard');
-        this.callCustomerInformation();
     }
 
     componentWillUnmount() {
         $('body').removeClass('body-customer-dashboard')
-    }
-
-    callCustomerInformation = () => {
-
-        return <Simiquery query={getCustomerInfoQuery} fetchPolicy="no-cache">
-            {({ error, data }) => {
-                console.log('call api graphql')
-                if (error) return null;
-                if (data) {
-                    console.log(data);
-                }
-            }}
-        </Simiquery>
     }
 
     renderTitle = (pageT) => {

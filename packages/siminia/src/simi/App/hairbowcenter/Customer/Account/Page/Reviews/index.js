@@ -25,8 +25,13 @@ const ProductReviews = (props) => {
         return <EmptyData message={data.errors[0].message} />
     }
 
-    if (!data || data.total < 1)
-        return <EmptyData message={Identify.__("You have submitted no reviews.")} />
+    if (!data || data.total < 1) {
+        if (props.recent) {
+            return null;
+        } else {
+            return <EmptyData message={Identify.__("You have submitted no reviews.")} />
+        }
+    }
 
     if (props.recent) {
         return <RecentReview recentData={data} />

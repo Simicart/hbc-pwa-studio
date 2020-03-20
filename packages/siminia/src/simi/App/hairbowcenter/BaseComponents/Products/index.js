@@ -157,17 +157,12 @@ class Products extends React.Component {
                 const { shopper_reviews } = config;
                 blogRating = <BlogRating data={shopper_reviews} type="product_list" />
             }
-
-            if (config.hasOwnProperty('category_featured_products')) {
-                const { category_featured_products } = config;
-                ratingList = <RatingList data={category_featured_products} />
-            }
         }
 
         return <React.Fragment>
             {blogRating}
             {supportBlock}
-            {ratingList}
+            <RatingList />
             {bannerBlock}
         </React.Fragment>
     }

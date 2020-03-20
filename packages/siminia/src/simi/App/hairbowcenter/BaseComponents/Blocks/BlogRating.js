@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StaticRate } from 'src/simi/App/hairbowcenter/BaseComponents/Rate'
 
 require("./blog-rating.scss");
@@ -10,10 +10,13 @@ const BlogRating = (props) => {
         return null;
     }
 
+    const [loop, setLoop] = useState('');
+    let ivl;
+
     const renderRandom = (total) => {
         $(function () {
             var n = 0;
-            setInterval(function () {
+            ivl = setInterval(function () {
                 n = Math.floor((Math.random() * total));
                 $(".sa-review-wrapper").hide();
                 $(".blog-ratings-wrapper").find('.sa-review-wrapper:eq(' + n + ')').show();
@@ -21,10 +24,18 @@ const BlogRating = (props) => {
         });
     }
 
+    useEffect(() => {
+        // Return a callback in useEffect and it will be called before unmounting.
+        return () => {
+          clearInterval(ivl);
+        };
+      }, []);
+
+
     let html = null;
     let renderJs = null;
 
-    const parseData = JSON.parse(data);
+    const parseData = JSON.parse(data);;
     if (parseData.hasOwnProperty(`${type}`) && parseData[type]) {
         const typeData = parseData[type];
         html = typeData.map((review, idx) => {
@@ -40,6 +51,8 @@ const BlogRating = (props) => {
 
         if (typeData.length > 1) {
             renderJs = renderRandom(typeData.length);
+        } else {
+            clearInterval(ivl);
         }
     }
 

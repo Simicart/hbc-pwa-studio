@@ -14,14 +14,13 @@ const SubCategories = (props) => {
         const jsonParseCateTrees = JSON.parse(storeConfig.simiCateTrees.config_json);
         cateR = getRootCategoriesArray(jsonParseCateTrees.categorytrees, cateId);
     }
-console.log('come hreelsls')
+
     const renderSubCate = (child_cats) => {
         const cateHtml = child_cats.map((child, ix) => {
             const thumbnailUrl = child.thumbnail ? resourceUrl(child.thumbnail, { type: 'image-category' }) : require('./../../../Images/placeholder.svg');
             const subCate = child.child_cats && child.child_cats.length ? child.child_cats.map((subC, idx) => {
-                return <li><Link key={idx} to={'/' + subC.url_path} title={subC.name} className="category-name child-category">{subC.name}</Link></li>
+                return <li><Link key={ix+idx} to={'/' + subC.url_path} title={subC.name} className="category-name child-category">{subC.name}</Link></li>
             }) : '';
-            console.log(subCate)
             return <li className="item" key={ix}>
                 <Link to={'/' + child.url_path} title={child.name}>
                     <Image src={thumbnailUrl} />

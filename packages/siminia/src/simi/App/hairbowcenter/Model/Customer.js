@@ -14,3 +14,11 @@ export const getCustomerReviews = (callBack) => {
 export const getCustomerReviewById = (callBack, id) => {
     sendRequest(`rest/V1/simiconnector/customerreviews/${id}`, callBack, 'GET', {});
 }
+
+export const getCustomerRecentOrder = (callBack, params) => {
+    sendRequest('rest/V1/simiconnector/orders', callBack, 'GET', params);
+}
+
+export const addReorderedToCart = (callBack, params) => {
+    sendRequest(`/rest/V1/simiconnector/reordered`, callBack, 'POST', {}, params)
+}

@@ -1,20 +1,31 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'src/drivers';
 import { StaticRate } from 'src/simi/App/hairbowcenter/BaseComponents/Rate'
 import Image from 'src/simi/BaseComponents/Image'
 import { productUrlSuffix, resourceUrl } from 'src/simi/Helper/Url';
-import AliceCarousel from 'react-alice-carousel'
+import { getCatalogFeaturedList } from 'src/simi/App/hairbowcenter/Model/FeaturedListRating';
+import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/scss/alice-carousel.scss";
 require('./rating-list.scss');
 
 const RatingList = (props) => {
     const carouselRef = useRef(null);
-    const { data } = props;
+    const [data, setData] = useState(null);
+    const [currentIndex, setCurrentIndex] = useState(1);
 
-    if (!data) {
+    function processData(dataA){
+        setData(dataA);
+    }
+
+    useEffect(() => {
+        if (!data){
+            getCatalogFeaturedList(processData)
+        }
+    }, []);
+
+    if (!data || (data && data.errors)) {
         return null;
     }
-    const [currentIndex, setCurrentIndex] = useState(1);
 
     const handleOnDragStart = (e) => e.preventDefault();
 
@@ -61,7 +72,7 @@ const RatingList = (props) => {
                 <span onClick={() => setCurrentIndex(currentIndex - 1)} className={`${currentIndex === 1 ? 'nav-disabled' : ''}`}>
                     <em className="porto-icon-left-open-huge"></em>
                 </span>
-                <span onClick={() => setCurrentIndex(currentIndex + 1)} className={`${currentIndex === data.length -1 ? 'nav-disabled' : ''}`}>
+                <span onClick={() => setCurrentIndex(currentIndex + 1)} className={`${currentIndex === data.length - 1 ? 'nav-disabled' : ''}`}>
                     <em className="porto-icon-right-open-huge"></em>
                 </span>
             </nav>
