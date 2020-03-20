@@ -7,5 +7,5 @@ cd ../../
 yarn install
 yarn run build
 pm2 delete hbc
-NODE_ENV=production PORT=8080 pm2 start --name hbc yarn run stage:siminia
+NODE_ENV=production PORT=8080 pm2 start --name hbc npm -- run stage:siminia
 curl -v https://staging.hairbowcenter.com/simiconnector/index/updatepwaversion
