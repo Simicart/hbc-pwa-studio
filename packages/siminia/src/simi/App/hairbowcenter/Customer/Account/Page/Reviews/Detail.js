@@ -30,8 +30,10 @@ const ReviewDetail = (props) => {
 
     const productLocation = `/${data.product_url}${productUrlSuffix()}`;
 
-    let date = Date.parse(data.review_created_at);
-    date = new Date(date);
+    let dateP = data.review_created_at;
+    const dateF = dateP.split(/[- :]/);
+    let date = new Date(dateF[0], dateF[1], dateF[2], dateF[3], dateF[4], dateF[5]);
+
     let m = date.getMonth() + 1;
     m = m < 10 ? "0" + m : m;
     date = date.getDate() + "/" + m + "/" + date.getFullYear();

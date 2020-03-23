@@ -68,8 +68,8 @@
             table {
                 font-size: 16px;
                 color: #3d3d3d;
-                background-color: #fafafa;
                 width: 100%;
+                max-width: 100%;
                 border-collapse: collapse;
                 > thead {
                 }
@@ -77,12 +77,12 @@
                     background-color: #eaeaea;
                 }
                 tr th {
-                    padding: 5px;
+                    padding: 11px 15px;
                     font-size: 14px;
                     border-bottom: 1px solid #ccc;
                 }
                 tr td {
-                    padding: 5px;
+                    padding: 11px 15px;
                     line-height: 1.4;
                     font-size: 1.3rem;
                 }
@@ -118,7 +118,7 @@
                     letter-spacing: normal;
                     margin: 0 5px 0 0;
                     display: inline-block;
-                    &.active{
+                    &.active {
                         background-color: transparent;
                     }
                     &.active,
@@ -339,7 +339,17 @@
     justify-content: space-between;
     flex-wrap: wrap;
 }
-
+/* @media (min-width: 1024px) {
+    .address-book .additional-address .table-wrap table {
+        display: flex;
+        flex-direction: column;
+        > tbody {
+            tr {
+                display: flex;
+            }
+        }
+    }
+} */
 @media (max-width: 1024px) {
     .address-book .additional-address .table-wrap table > thead {
         display: none;

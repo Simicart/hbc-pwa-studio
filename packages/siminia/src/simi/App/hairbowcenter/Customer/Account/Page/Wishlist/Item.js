@@ -76,7 +76,7 @@ class Item extends React.Component {
         removeWlItem(id, this.processData.bind(this))
     }
 
-    handleOnChangeQuantity = (e, id) => {   
+    handleOnChangeQuantity = (e, id) => {
         const value = e.target.value;
         if(parseInt(value) <= 0) {
             $(`#item-qty-${id}`).val(1);
@@ -144,10 +144,10 @@ class Item extends React.Component {
                     </div>
                 </div>
                 <div className="product-item-inner">
-                    <textarea name={`description[${item.wishlist_item_id}]`} className="product-item-comment" cols="20" rows="2" defaultValue={item.description} />
+                    <textarea name={`description[${item.wishlist_item_id}]`} className="product-item-comment" cols="20" rows="2" defaultValue={item.description} disabled={!item.stock_status} />
                     <div className="box-tocart">
                         <div className="qty-field">
-                            <input type="number" name="item-qty" id={`item-qty-${item.wishlist_item_id}`} defaultValue={Number(item.qty)} onChange={(e) => this.handleOnChangeQuantity(e, item.wishlist_item_id)}/>
+                            <input type="number" disabled={!item.stock_status} name="item-qty" id={`item-qty-${item.wishlist_item_id}`} defaultValue={Number(item.qty)} onChange={(e) => this.handleOnChangeQuantity(e, item.wishlist_item_id)}/>
                         </div>
                         {item.stock_status ? <div className="product-item-actions">
                             <Colorbtn

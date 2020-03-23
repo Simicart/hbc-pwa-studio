@@ -186,7 +186,7 @@ class Pagination extends React.Component {
                     {wishlist && <div className="wishlist-toolbar-actions">
                         <button onClick={() => this.props.updateWishList()} className="update-wishlist">{Identify.__("Update Wish List")}</button>
                         <button onClick={() => this.props.shareWishList()} className="save-share-wishlist">{Identify.__("Share Wish List")}</button>
-                        <button onClick={() => this.props.addAllToCart()} className="all-tocart-wishlist">{Identify.__("Add All to Cart")}</button>
+                        {!this.props.allItemOutOfStock && <button onClick={() => this.props.addAllToCart()} className="all-tocart-wishlist">{Identify.__("Add All to Cart")}</button>}
                     </div>}
                     {this.renderPageNumber(total)}
                 </div>

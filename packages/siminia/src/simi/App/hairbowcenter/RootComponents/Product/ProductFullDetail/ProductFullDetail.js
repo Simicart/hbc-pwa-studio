@@ -26,6 +26,7 @@ import ProductQuestion from './ProductQuestion';
 import StickyProduct from './StickyProduct';
 import SideBanner from './SideBanner';
 import QuantityDiscounts from './QuantityDiscounts';
+import RecentOrdered from '../../../BaseComponents/Customer/RecentOrdered';
 
 const ConfigurableOptions = React.lazy(() => import('./Options/ConfigurableOptions'));
 const CustomOptions = React.lazy(() => import('./Options/CustomOptions'));
@@ -501,6 +502,7 @@ class ProductFullDetail extends Component {
                     <p></p>
                     {simiStoreConfig.config && simiStoreConfig.config.shop_support && <CustomBlock data={simiStoreConfig.config.shop_support}/>}
                     <RelatedProduct product={product} setProduct={this.setProductRelatedAddToCart}/>
+                    <RecentOrdered />
                     <SideBanner />
                 </div>
             </div>

@@ -151,6 +151,8 @@ const Wishlist = props => {
     if (data && data.wishlistitems) {
         const { wishlistitems, total } = data
         if (total && wishlistitems && wishlistitems.length) {
+            const allItemOutOfStock = wishlistitems => wishlistitems.every( wl => wl.stock_status === false );
+
             rows = (
                 <Pagination
                     data={wishlistitems}
@@ -164,6 +166,7 @@ const Wishlist = props => {
                     updateWishList={updateWishList}
                     shareWishList={shareWishList}
                     addAllToCart={addAllToCart}
+                    allItemOutOfStock={allItemOutOfStock}
                 />
             )
         }else{

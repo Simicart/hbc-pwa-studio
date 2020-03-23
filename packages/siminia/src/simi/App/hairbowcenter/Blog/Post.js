@@ -3,6 +3,8 @@ import amBlogPost from 'src/simi/App/hairbowcenter/queries/blog/amBlogPost';
 import { Simiquery } from 'src/simi/Network/Query';
 import Loading from 'src/simi/BaseComponents/Loading';
 import ReactHTMLParser from 'react-html-parser';
+import TitleHelper from 'src/simi/Helper/TitleHelper';
+import Identify from 'src/simi/Helper/Identify';
 import BlogItem from './BlogItem';
 
 const Post = (props) => {
@@ -23,6 +25,9 @@ const Post = (props) => {
                 }
                 if (blogData) {
                     return <div className="blog-post-content">
+                        {TitleHelper.renderMetaHeader({
+                            title: Identify.__(blogData.title)
+                        })}
                         <BlogItem item={blogData} type="post" />
                     </div>
                 }

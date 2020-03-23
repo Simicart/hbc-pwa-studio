@@ -60,3 +60,12 @@
         }
     }
 }
+
+@media (max-width: 575px){
+    .block.block-reorder{
+        padding: 10px 15px;
+        .recent-block-container .actions-toolbar .secondary{
+            float: right;
+        }
+    }
+}

@@ -1,10 +1,10 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import Identify from 'src/simi/Helper/Identify'
 import ReactHTMLParser from 'react-html-parser';
 import { Link } from 'src/drivers';
 import Loading from 'src/simi/BaseComponents/Loading'
 import TitleHelper from 'src/simi/Helper/TitleHelper';
-import { getEasyBanner } from './../Helper';
+import { getEasyBanner, hasBlogConfig } from './../Helper';
 import { smoothScrollToView } from 'src/simi/Helper/Behavior';
 import { toggleMessages } from 'src/simi/Redux/actions/simiactions';
 import { connect } from 'src/drivers';
@@ -24,14 +24,11 @@ const Blog = (props) => {
     const { history, location } = props;
     const [bData, setBData] = useState(null);
     smoothScrollToView($("#root"));
-    const simiStoreConfig = Identify.getStoreConfig();
 
-    const blog_configs = simiStoreConfig && simiStoreConfig.hasOwnProperty('simiStoreConfig') && simiStoreConfig.simiStoreConfig &&
-        simiStoreConfig.simiStoreConfig && simiStoreConfig.simiStoreConfig.config.hasOwnProperty('amasty_blog_configs') &&
-        simiStoreConfig.simiStoreConfig.config.amasty_blog_configs || null;
+    const blog_configs = hasBlogConfig || null;
 
-
-    const currentPage = Identify.findGetParameter('page') ? Number(Identify.findGetParameter('page')) : 1
+    const searchVal = Identify.findGetParameter('s') ? Identify.findGetParameter('s') : '';
+    const currentPage = Identify.findGetParameter('page') ? Number(Identify.findGetParameter('page')) : 1;
 
     const callOlderPosts = () => {
         const { search } = location;
@@ -47,11 +44,23 @@ const Blog = (props) => {
         history.push({ search: queryParams.toString() });
     }
 
+    const handleSearchBlog = (e) => {
+        e.preventDefault();
+        const form = $('#amasty-form-blog-search');
+        const formString = form.find('input[name="s"]').val().trim();
+        if (formString) {
+            const { search } = location;
+            const queryParams = new URLSearchParams(search);
+            queryParams.set('s', formString);
+            history.push({ pathname: '/blog', search: queryParams.toString() });
+        }
+    }
+
     const renderSidebar = () => {
         return <div className="widget-area">
             <aside className="widget widget-search">
-                <form>
-                    <input type="text" name="blog-search" id="" />
+                <form onSubmit={handleSearchBlog} id="amasty-form-blog-search">
+                    <input type="text" name="s" defaultValue={searchVal.replace("+", " ")} />
                     <button>{Identify.__("Search")}</button>
                 </form>
             </aside>
@@ -71,6 +80,10 @@ const Blog = (props) => {
         variables['cateId'] = props.category_id;
     } else if (hasTagId) {
         variables['tagId'] = props.tag_id;
+    }
+
+    if (searchVal) {
+        variables['s'] = searchVal;
     }
 
     const renderBlogData = (blogData) => {
@@ -102,6 +115,9 @@ const Blog = (props) => {
         if (blogCate) {
             html = <header className="archive-header">
                 {blogCate.name && <h1 className="archive-title">
+                    {TitleHelper.renderMetaHeader({
+                        title: Identify.__(blogCate.name)
+                    })}
                     {Identify.__("Category Archives: ")} <span>{ReactHTMLParser(blogCate.name)}</span>
                 </h1>}
                 <div className="archive-meta">{Identify.__("This section of our blog is designated for showcasing projects submitted by our customers and fan base! We can’t wait to see what you want to share with us…")}</div>
@@ -115,6 +131,9 @@ const Blog = (props) => {
         if (blogTag) {
             html = <header className="archive-header">
                 {blogTag.name && <h1 className="archive-title">
+                    {TitleHelper.renderMetaHeader({
+                        title: Identify.__(blogTag.name)
+                    })}
                     {Identify.__("Tag Archives: ")} <span>{ReactHTMLParser(blogTag.name)}</span>
                 </h1>}
             </header>
@@ -137,7 +156,7 @@ const Blog = (props) => {
         let html = null;
         if (categories_tree && categories_tree.length) {
 
-            html = categories_tree.map((itemX, idx) => {
+            html = categories_tree.filter(({ is_active }) => is_active === 1).map((itemX, idx) => {
                 return <li className="cate-item" key={idx}>
                     <Link to={`/blog/category/${itemX.url_key}`}>{ReactHTMLParser(itemX.label)}</Link>
                     {hasCount && itemX.hasOwnProperty('post_count') ? <b>({itemX.post_count})</b> : ''}
@@ -181,16 +200,17 @@ const Blog = (props) => {
     }
 
     const renderNavigation = () => {
+        const { pathname } = window.location;
         return <nav className="main-navigation">
             <button className="menu-toggle" onClick={toggleMobileMenu}>{Identify.__("Menu")}</button>
             <div className="menu-menu-1-container">
                 <ul className="nav-menu">
-                    <li className="menu-object-item">
+                    <li className={`menu-object-item ${pathname === '/blog' || pathname === '/blog/' ? 'current-menu-item' : ''}`}>
                         <Link to="/blog">{Identify.__("Blog Home")}</Link>
                     </li>
                     {blog_configs && blog_configs.hasOwnProperty('categories_tree') && blog_configs.categories_tree.length ?
                         <li className="menu-object-item">
-                            <Link to="/">{Identify.__("Blog Categories")}</Link>
+                            <Link to={`/blog/category/${blog_configs.categories_tree[0].url_key}`}>{Identify.__("Blog Categories")}</Link>
                             <ul className="sub-menu">{renderCategories(blog_configs.categories_tree)}</ul>
                         </li>
                         : ''}
@@ -219,6 +239,9 @@ const Blog = (props) => {
 
     return (
         <div className="blog-data-page">
+            {TitleHelper.renderMetaHeader({
+                title: Identify.__("Grosgrain & Satin Ribbons & Supplies | HairBow Center")
+            })}
             <div className="blog-container">
                 {renderNavigation()}
                 {renderEasyBanners()}

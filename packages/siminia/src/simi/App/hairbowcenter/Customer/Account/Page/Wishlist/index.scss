@@ -74,6 +74,14 @@
                 display: block;
                 height: 42px;
                 margin: 9px 0;
+                outline: none;
+                &:disabled{
+                    opacity: 0.4;
+                    resize: none;
+                    &:hover{
+                        cursor: not-allowed;
+                    }
+                }
             }
             .box-tocart {
                 display: flex;
@@ -95,6 +103,13 @@
                     input[type='number'] {
                         height: 32px;
                         -moz-appearance: textfield;
+                        outline: none;
+                        &:disabled{
+                            opacity: 0.4;
+                            &:hover{
+                                cursor: not-allowed;
+                            }
+                        }
                     }
                 }
                 .product-item-actions {

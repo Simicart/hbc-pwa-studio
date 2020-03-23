@@ -33,8 +33,22 @@ class ProductImage extends React.Component {
         };
         this.statusFormatter = this.props.statusFormatter || this.defaultStatusFormatter;
         this.infiniteLoop = this.props.infiniteLoop || false;
-
+        this.state = {
+            isPhone: window.innerWidth < 1024
+        }
     }
+
+    componentDidMount() {
+        window.onresize = function () {
+            const width = window.innerWidth;
+            const newIsPhone = width < 1024
+            console.log(this);
+            if(this.state.isPhone !== newIsPhone){
+                this.setState({isPhone: newIsPhone})
+            }
+        }
+    }
+    
     
     openImageLightbox = (index) => {
         this.lightbox.showLightbox(index);
@@ -129,15 +143,16 @@ class ProductImage extends React.Component {
     render() {
         this.images = this.sortedImages()
         const {images} = this
+        const {isPhone} = this.state;
+        console.log(isPhone);
         return (
             <div className="product-detail-carousel">
                 <Carousel 
                         key={(images && images[0] && images[0].file) ? images[0].file : Identify.randomString(5)}
-                        showArrows={this.showArrows}  
-                        showThumbs={this.showThumbs}
-                        showIndicators={this.showIndicators}
+                        showArrows={ this.showArrows}  
+                        showThumbs={!isPhone ? true : false}
+                        showIndicators={isPhone ? true : false}
                         showStatus={false}
-
                         onClickItem={(e) => this.openImageLightbox(e)}
                         onClickThumb={(e) => this.onClickThumbDefault(e)}
                         onChange={(e) => this.onChangeItemDefault(e)}

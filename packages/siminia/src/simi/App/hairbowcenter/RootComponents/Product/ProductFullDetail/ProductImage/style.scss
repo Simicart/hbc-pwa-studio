@@ -67,6 +67,30 @@
     display: block;
 }
 
+.product-detail-carousel .carousel .thumb.selected, .product-detail-carousel .carousel .thumb:hover {
+    border-color: #00CCCC;
+    border-width: 2px;
+}
+
+.product-detail-carousel .carousel .thumb {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.product-detail-carousel .carousel.carousel-slider {
+    overflow: unset;
+}
+.product-detail-carousel .carousel .control-dots {
+    position: unset;
+    margin: 0;
+
+}
+.product-detail-carousel .carousel .control-dots .dot {
+    width: 4px;
+    height: 4px;
+    background-color: #ff5501;
+    border-color: #ff5501;
+}
+
 @media (min-width: 1024px) {
     .product-detail-carousel:hover {
         .carousel.carousel-slider .control-arrow {

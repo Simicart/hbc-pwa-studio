@@ -2,7 +2,7 @@ import Identify from 'src/simi/Helper/Identify';
 
 const { simiStoreConfig } = Identify.getStoreConfig();
 
-const hasBlogConfig = simiStoreConfig.config && simiStoreConfig.config.hasOwnProperty('amasty_blog_configs') && simiStoreConfig.config.amasty_blog_configs;
+export const hasBlogConfig = simiStoreConfig.config && simiStoreConfig.config.hasOwnProperty('amasty_blog_configs') && simiStoreConfig.config.amasty_blog_configs || null;
 
 export const getGooglePublicKey = () => {
     if (simiStoreConfig.config && simiStoreConfig.config.google_public_key) {
