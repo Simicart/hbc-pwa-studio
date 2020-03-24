@@ -97,7 +97,7 @@ const Wishlist = props => {
     const shareWishList = () => {
         const location = {
             pathname: '/share-wishlist.html',
-            state: {data}
+            state: { data }
         }
         history.push(location);
     }
@@ -121,7 +121,7 @@ const Wishlist = props => {
         } else {
             if (data.message && data.message.length) {
                 let errors = null
-                if(data.message.length && data.message[0].indexOf('You need to choose options for your item.') !== -1) {
+                if (data.message.length && data.message[0].indexOf('You need to choose options for your item.') !== -1) {
                     errors =
                         [{
                             type: 'error',
@@ -151,8 +151,7 @@ const Wishlist = props => {
     if (data && data.wishlistitems) {
         const { wishlistitems, total } = data
         if (total && wishlistitems && wishlistitems.length) {
-            const allItemOutOfStock = wishlistitems => wishlistitems.every( wl => wl.stock_status === false );
-
+            const allItemOutOfStock = wishlistitems.every(function (wl) { return wl.stock_status === false; });
             rows = (
                 <Pagination
                     data={wishlistitems}
@@ -169,7 +168,7 @@ const Wishlist = props => {
                     allItemOutOfStock={allItemOutOfStock}
                 />
             )
-        }else{
+        } else {
             rows = null;
         }
     } else {

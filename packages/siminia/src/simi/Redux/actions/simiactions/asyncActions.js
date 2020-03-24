@@ -48,9 +48,14 @@ export const simiSignOut = ({ history }) => async dispatch => {
     sessionStorage.removeItem("shipping_address");
     sessionStorage.removeItem("billing_address");
     sessionStorage.removeItem("ck_signup_newsletter");
+    sessionStorage.removeItem("localSelectedShippingMethod");
+    sessionStorage.removeItem("payment_selected_local");
+    sessionStorage.removeItem("last_order_info");
+    sessionStorage.removeItem("quoteOrder");
     await clearBillingAddress();
     await clearShippingAddress();
     await clearAvailableShippingMethod();
+    await clearShippingMethod();
 
     // Finally, go back to the first page of the browser history.
     refresh({ history });
@@ -145,7 +150,6 @@ export const submitBillingAddress = payload =>
                 return;
             }
         }
-
         await saveBillingAddress(desiredBillingAddress);
         dispatch(checkoutActions.billingAddress.accept(desiredBillingAddress));
     };

@@ -2,7 +2,7 @@ import React from 'react'
 import Identify from 'src/simi/Helper/Identify'
 import { Price } from '@magento/peregrine'
 import PropTypes from 'prop-types'
-import {configColor} from 'src/simi/Config'
+import { configColor } from 'src/simi/Config'
 require('./style.scss');
 
 const Total = props => {
@@ -13,7 +13,7 @@ const Total = props => {
     const totalRows = []
 
     total_segments.forEach((item, index) => {
-        if (item.value === 0 || item.value === null ) return;
+        if (item.value === 0 || item.value === null || item.code === "rewards-spend-min-points" || item.code === "rewards-spend-max-points") return;
 
         let className = 'custom'
         if (item.code == 'subtotal')
@@ -27,7 +27,7 @@ const Total = props => {
             <div key={index} className={className}>
                 <div>
                     <span className="label">{Identify.__(item.title)}</span>
-        <span className="price" style={{color : configColor.price_color}}>{(item.code === 'rewards-total' || item.code === 'rewards-spend' || item.code === 'rewards-spend-min-points' || item.code === 'rewards-spend-max-points') ? (item.value > 1 ? item.value + Identify.__(' Reward Points') : item.value + Identify.__(' Reward Point')) : <Price currencyCode={currencyCode} value={item.value}/>}</span>
+                    <span className="price" style={{ color: configColor.price_color }}>{(item.code === 'rewards-total' || item.code === 'rewards-spend' || item.code === 'rewards-spend-min-points' || item.code === 'rewards-spend-max-points') ? (item.value > 1 ? item.value + Identify.__(' Reward Points') : item.value + Identify.__(' Reward Point')) : <Price currencyCode={currencyCode} value={item.value} />}</span>
                 </div>
             </div>
         )

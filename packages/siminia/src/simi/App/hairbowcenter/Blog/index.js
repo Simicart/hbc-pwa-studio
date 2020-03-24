@@ -15,6 +15,7 @@ import { Simiquery } from 'src/simi/Network/Query';
 import BlogItem from './BlogItem';
 import Post from './Post';
 import AdsBanner from 'src/simi/App/hairbowcenter/BaseComponents/Blocks/AdsBanner';
+import RecentPosts from './RecentPosts';
 
 require('./style.scss');
 const $ = window.$;
@@ -64,7 +65,7 @@ const Blog = (props) => {
                     <button>{Identify.__("Search")}</button>
                 </form>
             </aside>
-            {renderRecentPosts()}
+            <RecentPosts recentProp={bData} />
             {renderCategoriesSidebar()}
         </div>
     }
@@ -179,20 +180,6 @@ const Blog = (props) => {
         return <ul className="children">{ht}</ul>
     }
 
-    const renderRecentPosts = () => {
-        if (bData && bData.items && bData.items.length) {
-            const b5Items = bData.items.slice(0, 5);
-            const htmlRecent = b5Items.map((bItem, idk) => {
-                return <li key={idk}><Link to={`/blog/${bItem.url_key}`} key={idk}>{ReactHTMLParser(bItem.title)}</Link></li>
-            });
-
-            return <aside className="widget widget_recent_posts">
-                <div className="widget-title">{Identify.__("Recent Posts")}</div>
-                <ul>{htmlRecent}</ul>
-            </aside>
-        }
-    }
-
     const toggleMobileMenu = (e) => {
         $(document).ready(function () {
             $('.main-navigation').find('.menu-menu-1-container').toggleClass('toggle-on');
@@ -201,6 +188,23 @@ const Blog = (props) => {
 
     const renderNavigation = () => {
         const { pathname } = window.location;
+        let cateChild = [];
+        let cateMenu = null;
+        if (blog_configs && blog_configs.hasOwnProperty('categories_tree') && blog_configs.categories_tree.length) {
+
+            /* filter get only category child */
+            for (let c = 0; c < blog_configs.categories_tree.length; c++) {
+                const cItem = blog_configs.categories_tree[c];
+                if (cItem.hasOwnProperty('optgroup') && cItem.optgroup.length) {
+                    cateChild = [...cItem.optgroup];
+                }
+            }
+            cateMenu = <li className={`menu-object-item ${pathname.includes('/blog/category/') ? 'current-menu-item' : ''}`}>
+                <Link to={`/blog/category/${blog_configs.categories_tree[0].url_key}`}>{Identify.__("Blog Categories")}</Link>
+                <ul className="sub-menu">{renderCategories(cateChild)}</ul>
+            </li>
+        }
+
         return <nav className="main-navigation">
             <button className="menu-toggle" onClick={toggleMobileMenu}>{Identify.__("Menu")}</button>
             <div className="menu-menu-1-container">
@@ -208,12 +212,7 @@ const Blog = (props) => {
                     <li className={`menu-object-item ${pathname === '/blog' || pathname === '/blog/' ? 'current-menu-item' : ''}`}>
                         <Link to="/blog">{Identify.__("Blog Home")}</Link>
                     </li>
-                    {blog_configs && blog_configs.hasOwnProperty('categories_tree') && blog_configs.categories_tree.length ?
-                        <li className="menu-object-item">
-                            <Link to={`/blog/category/${blog_configs.categories_tree[0].url_key}`}>{Identify.__("Blog Categories")}</Link>
-                            <ul className="sub-menu">{renderCategories(blog_configs.categories_tree)}</ul>
-                        </li>
-                        : ''}
+                    {cateMenu}
                 </ul>
             </div>
         </nav>

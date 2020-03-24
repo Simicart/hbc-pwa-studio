@@ -304,6 +304,7 @@
     }
     input[name='points_amount'] {
         margin-bottom: 18px;
+        outline: none;
     }
     label[for='rw-points_all'] {
         margin-bottom: 10px;
@@ -313,11 +314,75 @@
         button {
             margin: 0 15px 0 0;
             font-weight: 600;
-            &:hover{
+            outline: none;
+            &:hover {
                 color: #fff;
-                background-color: #00CCCC;
-                border-color: #00CCCC;
+                background-color: #00cccc;
+                border-color: #00cccc;
             }
+        }
+    }
+    .message {
+        border-radius: 5px;
+        &.success {
+            margin: 0 0 9px;
+            padding: 12px 18px 12px 22.5px;
+            display: block;
+            font-size: 1.3rem;
+            background: #e5efe5;
+            color: #006400;
+            // padding-left: 45px;
+            position: relative;
+            /* > *:first-child:before {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-size: 24px;
+                line-height: 24px;
+                color: #006400;
+                content: '\f846';
+                font-family: 'porto-icons';
+                margin: -12px 0 0;
+                vertical-align: middle;
+                display: inline-block;
+                font-weight: normal;
+                overflow: hidden;
+                speak: none;
+                left: 0;
+                top: 22px;
+                width: 45px;
+                position: absolute;
+                text-align: center;
+            } */
+        }
+        &.error {
+            margin: 0 0 9px;
+            padding: 12px 18px 12px 22.5px;
+            display: block;
+            font-size: 1.3rem;
+            background: #fae5e5;
+            color: #e02b27;
+            // padding-left: 45px;
+            position: relative;
+            /* > *:first-child:before {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-size: 24px;
+                line-height: 24px;
+                color: #b30000;
+                content: '\f847';
+                font-family: 'porto-icons';
+                margin: -12px 0 0;
+                vertical-align: middle;
+                display: inline-block;
+                font-weight: normal;
+                overflow: hidden;
+                speak: none;
+                left: 0;
+                top: 22px;
+                width: 45px;
+                position: absolute;
+                text-align: center;
+            } */
         }
     }
 }
@@ -336,6 +401,9 @@
         display: block;
         margin-left: 0;
         margin-right: 0;
+        .checkout-col-1 .shipping-address-frame{
+            padding-right: 0;
+        }
     }
     .checkout-column .checkout-col-1,
     .checkout-column .checkout-col-2,

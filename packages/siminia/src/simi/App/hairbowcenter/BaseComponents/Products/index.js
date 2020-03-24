@@ -294,7 +294,7 @@ class Products extends React.Component {
                             categoryImage &&
                             <CategoryHeader
                                 name={title}
-                                image_url={resourceUrl(categoryImage, { type: 'image-category' })}
+                                image_url={categoryImage.includes('tmp/category') ? categoryImage : resourceUrl(categoryImage, { type: 'image-category' })}
                             />
                         }
                         <div className="category-description">{ReactHTMLParser(description)}</div>

@@ -262,8 +262,15 @@ const FormFields = (props) => {
         let html = null;
         if (addresses && addresses.length) {
             html = addresses.map((address, idx) => {
-                const labelA = address.firstname + ' ' + address.lastname + ', ' + address.city + ', ' + address.region.region;
-                return <option value={address.id} key={idx}>{labelA}</option>
+                const arrAddress = [address.firstname + ' ' + address.lastname];
+                if (address.city) {
+                    arrAddress.push(address.city);
+                }
+                if (address.region && address.region.region) {
+                    arrAddress.push(address.region.region);
+                }
+                const labelAddress = arrAddress.join(', ');
+                return <option value={address.id} key={idx}>{labelAddress}</option>
             });
         }
         return <Fragment>
@@ -298,7 +305,7 @@ const FormFields = (props) => {
                 if (itemName) {
                     if (itemName === 'save_in_address_book') {
                         submitValues.save_in_address_book = inputItem.is(":checked") ? 1 : 0;
-                    }else if (itemName === 'street[0]') {
+                    } else if (itemName === 'street[0]') {
                         submitValues.street = [itemValue]
                     } else if (itemName === 'street[1]' || itemName === 'street[2]') {
                         submitValues.street.push(itemValue)
@@ -329,7 +336,7 @@ const FormFields = (props) => {
     }
 
     const handleChangeInput = (e) => {
-        if (e.target.value && ($(e.target).hasClass('isrequired') || $(e.target).attr('isrequired') === 'isrequired')){
+        if (e.target.value && ($(e.target).hasClass('isrequired') || $(e.target).attr('isrequired') === 'isrequired')) {
             $(e.target).removeClass('warning');
         }
     }
@@ -429,7 +436,7 @@ const FormFields = (props) => {
                     {!configFields || (configFields && configFields.hasOwnProperty('telephone_show') && configFields.telephone_show) ?
                         <div className='telephone _with-tooltip'>
                             <div className={`address-field-label ${!configFields || (configFields && configFields.hasOwnProperty('telephone_show') && configFields.telephone_show === 'req') ? 'req' : ''}`}>{Identify.__("Phone Number")}</div>
-                            <input type="tel" id='telephone' name='telephone' className={!configFields || (configFields && configFields.hasOwnProperty('telephone_show') && configFields.telephone_show === 'req') ? 'isrequired' : ''} defaultValue={initialValues.telephone} onBlur={() => changeInput()} onChange={handleChangeInput}  onChange={handleChangeInput} />
+                            <input type="tel" id='telephone' name='telephone' className={!configFields || (configFields && configFields.hasOwnProperty('telephone_show') && configFields.telephone_show === 'req') ? 'isrequired' : ''} defaultValue={initialValues.telephone} onBlur={() => changeInput()} onChange={handleChangeInput} onChange={handleChangeInput} />
                             <div className="field-tooltip toggle">
                                 <span className="field-tooltip-action action-help" />
                                 <div className="field-tooltip-content">{Identify.__("For delivery questions.")}</div>
@@ -460,7 +467,7 @@ const FormFields = (props) => {
                         </div>
                         : null}
                     {isSignedIn && (shippingNewForm || (billingForm && storageBilling === 'new_address') || (!billingForm && storageShipping === 'new_address')) ? <div className='save_in_address_book'>
-                        <input type="checkbox" id="save_in_address_book" name="save_in_address_book" style={{fontSize: 20, width: 20}} defaultChecked={initialValues.save_in_address_book} onChange={() => changeInput()} />
+                        <input type="checkbox" id="save_in_address_book" name="save_in_address_book" style={{ fontSize: 20, width: 20 }} defaultChecked={initialValues.save_in_address_book} onChange={() => changeInput()} />
                         <label htmlFor="save_in_address_book">{Identify.__('Save in address book.')}</label>
                     </div> : ''}
                     <div className='validation'>{validationMessage}</div>
@@ -492,7 +499,6 @@ const FormFields = (props) => {
     }
 
     const handleCheckBoxBilling = (label) => {
-        console.log(label);
         if (label === 'diff') {
             setUsingSameAddress(false)
         } else {

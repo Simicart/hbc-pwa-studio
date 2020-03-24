@@ -140,7 +140,7 @@ class Pagination extends React.Component {
                             borderRadius: '0',
                             borderBottom: 'solid #2d2d2d 1px',
                             fontSize: 14,
-                            backgroundImage: `url(${imgBgSelect})`
+                            // backgroundImage: `url(${imgBgSelect})`
                         }}
                     >
                         {option_limit}

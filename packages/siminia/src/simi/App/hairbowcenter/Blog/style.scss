@@ -460,7 +460,7 @@
             font-size: 12px;
             line-height: 1.42857143;
             &.current-menu-item {
-                a {
+                >a {
                     color: #636363;
                     font-weight: bold;
                 }

@@ -7,7 +7,7 @@ const CategoryHeader = props => {
             <img
                 alt={name}
                 src={`${image_url}`}
-                style={{width: '100%'}}
+                style={{maxWidth: '100%'}}
             />
         </div>
     )

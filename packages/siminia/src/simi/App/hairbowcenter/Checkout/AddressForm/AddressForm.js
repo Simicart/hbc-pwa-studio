@@ -190,7 +190,7 @@ const AddressForm = props => {
         }
     }
 
-    const handleFormReset = () => { console.log(values)
+    const handleFormReset = () => {
         Object.keys(values).forEach(k => {
             if ('save_in_address_book' === k) {
                 values[k] = 1;

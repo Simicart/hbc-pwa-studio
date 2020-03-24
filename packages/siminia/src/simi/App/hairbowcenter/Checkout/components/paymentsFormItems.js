@@ -11,7 +11,7 @@ import isObjectEmpty from 'src/util/isObjectEmpty';
 import Identify from 'src/simi/Helper/Identify';
 import BraintreeDropin from './paymentMethods/braintreeDropin';
 import CCType from './paymentMethods/ccType';
-import AddressItem from 'src/simi/BaseComponents/Address';
+import AddressItem from 'src/simi/App/hairbowcenter/BaseComponents/Address';
 require('./paymentsFormItems.scss')
 
 /**

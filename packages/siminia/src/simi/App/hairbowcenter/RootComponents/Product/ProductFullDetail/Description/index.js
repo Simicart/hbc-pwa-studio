@@ -1,13 +1,10 @@
-import React from 'react'
-import Identify from 'src/simi/Helper/Identify';
-import ReactHTMLParse from 'react-html-parser';
+import React from 'react';
 import RichText from 'src/simi/BaseComponents/RichText';
 
 require('./description.scss')
 
 const Description = props => {
-    const {product} = props
-    console.log(product);
+    const { product } = props
     return (
         <React.Fragment>
             <div className="data-item-title">
@@ -18,12 +15,11 @@ const Description = props => {
             <div className="data-item-content" id="description">
                 <div className="product-attribute-description">
                     <div className="value">
-                        <RichText content={product.description && product.description.html ? product.description.html : '' } />
+                        <RichText content={product.description && product.description.html ? product.description.html : ''} />
                     </div>
                 </div>
             </div>
         </React.Fragment>
-            
     )
 }
 

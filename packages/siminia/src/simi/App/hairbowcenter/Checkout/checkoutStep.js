@@ -139,7 +139,8 @@ class CheckoutStep extends React.Component {
 
     get contentStep2() {
         const { stepProps, childCPProps } = this.props;
-        const { user, simiUserBalance } = stepProps;
+        const { user, simiUserBalance, availableShippingMethods, shippingMethod } = stepProps;
+        const { getCartDetails } = childCPProps;
         return <React.Fragment>
 
             <div className="payment-frame">
@@ -164,7 +165,7 @@ class CheckoutStep extends React.Component {
             />
             {user.isSignedIn && <Panel title={<div className='checkout-section-title'>{Identify.__('Apply Reward Points')}</div>}
                 className='checkout-panel-coupon checkout-panel-apply_points'
-                renderContent={<ApplyRewardPoints simiUserBalance={simiUserBalance} />}
+                renderContent={<ApplyRewardPoints simiUserBalance={simiUserBalance} availableShippingMethods={availableShippingMethods} shippingMethod={shippingMethod} getCartDetails={getCartDetails} />}
                 isToggle={true}
                 expanded={false}
                 headerStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}

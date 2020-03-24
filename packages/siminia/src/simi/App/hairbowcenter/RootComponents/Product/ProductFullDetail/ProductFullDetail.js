@@ -39,7 +39,7 @@ const $ = window.$;
 
 require('./productFullDetail.scss');
 class ProductFullDetail extends Component {
-    
+
     state = {
         optionCodes: new Map(),
         isPhone: window.innerWidth < 768
@@ -169,8 +169,6 @@ class ProductFullDetail extends Component {
             recentOrder.push(val.value);
         })
 
-        console.log(recentOrder);
-
         return recentOrder
     }
 
@@ -211,9 +209,7 @@ class ProductFullDetail extends Component {
                 const payload = {
                     product: productParams
                 }
-                console.log(recentOrder);
                 if(recentOrder && recentOrder.length && recentOrder.length > 0) {
-                    console.log(recentOrder);
                     payload.order = recentOrder
                 }
                 showFogLoading()
@@ -438,7 +434,7 @@ class ProductFullDetail extends Component {
                             </li>
                         )
                     }
-                    
+
                     return null;
                 }
 

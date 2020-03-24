@@ -93,6 +93,7 @@ const BlogItem = (props) => {
             {Identify.__("This entry was posted in ")}<span className="meta-attribute-link">{getListMeta('category', categories)}</span>
             {tag_ids && Identify.__(" and tagged ")} {tag_ids && <span className="meta-attribute-link">{getListMeta('tag', tag_ids)}</span>}
             {Identify.__(" on ")} {getFormattedDate(item.published_at)}
+            {Identify.__(" by ")} {item.author_id}
         </footer>
         {type === 'post' && hasBlogConfig && hasBlogConfig.hasOwnProperty('social_network') && hasBlogConfig.social_network.length ? <div className="amblog-social-container">{renderShareSocial(hasBlogConfig.social_network)}</div> : ''}
         {type === 'post' && <Comments post_id={item.post_id} />}
