@@ -1,5 +1,9 @@
 import { sendRequest } from 'src/simi/Network/RestMagento';
 
+import { Util } from '@magento/peregrine';
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
 export const estimateShippingMethods = (callBack, cartId, params, isSignedIn) => {
     const newParams = {
         address : params
@@ -27,4 +31,17 @@ export const totalsInfomation = (callBack, params, isSignedIn, cartId = null) =>
         sendRequest(`rest/default/V1/guest-carts/${cartId}/totals-information`, callBack, 'POST', {}, params)
     }
 
+}
+
+export const multiAddToCart = (callBack, params) => {
+    let getParams = storage.getItem('cartId');
+    getParams = getParams?{quote_id: getParams}:{}
+    sendRequest('rest/V1/simiconnector/multiquoteitems', callBack, 'POST', getParams, params)
+}
+
+export const moveCartItemToWl = (callBack, id) => {
+    getParams = {
+        move_to_wishlist: 1
+    }
+    sendRequest(`rest/V1/simiconnector/quoteitems/${id}`, callBack, 'GET', getParams)
 }

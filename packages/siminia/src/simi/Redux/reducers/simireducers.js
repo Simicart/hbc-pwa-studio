@@ -7,7 +7,8 @@ const initialState = {
     simiValue: 'cody_initialize_value',
     simiCheckoutUpdating: false,
     simiMessages: [],// [{type: 'success', message: 'sample', auto_dismiss: true}]
-    simiPaymentInformationMessage: ''
+    simiPaymentInformationMessage: '',
+    simiUserBalance: ''
 };
 
 const reducerMap = {
@@ -39,6 +40,12 @@ const reducerMap = {
         return {
             ...state,
             simiPaymentInformationMessage: payload
+        };
+    },
+    [simiActions.getUserRewardsPoints]: (state, { payload }) => {
+        return {
+            ...state,
+            simiUserBalance: payload
         };
     },
 };

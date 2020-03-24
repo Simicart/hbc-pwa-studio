@@ -39,12 +39,12 @@ class ProductImage extends React.Component {
     }
 
     componentDidMount() {
+        const obj = this;
         window.onresize = function () {
             const width = window.innerWidth;
             const newIsPhone = width < 1024
-            console.log(this);
-            if(this.state.isPhone !== newIsPhone){
-                this.setState({isPhone: newIsPhone})
+            if(obj.state.isPhone !== newIsPhone){
+                obj.setState({isPhone: newIsPhone})
             }
         }
     }

@@ -79,27 +79,27 @@ const Detail = (props) => {
                     </strong>
                     <div className="box-content">
                         <address>
-                            {shippingAddress.firstname + ' ' + billingAddress.lastname}
+                            {shippingAddress.firstname + ' ' + shippingAddress.lastname}
                             <br/>
                             {shippingAddress.company}
                             <br/>
                             {shippingAddress.street[0]}
-                            {billingAddress.street[1] && ( 
+                            {shippingAddress.street[1] && ( 
                                 <React.Fragment>
                                     <br/> 
-                                    {billingAddress.street[1]}
+                                    {shippingAddress.street[1]}
                                 </React.Fragment>
                                 )
                             }
-                            {billingAddress.street[2] && ( 
+                            {shippingAddress.street[2] && ( 
                                 <React.Fragment>
                                     <br/> 
-                                    {billingAddress.street[2]}
+                                    {shippingAddress.street[2]}
                                 </React.Fragment>
                                 )
                             }
                             <br/>
-                            {shippingAddress.city + ', ' + billingAddress.region + ', ' + billingAddress.postcode}
+                            {`${shippingAddress.city}${shippingAddress.region ? ', ' + shippingAddress.region : ''}, ${shippingAddress.postcode}`}
                             <br/>
                             {shippingAddress.country_name}
                             <br/>
@@ -141,7 +141,7 @@ const Detail = (props) => {
                                 )
                             }
                             <br/>
-                            {billingAddress.city + ', ' + billingAddress.region + ', ' + billingAddress.postcode}
+                            {`${billingAddress.city}${billingAddress.region ? ', ' + billingAddress.region : ''}, ${billingAddress.postcode}`}
                             <br/>
                             {billingAddress.country_name}
                             <br/>

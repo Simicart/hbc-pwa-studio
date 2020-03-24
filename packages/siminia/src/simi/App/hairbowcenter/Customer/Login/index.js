@@ -56,7 +56,6 @@ class CustomerLogin extends Component {
     };
 
     addToWishlistCallBack = (data) => {
-        hideFogLoading();
         if(!data.errors) {
             this.props.history.push('/wishlist.html');
         }
@@ -131,13 +130,14 @@ class CustomerLogin extends Component {
                 Identify.ApiDataStorage('run-alert', 'update', true);
                 history.push({pathname: '/' + history.location.state.link + '.html'})
             } if(!this.addWishList) {
+                hideFogLoading();
                 history.push('/')
             }
 
             const message = firstname?
                 Identify.__("Welcome %s Start shopping now").replace('%s', firstname):
                 Identify.__("You have succesfully logged in, Start shopping now")
-            if (showMessage && this.props.toggleMessages)
+            if (!this.addWishList && showMessage && this.props.toggleMessages)
                 this.props.toggleMessages([{type: 'success', message: message, auto_dismiss: true}])
         }
 

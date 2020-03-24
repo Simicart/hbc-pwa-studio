@@ -228,7 +228,7 @@ class Checkout extends Component {
     get checkoutInner() {
         const { props, cartCurrencyCode, btnPlaceOrder, userSignedIn, is_virtual} = this;
         const { cart, checkout, directory, editOrder, submitShippingMethod, submitShippingAddress, submitOrder, submitPaymentMethod,
-            submitBillingAddress, user, simiSignedIn, toggleMessages, getCartDetails, simiPaymentInformationMessage } = props;
+            submitBillingAddress, user, simiSignedIn, toggleMessages, getCartDetails, simiPaymentInformationMessage, simiUserBalance } = props;
         const { shippingAddress, submitting, availableShippingMethods, shippingMethod, billingAddress, paymentData, paymentCode,
             invalidAddressMessage, isAddressInvalid, shippingTitle, editing } = checkout;
         const { paymentMethods } = cart;
@@ -242,7 +242,8 @@ class Checkout extends Component {
             shippingAddress, shippingMethod, shippingTitle, simiSignedIn, submitShippingAddress, submitOrder, submitPaymentMethod,
             submitBillingAddress, submitShippingMethod, submitting, toggleMessages, user,
             placeOrder: this.placeOrder,
-            simiPaymentInformationMessage
+            simiPaymentInformationMessage,
+            simiUserBalance
         };
 
         let cpValue = "";
@@ -315,14 +316,15 @@ class Checkout extends Component {
 }
 
 const mapStateToProps = ({ cart, checkout, directory, user, simireducers }) => {
-    const { simiCheckoutUpdating, simiPaymentInformationMessage } = simireducers;
+    const { simiCheckoutUpdating, simiPaymentInformationMessage, simiUserBalance } = simireducers;
     return {
         cart,
         checkout,
         directory,
         user,
         simiCheckoutUpdating,
-        simiPaymentInformationMessage
+        simiPaymentInformationMessage,
+        simiUserBalance
     }
 }
 

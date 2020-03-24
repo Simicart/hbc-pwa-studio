@@ -11,7 +11,7 @@ import DataTable from './DataTable';
 require('./style.scss');
 
 const RewardPoints = (props) => {
-    const { user } = props;
+    const { user, simiUserBalance } = props;
 
     if (!user || !user.email) return <Loading />;
 
@@ -36,7 +36,7 @@ const RewardPoints = (props) => {
             setTab(c)
     }
 
-    function subscriptionCallback(data){
+    function subscriptionCallback(data) {
         hideFogLoading();
         if (data.message) {
             props.toggleMessages([{
@@ -73,8 +73,6 @@ const RewardPoints = (props) => {
 
     const renderContent1 = () => {
 
-        const pointNumber = data && data.hasOwnProperty('balance_points') ? data.balance_points : Identify.__("0 Reward Point");
-
         return <div className="block block-rewards-account-summary order-details-items">
             <div className="block-title">
                 <div className="page-title-wrapper">
@@ -85,7 +83,7 @@ const RewardPoints = (props) => {
                 <strong>{Identify.__("Points Summary")}</strong>
             </div>
             <div className="block-content">
-                <p>{Identify.__(" You have ")}<b>{pointNumber}</b>{Identify.__(" in your account.")}</p>
+                <p>{Identify.__(" You have ")}<b>{simiUserBalance.balance_points}{Identify.__(" Reward Points")}</b>{Identify.__("  in your account.")}</p>
             </div>
         </div>
     }
@@ -122,10 +120,12 @@ const RewardPoints = (props) => {
     </div>
 }
 
-const mapStateToProps = ({ user }) => {
-    const { currentUser } = user
+const mapStateToProps = ({ user, simireducers }) => {
+    const { currentUser } = user;
+    const { simiUserBalance } = simireducers;
     return {
-        user: currentUser
+        user: currentUser,
+        simiUserBalance
     };
 }
 

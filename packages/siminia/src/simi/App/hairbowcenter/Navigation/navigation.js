@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import * as Constants from 'src/simi/Config/Constants';
 
 const Navigation = props => {
-    const { getUserDetails, currentUser, isSignedIn, cartId } = props
+    const { getUserDetails, currentUser, isSignedIn, cartId, getUserPoints } = props
 
     if (!cartId) {
         if (!isSignedIn)
@@ -25,7 +25,10 @@ const Navigation = props => {
     }
 
     if (isSignedIn && (!currentUser || !currentUser.email)) //get user detail when missing (from refreshing)
-        getUserDetails();
+       {
+           getUserDetails();
+           getUserPoints();
+       }
 
     const [isPhone, setIsPhone] = useState(window.innerWidth < 768)
 

@@ -283,15 +283,41 @@
                 left: 0;
             }
             &::before {
-                color: #00CCCC;
+                color: #00cccc;
             }
         }
         .action.action-auth-toggle {
             border: 0;
-            color: #00CCCC;
+            color: #00cccc;
             padding: 0;
             background: 0 0;
             margin-left: 20px;
+        }
+    }
+}
+.rewards-block {
+    .current-balance-points {
+        margin-bottom: 0.9rem;
+        b {
+            font-weight: 700;
+        }
+    }
+    input[name='points_amount'] {
+        margin-bottom: 18px;
+    }
+    label[for='rw-points_all'] {
+        margin-bottom: 10px;
+    }
+    .actions-toolbar {
+        margin: 0;
+        button {
+            margin: 0 15px 0 0;
+            font-weight: 600;
+            &:hover{
+                color: #fff;
+                background-color: #00CCCC;
+                border-color: #00CCCC;
+            }
         }
     }
 }
@@ -339,7 +365,7 @@
     .checkout-column .order-summary .checkout-panel {
         margin: 0;
     }
-    .opc-estimated-wrapper  {
+    .opc-estimated-wrapper {
         display: block;
     }
     .checkout-column {
@@ -358,17 +384,17 @@
         top: 0;
         visibility: hidden;
         opacity: 0;
-        -webkit-transition: visibility 0s .3s,opacity .3s ease;
-        transition: visibility 0s .3s,opacity .3s ease;
+        -webkit-transition: visibility 0s 0.3s, opacity 0.3s ease;
+        transition: visibility 0s 0.3s, opacity 0.3s ease;
         left: 44px;
         z-index: 902;
         overflow-x: hidden;
         overflow-y: auto;
         .col-3-content {
-            box-shadow: 0 0 12px 2px rgba(0,0,0,.35);
+            box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.35);
             opacity: 1;
             pointer-events: auto;
-            transition: transform .3s ease-in-out;
+            transition: transform 0.3s ease-in-out;
             transform: translateX(100%);
             width: auto;
             overflow-y: auto;
@@ -383,7 +409,7 @@
     .custom-slide.show {
         visibility: visible;
         opacity: 1;
-        transition: opacity .3s ease;
+        transition: opacity 0.3s ease;
         .col-3-content {
             transform: translateX(0%);
         }
@@ -401,7 +427,7 @@
 
     .modal-custom-overlay.has-modal {
         display: block;
-        background-color: rgba(51,51,51,.55)
+        background-color: rgba(51, 51, 51, 0.55);
     }
 
     .block-authentication .block-content .btn_login_exist button {
@@ -414,7 +440,8 @@
 }
 
 @media (max-width: 639px) {
-    .checkout-section-title, .checkout-section-title {
+    .checkout-section-title,
+    .checkout-section-title {
         font-size: 18px;
         border-bottom: 0;
         padding-bottom: 0;
@@ -425,7 +452,8 @@
         margin: 0;
     }
 
-    .shipping-address-frame, .shipping-method-frame {
+    .shipping-address-frame,
+    .shipping-method-frame {
         form {
             background: #f4f4f4;
             margin: 18px -15px 15px;

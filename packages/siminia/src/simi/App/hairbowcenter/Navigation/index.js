@@ -3,6 +3,7 @@ export { default as Navigation } from './navigation';
 import { connect } from 'src/drivers';
 import { closeDrawer } from 'src/actions/app';
 import { getUserDetails } from 'src/actions/user';
+import { getUserPoints } from 'src/simi/Redux/actions/simiactions';
 import { createCart, getCartDetails } from 'src/actions/cart';
 import Navigation from './navigation';
 
@@ -21,7 +22,8 @@ const mapDispatchToProps = {
     closeDrawer,
     getUserDetails,
     createCart,
-    getCartDetails
+    getCartDetails,
+    getUserPoints
 };
 
 export default connect(

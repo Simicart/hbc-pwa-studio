@@ -11,6 +11,7 @@ import TitleHelper from 'src/simi/Helper/TitleHelper'
 import {prepareProduct} from 'src/simi/Helper/Product'
 import ProductPrice from '../Component/Productprice';
 import { addToCart as simiAddToCart } from 'src/simi/Model/Cart';
+import { multiAddToCart } from '../../../Model/Cart';
 import { addToWishlist as simiAddToWishlist } from 'src/simi/Model/Wishlist';
 import {addProductStockAlert} from '../../../Model/Product';
 import {showToastMessage} from 'src/simi/Helper/Message';
@@ -161,6 +162,18 @@ class ProductFullDetail extends Component {
         return params
     }
 
+    prepareParamsRecentlyOrdered = () => {
+        const value = $('#my-recent-ordered').serializeArray();
+        const recentOrder = [];
+        value.forEach((val) => {
+            recentOrder.push(val.value);
+        })
+
+        console.log(recentOrder);
+
+        return recentOrder
+    }
+
     addToCart = () => {
         const { props } = this;
         const {  product } = props;
@@ -172,34 +185,40 @@ class ProductFullDetail extends Component {
                 return
             }
 
-            if(this.productRelatedATC && this.productRelatedATC.length > 0) {
-                this.productRelatedATC.forEach((product) => {
-                    showFogLoading()
-                    simiAddToCart(() => {}, product)
-                })
-            }
+            const productParams = [];
 
             if(params.group_selection && params.group_selection.length > 0) {
                 params.group_selection.forEach((param, index) => {
-                    let callBack = () => {}
-                    if(params.group_selection.length === index + 1) {
-                        callBack = this.addToCartCallBack
-                    }
-                    const newParams = {
+                    productParams.push({
                         product: params.product,
-                        qty: param.quantity,
-                        super_attribute: param.super_attribute
-                    }
-                    showFogLoading()
-                    simiAddToCart(callBack, newParams)
+                        super_attribute: param.super_attribute,
+                        qty: param.quantity
+                    });
                 })
             } else {
-                showFogLoading()
-                this.startUpdateCart = true
-                simiAddToCart(this.addToCartCallBack, params)
+                productParams.push(params);
             }
 
+            if(this.productRelatedATC && this.productRelatedATC.length > 0) {
+                this.productRelatedATC.forEach((product) => {
+                    productParams.push(product);
+                })
+            }
 
+            const recentOrder = this.prepareParamsRecentlyOrdered();
+
+            if(productParams && productParams.length && productParams.length > 0) {
+                const payload = {
+                    product: productParams
+                }
+                console.log(recentOrder);
+                if(recentOrder && recentOrder.length && recentOrder.length > 0) {
+                    console.log(recentOrder);
+                    payload.order = recentOrder
+                }
+                showFogLoading()
+                multiAddToCart(this.addToCartCallBack, payload)
+            }
         }
     };
 
@@ -208,7 +227,11 @@ class ProductFullDetail extends Component {
         if (data.errors) {
             this.showError(data)
         } else {
-            this.showSuccess(data)
+            this.props.toggleMessages([{
+                type: 'success',
+                message: Identify.__('You added %s to your shopping cart.').replace('%s', this.props.product.name),
+                auto_dismiss: true
+            }])
             this.props.updateItemInCart()
         }
     }

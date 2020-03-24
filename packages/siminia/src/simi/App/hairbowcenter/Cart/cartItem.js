@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import ReactHTMLParse from 'react-html-parser';
 import {cateUrlSuffix} from 'src/simi/Helper/Url';
 import {showFogLoading, hideFogLoading} from 'src/simi/BaseComponents/Loading/GlobalLoading';
-import { addToWishlist as simiAddToWishlist } from 'src/simi/Model/Wishlist';
+import {moveCartItemToWl} from '../Model/Cart'
 require('./cartItem.scss')
 const $ = window.$;
 
 const CartItem = props => {
-    const { currencyCode, item, isSignedIn, itemTotal, handleLink, removeItemFromCart } = props
+    const { currencyCode, item, isSignedIn, itemTotal, handleLink, getCartDetails } = props
     const tax_cart_display_price = 3; // 1 - exclude, 2 - include, 3 - both
 
     const rowPrice = tax_cart_display_price == 1 ? itemTotal.price : itemTotal.price_incl_tax
@@ -86,16 +86,9 @@ const CartItem = props => {
     }
 
     const handleWishlistAction = (e, item) => {
-        showFogLoading()
-        const selector = $(`#cart-quantity-${item.item_id}`)
-        const qty = parseInt(selector.val()) > 0 ? parseInt(selector.val()) : 1;
-
         e.preventDefault();
-        const params = {
-            product: item.product_id,
-            qty
-        }
-        simiAddToWishlist(callBackAddToWishlist, params)
+        showFogLoading()
+        moveCartItemToWl(callBackAddToWishlist, item.item_id);
     }
 
     const callBackAddToWishlist = (data) => {
@@ -107,7 +100,8 @@ const CartItem = props => {
                 message: `${item.name} has been moved to your wish list.`,
                 auto_dismiss: true
             }])
-            removeItemFromCart(item)
+
+            getCartDetails();
         }
     }
 

@@ -25,6 +25,7 @@ export const changeSampleValue = value => async dispatch => {
 export const simiSignedIn = response => async dispatch => {
     dispatch(userActions.signIn.receive(response));
     dispatch(getUserDetails()).then(() => dispatch(fullFillAddress()));
+    dispatch(getUserPoints());
     dispatch(removeCart());
     dispatch(getCartDetails({ forceRefresh: true }));
     // dispatch(fullFillAddress());
@@ -46,6 +47,7 @@ export const simiSignOut = ({ history }) => async dispatch => {
     storage.removeItem('signin_token');
     sessionStorage.removeItem("shipping_address");
     sessionStorage.removeItem("billing_address");
+    sessionStorage.removeItem("ck_signup_newsletter");
     await clearBillingAddress();
     await clearShippingAddress();
     await clearAvailableShippingMethod();
@@ -57,6 +59,31 @@ export const simiSignOut = ({ history }) => async dispatch => {
 export const toggleMessages = value => async dispatch => {
     dispatch(actions.toggleMessages(value));
 }
+
+export const getUserPoints = () =>
+    async function thunk(...args) {
+        const [dispatch, getState] = args;
+        const { user } = getState();
+
+        if (user.isSignedIn) {
+
+            // get user reward points
+            try {
+                const userRW = await request('/rest/V1/simiconnector/rewards/balance', {
+                    method: 'GET'
+                });
+
+                if (userRW instanceof Array && userRW.length){
+                    dispatch(actions.getUserRewardsPoints(userRW[0]));
+                }else{
+                    dispatch(actions.getUserRewardsPoints(userRW));
+                }
+            } catch (error) {
+                dispatch(actions.getUserRewardsPoints(error));
+            }
+
+        }
+    };
 
 export const submitShippingAddress = payload =>
     async function thunk(dispatch, getState) {
@@ -328,6 +355,12 @@ export const submitOrder = () =>
             // for payment type Purchase Order
             if (paymentMethod.data.hasOwnProperty('purchaseorder') && paymentMethod.data.purchaseorder){
                 bodyData.paymentMethod['po_number'] = paymentMethod.data.purchaseorder;
+            }
+
+            // check variable signup newsletter
+            const ck_newsletter = Identify.getDataFromStoreage(Identify.SESSION_STOREAGE, 'ck_signup_newsletter');
+            if (ck_newsletter){
+                bodyData.paymentMethod['extension_attributes'] = {po_newsletter_subscribe: ck_newsletter}
             }
 
             const response = await request(paymentEndpoint, {
