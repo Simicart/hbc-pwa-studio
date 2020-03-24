@@ -33,38 +33,66 @@ const Comments = (props) => {
 
     const onClickReply = (e) => {
         const target = $(e.target);
-        target.closest('.amblog-comment').find('.amblog-replies').show();
+        target.closest('.amblog-comment').find('.amblog-replies .amblog-comment-reply').show();
+    }
+
+    const listToTree = (list) => {
+        var map = {}, node, roots = [], i;
+        for (i = 0; i < list.length; i += 1) {
+            map[list[i].comment_id] = i; // initialize the map
+            list[i]['children'] = []; // initialize the children
+        }
+        for (i = 0; i < list.length; i += 1) {
+            node = list[i];
+            if (node.reply_to !== null) {
+                const numberReply = Number(node.reply_to);
+                list[map[numberReply]].children.push(node);
+            } else {
+                roots.push(node);
+            }
+        }
+        return roots;
+    }
+
+    const renderCommentHTML = (cmtList) => {
+        return cmtList.map((cmtItem, idx) => {
+            return <div className="amblog-comment" key={idx} id={`am-blog-comment-${cmtItem.comment_id}`}>
+                <div className="amblog-comment-content">
+                    <div className="amblog-header">
+                        <div className="amblog-author">
+                            <svg xmlns="http://www.w3.org/2000/svg" >
+                                <path fillRule="evenodd" clipRule="evenodd" d="M12.5 0C19.079 0 25 5.921 25 12.5S19.079 25 12.5 25 0 19.079 0 12.5 5.921 0 12.5 0zm0 6.579c1.974 0 3.947 1.974 3.947 3.947 0 2.632-1.973 4.606-3.947 4.606s-3.947-1.974-3.947-4.606c0-1.973 1.973-3.947 3.947-3.947zM3.947 19.737c4.606 5.263 12.5 5.263 17.106 0-4.606-5.263-12.5-5.263-17.106 0z" />
+                            </svg>
+                            {cmtItem.name}
+                        </div>
+                        <div className="amblog-date">
+                            {getFormattedDate(cmtItem.created_at)}
+                        </div>
+                        <div className="amblog-thesis">
+                            {ReactHTMLParser(cmtItem.message)}
+                        </div>
+                        {(!isSignedIn || (isSignedIn && props.email !== cmtItem.email)) && <div className="amblog-reply">
+                            <span className="reply" onClick={(e) => onClickReply(e)}>{Identify.__("Reply")}</span>
+                        </div>}
+                    </div>
+                </div>
+                <div className="amblog-replies">
+                    <div className="amblog-comment-reply">
+                        <CommentForm handleSubmitProp={handleSubmitProp} type="reply" id={cmtItem.comment_id} email={props.email} fullName={(props.firstname && props.lastname) ? props.firstname + ' ' + props.lastname : ''} />
+                    </div>
+                    {cmtItem.children && cmtItem.children.length ? renderCommentHTML(cmtItem.children) : ''}
+                </div>
+            </div>
+        });
     }
 
     const renderCommentLists = (cmtList) => {
         let html = null;
         if (cmtList && cmtList.items && cmtList.items.length) {
-            html = cmtList.items.map((cmtItem, idx) => {
-                return <div className="amblog-comment" key={idx} id={`am-blog-comment-${cmtItem.comment_id}`}>
-                    <div className="amblog-comment-content">
-                        <div className="amblog-header">
-                            <div className="amblog-author">
-                                <svg xmlns="http://www.w3.org/2000/svg" >
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M12.5 0C19.079 0 25 5.921 25 12.5S19.079 25 12.5 25 0 19.079 0 12.5 5.921 0 12.5 0zm0 6.579c1.974 0 3.947 1.974 3.947 3.947 0 2.632-1.973 4.606-3.947 4.606s-3.947-1.974-3.947-4.606c0-1.973 1.973-3.947 3.947-3.947zM3.947 19.737c4.606 5.263 12.5 5.263 17.106 0-4.606-5.263-12.5-5.263-17.106 0z" />
-                                </svg>
-                                {cmtItem.name}
-                            </div>
-                            <div className="amblog-date">
-                                {getFormattedDate(cmtItem.created_at)}
-                            </div>
-                            <div className="amblog-thesis">
-                                {ReactHTMLParser(cmtItem.message)}
-                            </div>
-                            {(!isSignedIn || (isSignedIn && props.email !== cmtItem.email)) && <div className="amblog-reply">
-                                <span className="reply" onClick={(e) => onClickReply(e)}>{Identify.__("Reply")}</span>
-                            </div>}
-                        </div>
-                    </div>
-                    <div className="amblog-replies">
-                        <CommentForm handleSubmitProp={handleSubmitProp} type="reply" id={cmtItem.comment_id} email={props.email} fullName={(props.firstname && props.lastname) ? props.firstname + ' ' + props.lastname : ''} />
-                    </div>
-                </div>
-            })
+            const cmtListItems = cmtList.items;
+            const arrayTrees = listToTree(cmtListItems);
+
+            html = renderCommentHTML(arrayTrees);
         }
         return html;
     }
