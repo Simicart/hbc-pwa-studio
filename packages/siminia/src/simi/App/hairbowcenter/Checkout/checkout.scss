@@ -31,6 +31,7 @@
         }
         .actions-toolbar {
             margin-top: 30px;
+            padding-right: 27px;
             button.next-step {
                 float: right;
                 border: 1px solid #00cccc;
@@ -45,6 +46,13 @@
                 padding: 0 17px;
                 height: 38px;
             }
+        }
+        .shipping-method-frame,
+        .payment-frame {
+            padding-right: 27px;
+        }
+        > .checkout-panel-coupon {
+            margin-right: 27px;
         }
     }
     .checkout-col-3 {
@@ -401,8 +409,16 @@
         display: block;
         margin-left: 0;
         margin-right: 0;
-        .checkout-col-1 .shipping-address-frame{
-            padding-right: 0;
+        .checkout-col-1 {
+            .shipping-address-frame,
+            .shipping-method-frame,
+            .actions-toolbar,
+            .payment-frame {
+                padding-right: 0;
+            }
+            > .checkout-panel-coupon {
+                margin-right: 0;
+            }
         }
     }
     .checkout-column .checkout-col-1,

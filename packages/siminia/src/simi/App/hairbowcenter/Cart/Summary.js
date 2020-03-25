@@ -40,11 +40,11 @@ class Summary extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if(props.totals && props.totals.total_segments) {
-            if(state.updateState) {
-                return {updateState: false}
+        if (props.totals && props.totals.total_segments) {
+            if (state.updateState) {
+                return { updateState: false }
             }
-            return {newTotals: props.totals}
+            return { newTotals: props.totals }
 
         }
         return null
@@ -90,13 +90,13 @@ class Summary extends Component {
 
     callBackEstimateShipping = (data) => {
         hideFogLoading()
-        this.setState({shipping: data, updateState: true});
+        this.setState({ shipping: data, updateState: true });
     }
 
     callBackTotalsInformation = (data) => {
         hideFogLoading()
         // console.log(data);
-        this.setState({newTotals: data, updateState: true});
+        this.setState({ newTotals: data, updateState: true });
     }
 
     handleOnChangeCountry = (e) => {
@@ -189,6 +189,12 @@ class Summary extends Component {
 
     callBackApplyRewardsPoint = (data) => {
         if (data.success && data.message) {
+            console.log(this.props.rewardPoint.chechout_rewards_points_max, data.spend_points);
+            if (this.props.rewardPoint.chechout_rewards_points_max === data.spend_points) {
+                $('#points_all').prop('checked', true)
+            } else {
+                $('#points_all').prop('checked', false)
+            }
             $('.rewards-message-block > div').html(
                 `<div class="message message-success success">${data.message}</div>`
             )
@@ -198,6 +204,8 @@ class Summary extends Component {
                 $('.rewards-message-block > div').slideUp();
             }, 10000)
             this.loadTotal(this.payloadEstimate, this.shippingMethod)
+        } else {
+            $('#points_all').prop('checked', false)
         }
     }
 
@@ -324,6 +332,22 @@ class Summary extends Component {
         )
     }
 
+    handleCheckMax = (max) => {
+        if (max) {
+            const { rewardPoint } = this.props;
+            const points_all = $('#points_all');
+            if (points_all.is(':checked')) {
+                $('.block-rewards-points-form').find('input[name="points_amount"]').val(max);
+            } else {
+                if (Number(rewardPoint.chechout_rewards_points_used)) {
+                    $('.block-rewards-points-form').find('input[name="points_amount"]').val(rewardPoint.chechout_rewards_points_used);
+                } else {
+                    $('.block-rewards-points-form').find('input[name="points_amount"]').val('');
+                }
+            }
+        }
+    }
+
     render() {
         const { rewardPoint } = this.props
         const { newTotals } = this.state
@@ -362,7 +386,7 @@ class Summary extends Component {
                                         </button>
                                     </div>
                                     <div className="onestepcheckout-newsletter checkbox-group">
-                                        <input type="checkbox" id="points_all" name="points_all" value={rewardPoint.chechout_rewards_points_max} className="checkbox osc-additional-data" onClick={(e) => $('#points_amount').val(e.target.value)} />
+                                        <input type="checkbox" id="points_all" name="points_all" /* value={rewardPoint.chechout_rewards_points_max} */ defaultChecked={rewardPoint.chechout_rewards_points_max === rewardPoint.chechout_rewards_points_used} className="checkbox osc-additional-data" onClick={() => this.handleCheckMax(rewardPoint.chechout_rewards_points_max)} />
                                         <label htmlFor="points_all" className="label--checkbox">
                                             <span>{Identify.__('Use maximum ')}</span>
                                             <b>{`${rewardPoint.chechout_rewards_points_max} ${Identify.__('Reward Points')}`}</b>

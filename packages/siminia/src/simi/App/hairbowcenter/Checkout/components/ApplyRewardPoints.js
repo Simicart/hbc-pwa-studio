@@ -23,6 +23,7 @@ const ApplyRewardPoints = (props) => {
             }
         }
         updateRewards(processUpdateRewards, params);
+
     }, []);
 
     if (!data || (data && data.chechout_rewards_is_show !== true)) return null;
@@ -77,6 +78,11 @@ const ApplyRewardPoints = (props) => {
     function callBackApplyRewardsPoint(rData) {
         const jqContainer = $('.rewards-block');
         if (rData.success && rData.message) {
+            if (rData.spend_points === data.chechout_rewards_points_max){
+                setChecked(true);
+            }else{
+                setChecked(false);
+            }
             $('.rewards-message-block > div').html(
                 `<div class="message message-success success">${rData.message}</div>`
             )
@@ -87,6 +93,7 @@ const ApplyRewardPoints = (props) => {
             }, 5000);
             getCartDetails();
         } else {
+            setChecked(false);
             $('.rewards-message-block > div').html(
                 `<div class="message message-error error">{${Identify.__("Something went wrong in process!")}}</div>`
             )
@@ -111,7 +118,7 @@ const ApplyRewardPoints = (props) => {
         </div>
         <input type="number" name="points_amount" min={0} max={data.chechout_rewards_points_max} defaultValue={data.chechout_rewards_points_used && Number(data.chechout_rewards_points_used) > 0 ? data.chechout_rewards_points_used : ''} onChange={blurInputPointNumber} />
         <label htmlFor="rw-points_all">
-            <input type="checkbox" name="points_all" id="rw-points_all" defaultChecked={checked} placeholder={Identify.__("Enter amount of points to spend")} onClick={() => handleCheckMax(data.chechout_rewards_points_max)} />
+            <input type="checkbox" name="points_all" id="rw-points_all" checked={checked || data.chechout_rewards_points_max === data.chechout_rewards_points_used} placeholder={Identify.__("Enter amount of points to spend")} onChange={() => handleCheckMax(data.chechout_rewards_points_max)} />
             {data.chechout_rewards_points_max && <span>{Identify.__(" Use maximum ")}<b>{data.chechout_rewards_points_max}</b></span>}
         </label>
         <div className="actions-toolbar">
