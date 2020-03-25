@@ -1,23 +1,22 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Identify from 'src/simi/Helper/Identify';
 import { Price } from '@magento/peregrine'
 
 const CartTotals = props => {
 
-    const {totals, shippingMethod, rewardPoint} = props
+    const { totals, shippingMethod, rewardPoint } = props
     const currency = totals.base_currency_code;
-    const {total_segments} = totals
-    console.log(total_segments);
-    
+    const { total_segments } = totals
+
     const getSegment = (code, type = 'other') => {
         const segment = total_segments.find(value => value.code === code);
-        if(segment) {
-            if(type === 'rewards') {
+        if (segment) {
+            if (type === 'rewards') {
                 let title = segment.title;
-                if(segment.code === 'rewards-spend') {
+                if (segment.code === 'rewards-spend') {
                     title = Identify.__('You Spend')
                 }
-                if(segment.value > 0) {
+                if (segment.value > 0) {
                     return (
                         <tr className="rewards-points ">
                             <th className="mark">{title}</th>
@@ -31,7 +30,7 @@ const CartTotals = props => {
                 }
 
                 return null
-                
+
             } else if (type === 'grand_total') {
                 return (
                     <tr className="grand totals">
@@ -71,13 +70,13 @@ const CartTotals = props => {
                 )
             }
         }
-    
+
     }
 
     return (
         <div className="cart-totals">
             <div className="table-wrapper">
-                <table className="data-table-total" style={{ width: '100%'}}>
+                <table className="data-table-total" style={{ width: '100%' }}>
                     <tbody>
                         {getSegment('subtotal')}
                         {getSegment('rewards-total', 'rewards')}

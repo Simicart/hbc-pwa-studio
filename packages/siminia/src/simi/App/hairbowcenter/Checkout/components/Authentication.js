@@ -59,14 +59,7 @@ const Authentication = (props) => {
             simiSignedIn(value);
         },
         [simiSignedIn]
-    )
-
-    const forgotPasswordLocation = {
-        pathname: '/login.html',
-        state: {
-            forgot: true
-        }
-    }
+    );
 
     const renderJs = () => {
         $(document).ready(function () {
@@ -131,7 +124,7 @@ const Authentication = (props) => {
                                             type="button"
                                             onClick={() => handleSignIn()}
                                         >{Identify.__('Sign In')}</Button>
-                                        <Link style={{ marginLeft: 5 }} to={forgotPasswordLocation}>{Identify.__('Forgot password?')}</Link>
+                                        <Link style={{ marginLeft: 5 }} to={'/forgot-password.html'}>{Identify.__('Forgot password?')}</Link>
                                     </div>
                                 </form>
 

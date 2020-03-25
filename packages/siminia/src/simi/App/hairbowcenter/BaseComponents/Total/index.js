@@ -13,7 +13,7 @@ const Total = props => {
     const totalRows = []
 
     total_segments.forEach((item, index) => {
-        if (item.value === 0 || item.value === null || item.code === "rewards-spend-min-points" || item.code === "rewards-spend-max-points") return;
+        if (item.value === 0 || item.value === null || item.code === "rewards-spend-min-points" || item.code === "rewards-spend-max-points" || item.code === "rewards-spend-amount" || item.code === "rewards-deduction") return;
 
         let className = 'custom'
         if (item.code == 'subtotal')
@@ -27,7 +27,7 @@ const Total = props => {
             <div key={index} className={className}>
                 <div>
                     <span className="label">{Identify.__(item.title)}</span>
-                    <span className="price" style={{ color: configColor.price_color }}>{(item.code === 'rewards-total' || item.code === 'rewards-spend' || item.code === 'rewards-spend-min-points' || item.code === 'rewards-spend-max-points') ? (item.value > 1 ? item.value + Identify.__(' Reward Points') : item.value + Identify.__(' Reward Point')) : <Price currencyCode={currencyCode} value={item.value} />}</span>
+                    <span className="price" style={{ color: configColor.price_color }}>{(item.code === 'rewards-total' || item.code === 'rewards-spend') ? (item.value > 1 ? item.value + Identify.__(' Reward Points') : item.value + Identify.__(' Reward Point')) : <Price currencyCode={currencyCode} value={item.value} />}</span>
                 </div>
             </div>
         )

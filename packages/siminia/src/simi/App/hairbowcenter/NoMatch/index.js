@@ -11,6 +11,10 @@ import Page404 from './Page404';
 import { getDataFromUrl } from 'src/simi/Helper/Url';
 import Blog from 'src/simi/App/hairbowcenter/Blog';
 import ResolveUrlResult from './ResolveUrlResult';
+import AttributePage from '../AttributePage';
+import AtrributePageDetail from '../AttributePage/detail';
+import {getAttributePage} from '../Helper';
+
 
 var parseFromDoc = true
 const TYPE_PRODUCT = 'PRODUCT'
@@ -36,6 +40,22 @@ const NoMatch = props => {
             }
         }
     }
+
+    const attributePages = getAttributePage();
+    if(attributePages && location.pathname) {
+        const pathNameArray = location.pathname.split('/')
+        let type = 'index';
+        if(pathNameArray.length && pathNameArray.length > 2) type = 'detail';
+
+        const page = attributePages.find((attributePage) => location.pathname.indexOf('/' + attributePage.identifier) === 0 )
+        if(page) {
+            if(type === 'detail') {
+
+                return <AtrributePageDetail page={page} urlKey={pathNameArray[2]}/>
+            }
+            return <AttributePage page={page}/>
+        }
+    }   
 
     if (
         parseFromDoc &&

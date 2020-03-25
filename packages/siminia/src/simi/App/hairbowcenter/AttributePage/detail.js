@@ -1,48 +1,50 @@
-import React from 'react';
-import LoadingSpiner from 'src/simi/BaseComponents/Loading/LoadingSpiner'
-import { number } from 'prop-types';
-import simicntrCategoryQuery from 'src/simi/queries/catalog/getCategory.graphql'
-import Products from 'src/simi/App/hairbowcenter/BaseComponents/Products';
-import Identify from 'src/simi/Helper/Identify';
-import ObjectHelper from 'src/simi/Helper/ObjectHelper';
-import { withRouter } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import getCategory from 'src/simi/queries/catalog/getCategory.graphql'
 import { Simiquery } from 'src/simi/Network/Query'
 import TitleHelper from 'src/simi/Helper/TitleHelper'
 import { applySimiProductListItemExtraField } from 'src/simi/Helper/Product'
 import BreadCrumb from "src/simi/BaseComponents/BreadCrumb"
 import { cateUrlSuffix } from 'src/simi/Helper/Url';
+import Products from 'src/simi/App/hairbowcenter/BaseComponents/Products';
+import {getOption} from '../Model/AttributePage';
 import { smoothScrollToView } from 'src/simi/Helper/Behavior';
+import Identify from "src/simi/Helper/Identify";
+import LoadingSpiner from 'src/simi/BaseComponents/Loading/LoadingSpiner'
+import Loading from 'src/simi/BaseComponents/Loading'
 
 var sortByData = null
 var filterData = null
 
-const genPath = (item, id, pathArray) => {
-    if (item.entity_id && Number(item.entity_id) === id) {
-        return true
-    } else if (item.child_cats && Array.isArray(item.child_cats)) {
-        let hasTheOne = false
-        item.child_cats.map(child => {
-            if (!hasTheOne) hasTheOne = genPath(child, id, pathArray)
-        })
-        if (hasTheOne) {
-            if (item.url_path) pathArray.unshift({ name: item.name, link: '/' + item.url_path + cateUrlSuffix() })
-            return true
-        }
-    } else if (item.categorytrees && Array.isArray(item.categorytrees)) {
-        let hasCOne = false
-        item.categorytrees.map(child => {
-            if (!hasCOne) hasCOne = genPath(child, id, pathArray)
-        })
-        if (hasCOne) {
-            if (item.url_path) pathArray.unshift({ name: item.name, link: '/' + item.url_path + cateUrlSuffix() })
-            return true
+const AtrributePageDetail = props => {  
+    const {page, urlKey} = props;
+    const [data, setData] = useState(null);
+    
+    useEffect(() => {
+        setData('loading');
+        getOption(getOptionCallBack, urlKey);
+    }, [])
+
+    const getOptionCallBack = (dataPage) => {
+        if(dataPage && dataPage.errors) {
+            setData(null);
+        } else if (dataPage && dataPage.attributepage) {
+            setData(dataPage.attributepage);
+        } else {
+            setData(null);
         }
     }
-    return false
-}
 
-const Category = props => {
-    const { id } = props;
+    if(data === 'loading') {
+        return <Loading />
+    } 
+
+    if(!data) {
+        return null
+    }
+
+    const {simiStoreConfig} = Identify.getStoreConfig();
+    const {root_category_id} = simiStoreConfig;
+
     let pageSize = Identify.findGetParameter('product_list_limit')
     pageSize = pageSize ? Number(pageSize) : 20
     let currentPage = Identify.findGetParameter('page')
@@ -62,13 +64,18 @@ const Category = props => {
         }
     }
 
-    console.log(filterData);
+    console.log(data)
+
+    const defaultFilter = {};
+    console.log(data.attribute_code);
+    defaultFilter[data.attribute_code] =  data.option_id
 
     const variables = {
-        id: Number(id),
+        id: Number(root_category_id),
         pageSize: pageSize,
         currentPage: currentPage,
-        stringId: String(id)
+        stringId: String(root_category_id),
+        simiFilter: JSON.stringify(defaultFilter)
     }
     if (filterData)
         variables.simiFilter = filterData
@@ -81,30 +88,21 @@ const Category = props => {
         variables.simiProductSort = sortAtt
     }
 
-    const cateQuery = simicntrCategoryQuery
     smoothScrollToView($('#root'))
     return (
-        <Simiquery query={cateQuery} variables={variables}>
+        <Simiquery query={getCategory} variables={variables}>
             {({ loading, error, data }) => {
                 if (error) return <div>Data Fetch Error</div>;
-                if (!data || !data.category) return <LoadingSpiner />;
+                if (!data || !data.simiproducts) return <LoadingSpiner />;
 
                 if (data) {
                     data.products = applySimiProductListItemExtraField(data.simiproducts)
                     if (data.products.simi_filters)
                         data.products.filters = data.products.simi_filters
                 }
-                const categoryTitle = data && data.category ? data.category.name : '';
-                const categoryDesc = data && data.category ? data.category.description : '';
-                const categoryImage = data && data.category ? data.category.image : '';
                 const pathArray = [];
-                const storeConfig = Identify.getStoreConfig();
-                if (storeConfig && storeConfig.simiCateTrees && data.category.id) {
-                    const jsonParseCateTrees = JSON.parse(storeConfig.simiCateTrees.config_json);
-                    genPath(jsonParseCateTrees, data.category.id, pathArray);
-                }
                 pathArray.unshift({ name: Identify.__("Home"), link: '/' })
-                pathArray.push({ name: data.category.name, link: '#' })
+                {/* pathArray.push({ name: , link: '#' }) */}
 
                 return (
                     <div className="container">
@@ -115,9 +113,9 @@ const Category = props => {
                         })}
 
                         <Products
-                            title={categoryTitle}
-                            description={categoryDesc}
-                            categoryImage={categoryImage}
+                            // title={categoryTitle}
+                            // description={categoryDesc}
+                            // categoryImage={categoryImage}
                             history={props.history}
                             location={props.location}
                             currentPage={currentPage}
@@ -129,20 +127,10 @@ const Category = props => {
                         />
                     </div>
                 )
-
             }}
         </Simiquery>
     );
-};
+    
+}
 
-Category.propTypes = {
-    id: number,
-    pageSize: number
-};
-
-Category.defaultProps = {
-    id: 3,
-    pageSize: 12
-};
-
-export default (withRouter)(Category);
+export default AtrributePageDetail;

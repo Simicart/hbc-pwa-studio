@@ -116,3 +116,18 @@ export function getRootCategoriesArray(root, id) {
     }
     return null;
 }
+
+export function getAttributePage () {
+    if(
+        simiStoreConfig 
+        && simiStoreConfig.config
+        && simiStoreConfig.config.attribute_page 
+        && simiStoreConfig.config.attribute_page.items 
+        && simiStoreConfig.config.attribute_page.items.length 
+        && simiStoreConfig.config.attribute_page.items.length > 0
+    ) {
+        return simiStoreConfig.config.attribute_page.items
+    }
+
+    return null;
+}

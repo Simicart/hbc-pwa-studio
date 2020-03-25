@@ -5,6 +5,7 @@ import Identify from 'src/simi/Helper/Identify';
 import { configColor } from 'src/simi/Config';
 import { Price } from '@magento/peregrine';
 import Arrow from 'src/simi/BaseComponents/Icon/Arrowup';
+import ReactHTMLParser from 'react-html-parser';
 const $ = window.$;
 
 const OrderItems = (props) => {
@@ -24,7 +25,7 @@ const OrderItems = (props) => {
                 return (
                     <div key={Identify.randomString()}>
                         <span className='option-title'>{optionObject.label}: </span>
-                        <span className='option-value'>{optionObject.value}</span>
+                        <span className='option-value'>{ReactHTMLParser(optionObject.value)}</span>
                     </div>
                 );
             });
