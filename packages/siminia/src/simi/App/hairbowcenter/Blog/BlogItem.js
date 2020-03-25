@@ -25,47 +25,48 @@ const BlogItem = (props) => {
         let html = null;
         if (networks && networks.length) {
             let arrSocial = [];
+            const linkShare = type === 'post' ? window.location : window.location.origin + '/blog/' + item.url_key;
             for (let k = 0; k < networks.length; k++) {
                 const nwItem = networks[k];
                 switch (nwItem) {
                     case 'twitter':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`https://twitter.com/?status=${item.title} : ${window.location}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`https://twitter.com/?status=${item.title} : ${linkShare}`)} title={nwItem} /></li>)
                         break;
                     case 'facebook':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.facebook.com/share.php?u=${window.location}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.facebook.com/share.php?u=${linkShare}`)} title={nwItem} /></li>)
                         break;
                     case 'vkontakte':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://vkontakte.ru/share.php?url=${window.location}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://vkontakte.ru/share.php?url=${linkShare}`)} title={nwItem} /></li>)
                         break;
                     case 'odnoklassniki':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments=${item.short_content}&st._surl=${window.location}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments=${item.short_content}&st._surl=${linkShare}`)} title={nwItem} /></li>)
                         break;
                     case 'blogger':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://blogger.com/blog-this.g?t=${item.title}&n=${item.short_content}&u=${window.location}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://blogger.com/blog-this.g?t=${item.title}&n=${item.short_content ? item.short_content : ''}&u=${linkShare}`)} title={nwItem} /></li>)
                         break;
                     case 'pinterest':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://pinterest.com/pin/create/button/?url=${window.location}&media=${item.list_thumbnail}&description=${item.title}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://pinterest.com/pin/create/button/?url=${linkShare}&media=${item.list_thumbnail}&description=${item.title}`)} title={nwItem} /></li>)
                         break;
                     case 'tumblr':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.tumblr.com/share/link?url=${window.location}&name=${item.title}&description=${item.short_content}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.tumblr.com/share/link?url=${linkShare}&name=${item.title}&description=${item.short_content}`)} title={nwItem} /></li>)
                         break;
                     case 'digg':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://digg.com/submit?phase=2&url=${window.location}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://digg.com/submit?phase=2&url=${linkShare}`)} title={nwItem} /></li>)
                         break;
                     case 'delicious':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://del.icio.us/post?url=${window.location}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://del.icio.us/post?url=${linkShare}`)} title={nwItem} /></li>)
                         break;
                     case 'stumbleupon':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.stumbleupon.com/submit?url=${window.location}&title=${item.title}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.stumbleupon.com/submit?url=${linkShare}&title=${item.title}`)} title={nwItem} /></li>)
                         break;
                     case 'slashdot':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://slashdot.org/slashdot-it.pl?op=basic&url=${window.location}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://slashdot.org/slashdot-it.pl?op=basic&url=${linkShare}`)} title={nwItem} /></li>)
                         break;
                     case 'reddit':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://reddit.com/submit?url=${window.location}&title=${item.title}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://reddit.com/submit?url=${linkShare}&title=${item.title}`)} title={nwItem} /></li>)
                         break;
                     case 'linkedin':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=${item.title}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.linkedin.com/shareArticle?mini=true&url=${linkShare}&title=${item.title}`)} title={nwItem} /></li>)
                         break;
                     default:
                         break;
@@ -95,7 +96,7 @@ const BlogItem = (props) => {
             {Identify.__(" on ")} {getFormattedDate(item.published_at)}
             {Identify.__(" by ")} {item.author_id}
         </footer>
-        {type === 'post' && hasBlogConfig && hasBlogConfig.hasOwnProperty('social_network') && hasBlogConfig.social_network.length ? <div className="amblog-social-container">{renderShareSocial(hasBlogConfig.social_network)}</div> : ''}
+        {hasBlogConfig && hasBlogConfig.hasOwnProperty('social_network') && hasBlogConfig.social_network.length ? <div className="amblog-social-container">{renderShareSocial(hasBlogConfig.social_network)}</div> : ''}
         {type === 'post' && <Comments post_id={item.post_id} />}
     </article>
 }

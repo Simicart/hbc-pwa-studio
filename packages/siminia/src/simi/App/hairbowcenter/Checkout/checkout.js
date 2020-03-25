@@ -158,6 +158,7 @@ class Checkout extends Component {
 
 
     placeOrder = () => {
+        console.log('call place order');
         const { submitOrder, checkout, toggleMessages, history } = this.props;
         const { paymentData, shippingAddress, shippingMethod, billingAddress } = checkout;
         const { is_virtual } = this

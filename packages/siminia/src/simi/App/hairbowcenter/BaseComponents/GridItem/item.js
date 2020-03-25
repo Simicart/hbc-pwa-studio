@@ -124,7 +124,7 @@ const Griditem = props => {
         hideFogLoading()
         if (data.errors) {
             if (data.errors.length) {
-                showToastMessage(data.errors[0])
+                showToastMessage(data.errors[0].message)
             }
         } else {
             if (data.message) {

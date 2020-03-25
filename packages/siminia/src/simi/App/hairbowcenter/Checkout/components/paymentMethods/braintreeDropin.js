@@ -91,10 +91,11 @@ const BraintreeDropin = props => {
 
 
         async function createDropinInstance() {
+            let myContainer = document.getElementById(CONTAINER_ID);
+                myContainer.innerHTML = '';
             try {
 
-                /* let myContainer = document.getElementById(CONTAINER_ID);
-                myContainer.innerHTML = ''; */
+
 
                 const dropInTT = {
                     authorization,
@@ -184,7 +185,6 @@ const BraintreeDropin = props => {
         async function requestPaymentNonce() {
             try {
                 const paymentNonce = await dropinInstance.requestPaymentMethod();
-                console.log(paymentNonce);
                 if (paymentNonce instanceof Object && Object.keys(paymentNonce).length) {
                     if (paymentNonce.type === "CreditCard"){
                         paymentNonce.value = method;

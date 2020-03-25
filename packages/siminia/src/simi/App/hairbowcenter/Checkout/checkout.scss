@@ -54,6 +54,11 @@
         > .checkout-panel-coupon {
             margin-right: 27px;
         }
+        .payment-method-content {
+            .actions-toolbar {
+                padding-right: 0;
+            }
+        }
     }
     .checkout-col-3 {
         width: 33.33%;
