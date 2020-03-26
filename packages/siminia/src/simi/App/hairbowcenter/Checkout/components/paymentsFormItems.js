@@ -12,7 +12,10 @@ import Identify from 'src/simi/Helper/Identify';
 import BraintreeDropin from './paymentMethods/braintreeDropin';
 import CCType from './paymentMethods/ccType';
 import AddressItem from 'src/simi/App/hairbowcenter/BaseComponents/Address';
-require('./paymentsFormItems.scss')
+import { smoothScrollToView } from 'src/simi/Helper/Behavior';
+require('./paymentsFormItems.scss');
+
+const $ = window.$;
 
 /**
  * This component is meant to be nested within an `informed` form. It utilizes
@@ -36,7 +39,8 @@ const PaymentsFormItems = props => {
         billingAddr,
         billingAddress,
         shippingAddress,
-        placeOrder
+        placeOrder,
+        toggleMessages
     } = props;
 
     // Currently form state toggles dirty from false to true because of how
@@ -58,7 +62,7 @@ const PaymentsFormItems = props => {
         } else {
             initialV = paymentCode;
         }
-    }else{
+    } else {
         if (Identify.ApiDataStorage('payment_selected_local')) {
             initialV = Identify.ApiDataStorage('payment_selected_local');
         }
@@ -164,6 +168,46 @@ const PaymentsFormItems = props => {
         placeOrder();
     }
 
+    const checkFormAddressData = (form, queryString) => {
+        let validCheck = true;
+        for (const key in queryString) {
+            const item = queryString[key];
+            const itemName = item.name;
+            const itemValue = item.value.trim();
+            const inputItem = form.find(`input[name='${itemName}']`);
+            const slbItem = form.find(`select[name='${itemName}']`);
+
+            if (inputItem.length || slbItem.length) {
+                if (inputItem.length && inputItem.hasClass('isrequired') && !itemValue) {
+                    validCheck = false;
+                    inputItem.addClass('warning');
+                }
+                if (slbItem.length && slbItem.attr('isrequired') === 'isrequired' && !itemValue) {
+                    validCheck = false;
+                    slbItem.addClass('warning');
+                }
+            }
+        }
+        return validCheck;
+    }
+
+    const customSubmit = () => {
+        if ($('#billingAddressForm').find('input#new-billing-address-diff-braintree') && $('#billingAddressForm').find('input#new-billing-address-diff-braintree').is(":checked")) {
+            const form = $(`#billingAddressForm`);
+            const queryStringRaw = form.serializeArray();
+            const queryString = queryStringRaw.filter(item => item.name !== "new-billing-address-custom");
+            const validCheck = checkFormAddressData(form, queryString);
+            if (validCheck) {
+                handleSubmit();
+            } else {
+                toggleMessages([{ type: 'error', message: Identify.__('Required field is empty!'), auto_dismiss: true }]);
+                smoothScrollToView($("#root"));
+            }
+        } else {
+            handleSubmit();
+        }
+    }
+
     const renderMethod = () => {
         let mt = null;
         if (paymentMethods.length) {
@@ -199,10 +243,10 @@ const PaymentsFormItems = props => {
 
                         frameCard = <Fragment>
                             {renderBilling()}
-                            <BraintreeDropin shouldRequestPaymentNonce={isSubmitting} method={ite.code} cart={cart} cartCurrencyCode={cartCurrencyCode} paymentMethods={paymentMethods} onError={handleError} onSuccess={handleSuccess} />
+                            <BraintreeDropin shouldRequestPaymentNonce={isSubmitting} method={ite.code} cart={cart} cartCurrencyCode={cartCurrencyCode} paymentMethods={paymentMethods} onError={handleError} onSuccess={handleSuccess} toggleMessages={toggleMessages} />
                             <div className="actions-toolbar">
                                 <div className="primary">
-                                    <button className="action primary" onClick={() => handleSubmit()}>{Identify.__('Place Order')}</button>
+                                    <button className="action primary" onClick={() => customSubmit()}>{Identify.__('Place Order')}</button>
                                 </div>
                             </div>
                         </Fragment>

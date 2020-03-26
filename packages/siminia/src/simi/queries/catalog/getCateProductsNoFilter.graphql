@@ -1,12 +1,25 @@
 #import "../Fragments/SimiPrice"
-query category($currentPage: Int, $pageSize: Int, $stringId: String, $sort: ProductSortInput, $simiProductSort: SimiProductSort) {
-    products(pageSize: $pageSize, currentPage: $currentPage, filter: {category_id: {eq: $stringId}}, sort: $sort, simiProductSort: $simiProductSort) {
+query category($currentPage: Int, $pageSize: Int, $stringId: String, $sort: ProductSortInput, $simiFilter: String, $simiProductSort: SimiProductSort) {
+    simiproducts(pageSize: $pageSize, currentPage: $currentPage, filter: {category_id: {eq: $stringId}}, sort: $sort, simiFilter: $simiFilter, simiProductSort: $simiProductSort) {
         total_count
+        sort_fields {
+            default
+            options {
+                value
+                label
+            }
+            __typename
+        }
         items {
             id
             name
             sku
             small_image {
+                url
+                label
+                __typename
+            }
+            thumbnail {
                 url
                 label
                 __typename
@@ -29,6 +42,10 @@ query category($currentPage: Int, $pageSize: Int, $stringId: String, $sort: Prod
             total_pages
         }
         total_count
+        simiProductListItemExtraField {
+            sku
+            extraData
+        }
         __typename
     }
 }

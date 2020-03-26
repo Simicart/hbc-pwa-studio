@@ -94,6 +94,11 @@ const Griditem = props => {
         spLabel = <div className="product-label sale-label">{productLabelConfig.new_label_text}</div>
     }
 
+    let newLabel = null;
+    if (props.new_product && productLabelConfig.new_label) {
+        newLabel = <div className="product-label new-label">{productLabelConfig.new_label_text}</div>
+    }
+
     const image = (
         <div className="product photo product-item-photo">
             <Link to={location}>
@@ -101,7 +106,7 @@ const Griditem = props => {
                 {hoverImage && <Image src={hoverImage} alt={name} className="hover_image" />}
             </Link>
             <div className="product-labels">
-                {spLabel}
+                {newLabel ? newLabel : spLabel}
                 {isNew && <div className="product-label new-label">{productLabelConfig.new_label_text}</div>}
             </div>
 
@@ -193,7 +198,7 @@ const Griditem = props => {
             showError(data)
         } else {
             showToastMessage(Identify.__('Product was added to your wishlist'));
-            if(isSignedIn) handleLink('/wishlist.html');
+            if (isSignedIn) handleLink('/wishlist.html');
         }
     }
 

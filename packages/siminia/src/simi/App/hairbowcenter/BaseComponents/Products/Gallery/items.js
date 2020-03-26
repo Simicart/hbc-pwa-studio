@@ -32,14 +32,14 @@ class GalleryItems extends Component {
     }
 
     render() {
-        const { items } = this.props;
+        const { items, new_product } = this.props;
 
         if (items === emptyData) {
             return ''
         }
 
         return items.map(item => (
-            <GridItem key={item.id} item={this.mapGalleryItem(item)} handleLink={this.handleLink.bind(this)} />
+            <GridItem key={item.id} item={this.mapGalleryItem(item)} handleLink={this.handleLink.bind(this)} new_product={new_product} />
         ));
     }
 }

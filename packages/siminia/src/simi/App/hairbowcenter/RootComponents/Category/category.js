@@ -62,8 +62,6 @@ const Category = props => {
         }
     }
 
-    console.log(filterData);
-
     const variables = {
         id: Number(id),
         pageSize: pageSize,

@@ -24,7 +24,7 @@ class Gallery extends Component {
     };
 
     render() {
-        const { classes, data, pageSize, history } = this.props;
+        const { classes, data, pageSize, history, new_product } = this.props;
         const hasData = Array.isArray(data) && data.length;
         const items = hasData ? data : emptyData;
         const list_type = Identify.ApiDataStorage('product_list_mode') || 'grid';
@@ -34,7 +34,7 @@ class Gallery extends Component {
             <div className={`products wrapper ${listClass}`} >
                 {!hasData && <Loading />}
                 <ol className="products list items product-items">
-                    <GalleryItems items={items} pageSize={pageSize} history={history} />
+                    <GalleryItems items={items} pageSize={pageSize} history={history} new_product={new_product} />
                 </ol>
             </div>
         );

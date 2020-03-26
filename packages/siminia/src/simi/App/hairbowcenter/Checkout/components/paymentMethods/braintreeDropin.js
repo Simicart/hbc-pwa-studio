@@ -15,7 +15,7 @@ import { bool, func } from 'prop-types';
 import { Util } from '@magento/peregrine';
 
 import dropIn from 'braintree-web-drop-in';
-
+import { smoothScrollToView } from 'src/simi/Helper/Behavior';
 require('./braintreeDropin.scss')
 
 const { BrowserPersistence } = Util;
@@ -212,6 +212,8 @@ const BraintreeDropin = props => {
                 // BrainTree will update the UI with error messaging,
                 // but signal that there was an error.
                 console.error(`Invalid Payment Details. \n${e}`);
+                props.toggleMessages([{ type: 'error', message: Identify.__(e), auto_dismiss: true }]);
+                smoothScrollToView($('#root'));
                 // onError();
             }
         }

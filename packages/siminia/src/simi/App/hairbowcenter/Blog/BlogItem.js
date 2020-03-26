@@ -30,7 +30,7 @@ const BlogItem = (props) => {
                 const nwItem = networks[k];
                 switch (nwItem) {
                     case 'twitter':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`https://twitter.com/?status=${item.title} : ${linkShare}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`https://twitter.com/share?text=${item.title}&url=${linkShare}`)} title={nwItem} /></li>)
                         break;
                     case 'facebook':
                         arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.facebook.com/share.php?u=${linkShare}`)} title={nwItem} /></li>)
@@ -53,9 +53,9 @@ const BlogItem = (props) => {
                     case 'digg':
                         arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://digg.com/submit?phase=2&url=${linkShare}`)} title={nwItem} /></li>)
                         break;
-                    case 'delicious':
+                    /* case 'delicious':
                         arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://del.icio.us/post?url=${linkShare}`)} title={nwItem} /></li>)
-                        break;
+                        break; */
                     case 'stumbleupon':
                         arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.stumbleupon.com/submit?url=${linkShare}&title=${item.title}`)} title={nwItem} /></li>)
                         break;
@@ -66,7 +66,7 @@ const BlogItem = (props) => {
                         arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://reddit.com/submit?url=${linkShare}&title=${item.title}`)} title={nwItem} /></li>)
                         break;
                     case 'linkedin':
-                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.linkedin.com/shareArticle?mini=true&url=${linkShare}&title=${item.title}`)} title={nwItem} /></li>)
+                        arrSocial.push(<li className={`amblog-icon _${nwItem}`} key={k}><a target="_blank" className="amblog-social" href={encodeURI(`http://www.linkedin.com/shareArticle?mini=true&url=${linkShare}&title=${item.title}&summary=${item.title}&source=${window.location.origin}`)} title={nwItem} rel="noopener" /></li>)
                         break;
                     default:
                         break;

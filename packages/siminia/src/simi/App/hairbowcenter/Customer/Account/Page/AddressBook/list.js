@@ -50,7 +50,7 @@ const List = props => {
                     <tr>
                         <th className="col firstname">{Identify.__("First Name")}</th>
                         <th className="col lastname">{Identify.__("Last Name")}</th>
-                        {(!addressConfig || addressConfig && addressConfig.street_show) ? 
+                        {(!addressConfig || addressConfig && addressConfig.street_show) ?
                             <th className="col streetaddress">{Identify.__("Street Address")}</th> : null
                         }
                         {(!addressConfig || addressConfig && addressConfig.city_show) ? <th className="col city">{Identify.__("City")}</th> : null}

@@ -13,6 +13,7 @@ import LoadingComponent from 'src/simi/BaseComponents/Loading'
 import * as Constants from 'src/simi/Config/Constants';
 import simiStoreConfigDataQuery from 'src/simi/queries/getStoreConfigData.graphql'
 import { Simiquery } from 'src/simi/Network/Query'
+import NewsletterPopup from './NewsletterPopup';
 import classes from './main.css';
 require('./main.scss');
 
@@ -50,6 +51,7 @@ class Main extends Component {
                 <div id="data-breadcrumb" />
                 {storeConfig ? <div className={classes.page} id="siminia-main-page">{this.props.children}</div> : <LoadingComponent />}
                 <Footer />
+                <NewsletterPopup config={storeConfig} location={this.props.location}/>
             </React.Fragment>
         )
     }

@@ -4,7 +4,7 @@ import Identify from 'src/simi/Helper/Identify';
 import Arrow from 'src/simi/BaseComponents/Icon/Arrowup';
 import Total from 'src/simi/App/hairbowcenter/BaseComponents/Total';
 import isObjectEmpty from 'src/util/isObjectEmpty';
-import AddressItem from 'src/simi/BaseComponents/Address';
+import AddressItem from 'src/simi/App/hairbowcenter/BaseComponents/Address';
 import OrderItems from './OrderItems';
 
 require('./OrderSummary.scss')

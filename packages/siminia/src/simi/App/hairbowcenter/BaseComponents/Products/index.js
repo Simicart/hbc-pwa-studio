@@ -110,20 +110,20 @@ class Products extends React.Component {
         const shopby = [];
         const filter = this.renderFilter();
         const { isPhone } = this.state;
-        if (filter) {
+        if ( filter) {
             shopby.push(
                 <React.Fragment key={Identify.randomString(3)}>
                     {isPhone && this.filteredData()}
                     {isPhone && <strong className="filter-btn-mobile" onClick={() => this.drawerLeftNav()}>{Identify.__("Filter")}</strong>}
-                    <div
-                        key="siminia-left-navigation-filter"
-                        className={`${classes["left-navigation"]} ${isPhone ? 'left-nav-filter-mobile' : ''}`} >
-                        {filter}
-                        {!isPhone && !this.props.search ? this.renderCustomArea() : <span role="presentation" className="btn-close-filter-nav" onClick={() => this.closeLeftNav()}><CloseIcon style={{ width: 13, height: 13 }} /></span>}
-                    </div>
                 </React.Fragment>
             );
         }
+        shopby.push(<div
+            key="siminia-left-navigation-filter"
+            className={`${classes["left-navigation"]} ${isPhone ? 'left-nav-filter-mobile' : ''}`} >
+            {filter && filter}
+            {!isPhone && !this.props.search ? this.renderCustomArea() : <span role="presentation" className="btn-close-filter-nav" onClick={() => this.closeLeftNav()}><CloseIcon style={{ width: 13, height: 13 }} /></span>}
+        </div>)
         return shopby;
     }
 
@@ -131,7 +131,6 @@ class Products extends React.Component {
         let supportBlock = null;
         let bannerBlock = null;
         let blogRating = null;
-        let ratingList = null;
 
         const merchantConfigs = Identify.getStoreConfig();
         if (merchantConfigs && merchantConfigs.simiStoreConfig && merchantConfigs.simiStoreConfig.config) {
@@ -242,7 +241,7 @@ class Products extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="top-toolbar">
+                {!props.new_product && <div className="top-toolbar">
                     <Sortby classes={classes}
                         parent={this}
                         data={data}
@@ -260,9 +259,9 @@ class Products extends React.Component {
                             // showPageNumber={false}
                             ref={(page) => { this.paginationB = page }} />
                     </div>
-                </div>
+                </div>}
                 <section className={classes.gallery}>
-                    <Gallery data={items} pageSize={pageSize} history={history} location={location} />
+                    <Gallery data={items} pageSize={pageSize} history={history} location={location} new_product={props.new_product} />
                 </section>
                 <div className={`${classes['product-grid-pagination']} product-grid-pagination`} style={{ marginBottom: 20, clear: "both" }}>
                     <Pagination
@@ -270,7 +269,7 @@ class Products extends React.Component {
                         itemCount={data.products.total_count}
                         limit={pageSize}
                         currentPage={currentPage}
-                        itemsPerPageOptions={[20, 60, 120]}
+                        itemsPerPageOptions={props.new_product ? [12, 24, 36] : [20, 60, 120]}
                         showInfoItem={false}
                         ref={(page) => { this.pagination = page }} />
                 </div>
@@ -289,15 +288,17 @@ class Products extends React.Component {
                 <div className={classes["product-list-container-siminia"]}>
                     {this.renderLeftNavigation(classes)}
                     <div style={styleH}>
-                        <SubCategories cateId={cateId} />
-                        {
-                            categoryImage &&
-                            <CategoryHeader
-                                name={title}
-                                image_url={categoryImage.includes('tmp/category') ? categoryImage : resourceUrl(categoryImage, { type: 'image-category' })}
-                            />
-                        }
-                        <div className="category-description">{ReactHTMLParser(description)}</div>
+                        {cateId && <React.Fragment>
+                            <SubCategories cateId={cateId} />
+                            {
+                                categoryImage &&
+                                <CategoryHeader
+                                    name={title}
+                                    image_url={categoryImage.includes('tmp/category') ? categoryImage : resourceUrl(categoryImage, { type: 'image-category' })}
+                                />
+                            }
+                            <div className="category-description">{ReactHTMLParser(description)}</div>
+                        </React.Fragment>}
                         {this.renderList(classes)}
                     </div>
                 </div>
@@ -305,5 +306,9 @@ class Products extends React.Component {
         );
     }
 };
+
+// Products.defaultProps = {
+//     useFilter: true
+// }
 
 export default classify(defaultClasses)(Products);

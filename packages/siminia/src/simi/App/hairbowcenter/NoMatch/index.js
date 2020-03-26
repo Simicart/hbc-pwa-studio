@@ -22,7 +22,7 @@ const TYPE_CATEGORY = 'CATEGORY'
 const TYPE_CMS_PAGE = 'CMS_PAGE'
 
 const NoMatch = props => {
-    const {location} = props
+    const {location, history} = props
     const renderByTypeAndId = (type, id, relative_url, preloadedData = null) => {
         if (type === TYPE_PRODUCT)
             return <Product {...props} preloadedData={preloadedData}/>
@@ -51,9 +51,9 @@ const NoMatch = props => {
         if(page) {
             if(type === 'detail') {
 
-                return <AtrributePageDetail page={page} urlKey={pathNameArray[2]}/>
+                return <AtrributePageDetail page={page} urlKey={pathNameArray[2]} location={location} history={history}/>
             }
-            return <AttributePage page={page}/>
+            return <AttributePage page={page} location={location}  history={history}/>
         }
     }   
 

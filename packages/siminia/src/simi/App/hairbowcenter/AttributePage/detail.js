@@ -1,45 +1,52 @@
 import React, {useState, useEffect} from 'react';
-import getCategory from 'src/simi/queries/catalog/getCategory.graphql'
+import getCateProductsNoFilter from 'src/simi/queries/catalog/getCateProductsNoFilter.graphql'
 import { Simiquery } from 'src/simi/Network/Query'
 import TitleHelper from 'src/simi/Helper/TitleHelper'
 import { applySimiProductListItemExtraField } from 'src/simi/Helper/Product'
 import BreadCrumb from "src/simi/BaseComponents/BreadCrumb"
 import { cateUrlSuffix } from 'src/simi/Helper/Url';
+import ReactHTMLParse from 'react-html-parser';
 import Products from 'src/simi/App/hairbowcenter/BaseComponents/Products';
 import {getOption} from '../Model/AttributePage';
 import { smoothScrollToView } from 'src/simi/Helper/Behavior';
 import Identify from "src/simi/Helper/Identify";
 import LoadingSpiner from 'src/simi/BaseComponents/Loading/LoadingSpiner'
 import Loading from 'src/simi/BaseComponents/Loading'
+require('./attributepage.scss');
 
 var sortByData = null
 var filterData = null
 
 const AtrributePageDetail = props => {  
-    const {page, urlKey} = props;
-    const [data, setData] = useState(null);
+    const {page, urlKey, location} = props;
+    const [pageData, setPageData] = useState(null);
     
     useEffect(() => {
-        setData('loading');
+        setPageData('loading');
         getOption(getOptionCallBack, urlKey);
     }, [])
 
-    const getOptionCallBack = (dataPage) => {
-        if(dataPage && dataPage.errors) {
-            setData(null);
-        } else if (dataPage && dataPage.attributepage) {
-            setData(dataPage.attributepage);
+    const getOptionCallBack = (data) => {
+        if(data && data.errors) {
+            setPageData(null);
+        } else if (data && data.attributepage) {
+            setPageData(data.attributepage);
         } else {
-            setData(null);
+            setPageData(null);
         }
     }
 
-    if(data === 'loading') {
+    if(pageData === 'loading') {
         return <Loading />
     } 
 
-    if(!data) {
+    if(!pageData) {
         return null
+    }
+
+    let displaySettings = null;
+    if(pageData.display_settings) {
+        displaySettings = JSON.parse(pageData.display_settings);
     }
 
     const {simiStoreConfig} = Identify.getStoreConfig();
@@ -64,18 +71,19 @@ const AtrributePageDetail = props => {
         }
     }
 
-    console.log(data)
-
     const defaultFilter = {};
-    console.log(data.attribute_code);
-    defaultFilter[data.attribute_code] =  data.option_id
+    defaultFilter[pageData.attribute_code] =  pageData.option_id
 
     const variables = {
         id: Number(root_category_id),
         pageSize: pageSize,
         currentPage: currentPage,
         stringId: String(root_category_id),
-        simiFilter: JSON.stringify(defaultFilter)
+        simiFilter: JSON.stringify(defaultFilter),
+        simiProductSort: {
+            attribute: 'cat_index_position',
+            direction: 'asc'
+        }
     }
     if (filterData)
         variables.simiFilter = filterData
@@ -90,7 +98,7 @@ const AtrributePageDetail = props => {
 
     smoothScrollToView($('#root'))
     return (
-        <Simiquery query={getCategory} variables={variables}>
+        <Simiquery query={getCateProductsNoFilter} variables={variables}>
             {({ loading, error, data }) => {
                 if (error) return <div>Data Fetch Error</div>;
                 if (!data || !data.simiproducts) return <LoadingSpiner />;
@@ -102,30 +110,53 @@ const AtrributePageDetail = props => {
                 }
                 const pathArray = [];
                 pathArray.unshift({ name: Identify.__("Home"), link: '/' })
-                {/* pathArray.push({ name: , link: '#' }) */}
+                pathArray.push({ name: page.title, link: `/${page.identifier}` })
+                pathArray.push({ name: pageData.title })
+
+                let style = {}
+                if(pageData.root_template) {
+                    if(pageData.root_template === '2columns-left') {
+                        style.width = '75%'
+                        style.marginLeft = 'auto'
+                    } else if(pageData.root_template === '2columns-right') {
+                        style.width = '75%'
+                        style.marginRight = 'auto'
+                    } else if(pageData.root_template === '3columns') {
+                        style.width = '50%'
+                        style.margin = '0 auto'
+                    }
+                }
 
                 return (
-                    <div className="container">
-                        <BreadCrumb breadcrumb={pathArray} />
-                        {TitleHelper.renderMetaHeader({
-                            title: data.category.meta_title ? data.category.meta_title : data.category.name,
-                            desc: data.category.meta_description
-                        })}
-
-                        <Products
-                            // title={categoryTitle}
-                            // description={categoryDesc}
-                            // categoryImage={categoryImage}
-                            history={props.history}
-                            location={props.location}
-                            currentPage={currentPage}
-                            pageSize={pageSize}
-                            data={loading ? null : data}
-                            sortByData={sortByData}
-                            filterData={filterData ? JSON.parse(productListFilter) : null}
-                            cateId={data.category.id}
-                        />
+                    <div className="page-attribute-wrapper">
+                        
+                        <div className="container">
+                            <BreadCrumb breadcrumb={pathArray} />
+                            {TitleHelper.renderMetaHeader({
+                                title: pageData.meta_title ? pageData.meta_title : pageData.page_title,
+                                desc: pageData.meta_description
+                            })}
+                            
+                            <h1 className="page-title">
+                                <span className="base">{pageData.page_title}</span>
+                            </h1>
+                            <div className="main-content" style={style}>
+                                {page.content && displaySettings.display_mode !== 'children' && <div className="category-description std">
+                                    {ReactHTMLParse(pageData.content)}
+                                </div>}
+                                {displaySettings.display_mode !== 'description' && <Products
+                                    history={props.history}
+                                    location={props.location}
+                                    currentPage={currentPage}
+                                    pageSize={pageSize}
+                                    data={loading ? null : data}
+                                    sortByData={sortByData}
+                                    filterData={filterData ? JSON.parse(productListFilter) : null}
+                                />}
+                            </div>
+                        </div>
                     </div>
+                    
                 )
             }}
         </Simiquery>

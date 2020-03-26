@@ -100,7 +100,7 @@ class Abstract extends React.Component{
                 <Route exact {...router.paypal_express}/>
                 <Route exact {...router.print} />
                 <Route exact {...router.blog} />
-                {/* <Route exact {...router.blog_detail} /> */}
+                <Route exact {...router.new_products} />
                 {this.renderPbRoute()}
                 <Route {...router.noMatch}/>
             </Switch>

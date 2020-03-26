@@ -47,6 +47,10 @@ const Blog = (props) => {
     return <LazyComponent component={() => import(/* webpackChunkName: "Blog"*/'src/simi/App/hairbowcenter/Blog')} {...props}/>
 }
 
+const NewProducts = (props) => {
+    return <LazyComponent component={() => import(/* webpackChunkName: "NewProducts"*/'src/simi/App/hairbowcenter/NewProducts')} {...props}/>
+}
+
 
 const router = {
     home : {
@@ -161,10 +165,10 @@ const router = {
         path: '/blog',
         render : (location) => <Blog {...location} />
     },
-    /* blog_detail: {
-        path: '/blog/slug?',
-        render : location => <Blog {...location}/>
-    }, */
+    new_products: {
+        path: '/new-product',
+        render : (location) => <NewProducts {...location} />
+    },
     noMatch: {
         component : location => <NoMatch {...location} />
     }

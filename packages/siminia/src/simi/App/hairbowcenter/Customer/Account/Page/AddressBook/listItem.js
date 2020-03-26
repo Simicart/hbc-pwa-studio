@@ -24,7 +24,7 @@ const ListItem = props => {
             <td className="firstname" data-th={Identify.__("First Name")}>{data.firstname}</td>
             <td className="lastname" data-th={Identify.__("Last Name")}>{data.lastname}</td>
             {(!addressConfig || addressConfig && addressConfig.street_show) ?
-                <td className="streetaddress" data-th={Identify.__("Street Address")} style={{display: 'flex', flexDirection: 'column'}}>{data.street.map((address, index) => {
+                <td className="streetaddress" data-th={Identify.__("Street Address")} style={{ display: 'flex', flexDirection: 'column' }}>{data.street.map((address, index) => {
                     return <span key={index}>{address}</span>
                 })}</td>
                 : null
@@ -38,7 +38,7 @@ const ListItem = props => {
                 : null
             }
             {(!addressConfig || addressConfig && addressConfig.region_id_show) ?
-                <td className="state" data-th={Identify.__("State")}>{data.region_code}</td>
+                <td className="state" data-th={Identify.__("State")}>{data.region.hasOwnProperty('region') ? data.region.region : ''}</td>
                 : null
             }
             {(!addressConfig || addressConfig && addressConfig.zipcode_show) ?

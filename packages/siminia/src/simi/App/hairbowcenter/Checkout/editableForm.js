@@ -203,6 +203,7 @@ const EditableForm = props => {
                     billingAddress={billingAddress}
                     shippingAddress={shippingAddress}
                     placeOrder={placeOrder}
+                    toggleMessages={toggleMessages}
                 />
             );
         }

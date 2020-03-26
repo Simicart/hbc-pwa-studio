@@ -20,13 +20,76 @@
         }
 
         .attributepages-grid-wrapper {
+            .attributepages-cols-8 li.item {
+                width: 10.5% !important;
+            }
+            .attributepages-cols-7 li.item {
+                width: 12.2% !important;
+            }
+            .attributepages-cols-6 li.item {
+                width: 14.6% !important;
+            }
+            .attributepages-cols-5 li.item {
+                width: 18% !important;
+            }
+            .attributepages-cols-4 li.item {
+                width: 23% !important;
+            }
+            .attributepages-cols-3 li.item {
+                width: 31.3% !important;
+            }
+            .attributepages-cols-2 li.item {
+                width: 48% !important;
+            }
+            .attributepages-cols-1 li.item {
+                width: 98%;
+            }
             ul {
+             
                 margin-top: 18px;
-                display: grid;
-                grid-template-columns: repeat(5, 1fr);
-                grid-row-gap: 25px;
-                grid-column-gap: 22px;
-                grid-auto-rows: 1fr;
+                display: flex;
+                flex-wrap: wrap;
+                li {
+                    padding: 10px 1% !important;
+                    text-align: center;
+                    a {
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                        color: #00CCCC;
+                        img {
+                            width: 100%;
+                            height: auto;
+                            border: none;
+                            margin: 0;
+                            padding: 0;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+          
+        }
+
+        article {
+            &>div {
+                &>div {
+                    width: 100% !important;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1023px) {
+    .page-attribute-wrapper {
+        .attributepages-grid-wrapper {
+            ul.attributepages-grid {
+                li {
+                    img {
+                        width: 100%
+                    }
+                }
             }
           
         }
