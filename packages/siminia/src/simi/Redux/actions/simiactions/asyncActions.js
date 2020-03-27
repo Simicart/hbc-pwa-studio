@@ -320,11 +320,8 @@ export const submitOrder = () =>
         const paymentMethod = await retrievePaymentMethod();
         const shipping_address = await retrieveShippingAddress();
 
+
         if (!billing_address || billing_address.sameAsShippingAddress) {
-            if (!shipping_address.region && shipping_address.region_code) {
-                shipping_address['region'] = shipping_address.region_code;
-                delete shipping_address.region_code;
-            }
             if (billing_address.sameAsShippingAddress && shipping_address.hasOwnProperty('save_in_address_book') && shipping_address.save_in_address_book) {
                 // avoid duplicate save same address book for both shipping address & billing address
                 billing_address = { ...shipping_address, save_in_address_book: 0 }
@@ -342,6 +339,11 @@ export const submitOrder = () =>
                     ...billing_address
                 };
             }
+        }
+
+        if (!billing_address.region && billing_address.region_code) {
+            billing_address['region'] = billing_address.region_code;
+            delete billing_address.region_code;
         }
 
         try {

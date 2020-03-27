@@ -339,4 +339,4 @@ const mapStateToProps = ({ user }) => {
     };
 }
 
-export default compose(withRouter, connect(mapStateToProps))(AddressBook);
+export default compose(withRouter, connect(mapStateToProps, null))(AddressBook);
