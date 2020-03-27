@@ -51,6 +51,10 @@ const NewProducts = (props) => {
     return <LazyComponent component={() => import(/* webpackChunkName: "NewProducts"*/'src/simi/App/hairbowcenter/NewProducts')} {...props}/>
 }
 
+const ResetPassword = (props) => {
+    return <LazyComponent component={() => import(/* webpackChunkName: "ResetPassword"*/'src/simi/App/hairbowcenter/Customer/ResetPassword')} {...props}/>
+}
+
 
 const router = {
     home : {
@@ -96,6 +100,10 @@ const router = {
     logout : {
         path: '/logout.html',
         render : (location) => <Logout {...location}/>
+    },
+    customer_reset_password : {
+        path : '/reset-password.html',
+        render : (location) => <ResetPassword {...location} />
     },
     account : {
         path: '/account.html',

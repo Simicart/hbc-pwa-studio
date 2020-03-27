@@ -23,7 +23,7 @@ const renderRegionField = (selectedCountry, initialCountry, countries, addressCo
                 {
                     (regions && Array.isArray(regions) && regions.length) ?
                         <select
-                            defaultValue={addressData.region_code ? addressData.region_code : addressData.region.region}
+                            defaultValue={addressData.region_code ? addressData.region_code : addressData.region.region_code}
                             name="region_code" id='region_code'
                             className={addressConfig && addressConfig.region_id_show === 'req' ? 'isrequired' : ''}
                         >
@@ -34,7 +34,6 @@ const renderRegionField = (selectedCountry, initialCountry, countries, addressCo
                         </select> :
                         <input type="text" id='region_code' name='region_code'
                             className={addressConfig && addressConfig.region_id_show === 'req' ? 'isrequired' : ''} defaultValue={addressData.region.region}></input>
-
                 }
             </div>
         )

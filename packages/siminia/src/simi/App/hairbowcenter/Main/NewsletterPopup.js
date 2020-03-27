@@ -48,9 +48,9 @@ const NewsletterPopup = props => {
     }
 
     if(
-        config 
-        && config.simiStoreConfig 
-        && config.simiStoreConfig.config 
+        config
+        && config.simiStoreConfig
+        && config.simiStoreConfig.config
         && config.simiStoreConfig.config.newsletter_popup
     ) {
         newsletterConfig = config.simiStoreConfig.config.newsletter_popup
@@ -87,7 +87,7 @@ const NewsletterPopup = props => {
                         <div className="field newsletter">
                             <div className="control">
                                 <input id="subscribe-popup-email" name="email" type="email" onChange={(e) => email = e.target.value}/>
-                                
+
                             </div>
                             <div className="actions">
                                 <button className="action subscribe primary" type="submit">
@@ -99,7 +99,7 @@ const NewsletterPopup = props => {
                     </form>
                     <div className="subscribe-bottom">
                         <input type="checkbox" id="newsletter_popup_dont_show_again" defaultChecked={true} onChange={(e) => handleOnChangeCheckbox(e)}/>
-                        <label for="newsletter_popup_dont_show_again">Don't show this popup again</label>
+                        <label htmlFor="newsletter_popup_dont_show_again">Don't show this popup again</label>
                     </div>
                 </div>
             </div>

@@ -96,6 +96,7 @@ class Abstract extends React.Component{
                 <Route exact {...router.create_account} />
                 <Route exact {...router.forgot_password} />
                 <Route exact {...router.logout}/>
+                <Route exact {...router.customer_reset_password} />
                 <Route exact {...router.contact}/>
                 <Route exact {...router.paypal_express}/>
                 <Route exact {...router.print} />

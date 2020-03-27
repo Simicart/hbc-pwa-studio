@@ -73,8 +73,11 @@
 
         article {
             &>div {
-                &>div {
+                &>div:last-child {
                     width: 100% !important;
+                }
+                &>div:first-child {
+                    display: none;
                 }
             }
         }

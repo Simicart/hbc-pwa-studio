@@ -16,6 +16,7 @@ import { Util } from '@magento/peregrine';
 
 import dropIn from 'braintree-web-drop-in';
 import { smoothScrollToView } from 'src/simi/Helper/Behavior';
+import Identify from 'src/simi/Helper/Identify';
 require('./braintreeDropin.scss')
 
 const { BrowserPersistence } = Util;

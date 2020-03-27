@@ -9,7 +9,7 @@ import { getUserDetails } from 'src/actions/user';
 import isObjectEmpty from 'src/util/isObjectEmpty';
 import Identify from 'src/simi/Helper/Identify';
 import { refresh } from 'src/util/router-helpers';
-import {getShippingMethods} from 'src/actions/checkout/asyncActions';
+import { getShippingMethods } from 'src/actions/checkout/asyncActions';
 import { getCountries } from 'src/actions/directory';
 
 //const { request } = RestApi.Magento2;
@@ -78,9 +78,9 @@ export const getUserPoints = () =>
                     method: 'GET'
                 });
 
-                if (userRW instanceof Array && userRW.length){
+                if (userRW instanceof Array && userRW.length) {
                     dispatch(actions.getUserRewardsPoints(userRW[0]));
-                }else{
+                } else {
                     dispatch(actions.getUserRewardsPoints(userRW));
                 }
             } catch (error) {
@@ -120,9 +120,15 @@ export const submitShippingAddress = payload =>
         const authedEndpoint =
             '/rest/V1/carts/mine/estimate-shipping-methods';
         const endpoint = user.isSignedIn ? authedEndpoint : guestEndpoint;
+
+        if (address && address.region_code && !address.region) {
+            address['region'] = address.region_code;
+            delete address.region_code;
+        }
+
         const response = await request(endpoint, {
             method: 'POST',
-            body: JSON.stringify({address})
+            body: JSON.stringify({ address })
         });
         dispatch(actions.changeCheckoutUpdating(false));
         await saveAvailableShippingMethod(response);
@@ -266,7 +272,13 @@ export const submitShippingMethod = payload =>
             };
         }
 
-        try{
+        let shipping_addressModify = shipping_address;
+        if (shipping_address.region_code && !shipping_address.region) {
+            shipping_addressModify['region'] = shipping_address.region_code;
+            delete shipping_addressModify.region_code;
+        }
+
+        try {
             // POST to shipping-information to submit the shipping address and shipping method.
             const guestShippingEndpoint = `/rest/V1/guest-carts/${cartId}/shipping-information`;
             const authedShippingEndpoint =
@@ -280,7 +292,7 @@ export const submitShippingMethod = payload =>
                 body: JSON.stringify({
                     addressInformation: {
                         billing_address,
-                        shipping_address,
+                        shipping_address: shipping_addressModify,
                         shipping_carrier_code: desiredShippingMethod.carrier_code,
                         shipping_method_code: desiredShippingMethod.method_code
                     }
@@ -288,7 +300,7 @@ export const submitShippingMethod = payload =>
             });
 
             dispatch(cartActions.getDetails.receive({ paymentMethods: response.payment_methods, totals: response.totals }));
-        }catch(error){
+        } catch (error) {
             dispatch(checkoutActions.shippingMethod.reject(error));
         }
         // dispatch(actions.changeCheckoutUpdating(false));
@@ -309,10 +321,14 @@ export const submitOrder = () =>
         const shipping_address = await retrieveShippingAddress();
 
         if (!billing_address || billing_address.sameAsShippingAddress) {
-            if (billing_address.sameAsShippingAddress && shipping_address.hasOwnProperty('save_in_address_book') && shipping_address.save_in_address_book){
+            if (!shipping_address.region && shipping_address.region_code) {
+                shipping_address['region'] = shipping_address.region_code;
+                delete shipping_address.region_code;
+            }
+            if (billing_address.sameAsShippingAddress && shipping_address.hasOwnProperty('save_in_address_book') && shipping_address.save_in_address_book) {
                 // avoid duplicate save same address book for both shipping address & billing address
-                billing_address = {...shipping_address, save_in_address_book : 0}
-            }else{
+                billing_address = { ...shipping_address, save_in_address_book: 0 }
+            } else {
                 billing_address = shipping_address;
             }
         } else {
@@ -352,19 +368,19 @@ export const submitOrder = () =>
             };
 
             // for CC payment: Stripe
-            if (paymentMethod.data.hasOwnProperty('cc_token') && paymentMethod.data.cc_token){
+            if (paymentMethod.data.hasOwnProperty('cc_token') && paymentMethod.data.cc_token) {
                 bodyData.paymentMethod['additional_data'] = paymentMethod.data;
             }
 
             // for payment type Purchase Order
-            if (paymentMethod.data.hasOwnProperty('purchaseorder') && paymentMethod.data.purchaseorder){
+            if (paymentMethod.data.hasOwnProperty('purchaseorder') && paymentMethod.data.purchaseorder) {
                 bodyData.paymentMethod['po_number'] = paymentMethod.data.purchaseorder;
             }
 
             // check variable signup newsletter
             const ck_newsletter = Identify.getDataFromStoreage(Identify.SESSION_STOREAGE, 'ck_signup_newsletter');
-            if (ck_newsletter){
-                bodyData.paymentMethod['extension_attributes'] = {po_newsletter_subscribe: ck_newsletter}
+            if (ck_newsletter) {
+                bodyData.paymentMethod['extension_attributes'] = { po_newsletter_subscribe: ck_newsletter }
             }
 
             const response = await request(paymentEndpoint, {
@@ -462,14 +478,14 @@ async function clearAvailableShippingMethod() {
 }
 
 async function saveAvailableShippingMethod(methods) {
-    if (methods && methods instanceof Object && Object.keys(methods).length >0){
-        for(const key in methods){
+    if (methods && methods instanceof Object && Object.keys(methods).length > 0) {
+        for (const key in methods) {
             const method = methods[key];
             methods[key]['code'] = method.carrier_code
             methods[key]['title'] = method.carrier_title
         }
         return storage.setItem('availableShippingMethod', methods);
-    }else{
+    } else {
         return storage.removeItem('availableShippingMethod');
     }
 }
@@ -505,10 +521,17 @@ export const getShippingMethodsCustomize = () => {
             const authedEndpoint =
                 '/rest/V1/carts/mine/estimate-shipping-methods';
             const endpoint = user.isSignedIn ? authedEndpoint : guestEndpoint;
-            const s_address = checkout.shippingAddress ? checkout.shippingAddress : {
+            let s_address = {
                 country_id: 'US',
                 postcode: null
             };
+            if (checkout.shippingAddress) {
+                s_address = checkout.shippingAddress;
+                if (checkout.shippingAddress.region_code && !checkout.shippingAddress.region) {
+                    s_address['region'] = checkout.shippingAddress.region_code;
+                    delete s_address.region_code;
+                }
+            }
 
             const response = await request(endpoint, {
                 method: 'POST',

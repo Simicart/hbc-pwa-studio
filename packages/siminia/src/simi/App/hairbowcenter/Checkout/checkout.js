@@ -55,7 +55,7 @@ class Checkout extends Component {
             await beginCheckout();
             await check3DSecure();
         } catch (err) {
-            console.log(err)
+            console.warn(err)
         }
     }
 
@@ -158,7 +158,6 @@ class Checkout extends Component {
 
 
     placeOrder = () => {
-        console.log('call place order');
         const { submitOrder, checkout, toggleMessages, history } = this.props;
         const { paymentData, shippingAddress, shippingMethod, billingAddress } = checkout;
         const { is_virtual } = this
@@ -188,7 +187,6 @@ class Checkout extends Component {
         if (paymentData && paymentData.value === 'paypal_express')
             history.push('/paypal_express.html')
         else {
-            console.log('still click submit order')
             this.autoFocusCheckout = true;
             showFogLoading();
             submitOrder();

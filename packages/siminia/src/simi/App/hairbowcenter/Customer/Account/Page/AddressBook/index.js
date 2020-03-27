@@ -227,7 +227,7 @@ const AddressBook = props => {
         dispatch({ changeType: 'delete', id: id });
     }
 
-    if (countries && countries.length){
+    if (countries && countries.length) {
         defaultBillingCountry = countries.find(country => country.id === defaultBilling.country_id);
         defaultShippingCountry = countries.find(country => country.id === defaultShipping.country_id);
     }
@@ -236,6 +236,7 @@ const AddressBook = props => {
         if (!defaultBilling.id && !defaultShipping.id) {
             return <div>{Identify.__("No default billing/shipping address selected.")}</div>
         }
+
         return (
             <div className="address-content">
                 {defaultBilling.id &&
@@ -250,7 +251,7 @@ const AddressBook = props => {
                                     })}</> : ''}
                                 {(!addressConfig || addressConfig && addressConfig.zipcode_show) && defaultBilling.postcode ? <>{defaultBilling.postcode}, </> : ''}
                                 {(!addressConfig || addressConfig && addressConfig.city_show) && defaultBilling.city ? <>{defaultBilling.city}, </> : ''}
-                                {(!addressConfig || addressConfig && addressConfig.region_id_show) && defaultBilling.region ? <>{defaultBilling.region.region_code}<br /></> : ''}
+                                {(!addressConfig || addressConfig && addressConfig.region_id_show) && defaultBilling.region ? <>{defaultBilling.region.region_code ? defaultBilling.region.region_code : defaultBilling.region.region}<br /></> : ''}
                                 {(!addressConfig || addressConfig && addressConfig.country_id_show) && defaultBillingCountry.full_name_locale ? <>{defaultBillingCountry.full_name_locale}<br /></> : ''}
                                 {(!addressConfig || addressConfig && addressConfig.telephone_show) && defaultBilling.telephone &&
                                     <>
@@ -276,7 +277,7 @@ const AddressBook = props => {
                                     })}</> : ''}
                                 {(!addressConfig || addressConfig && addressConfig.zipcode_show) && defaultShipping.postcode ? <>{defaultShipping.postcode}, </> : ''}
                                 {(!addressConfig || addressConfig && addressConfig.city_show) && defaultShipping.city ? <>{defaultShipping.city}, </> : ''}
-                                {(!addressConfig || addressConfig && addressConfig.region_id_show) && defaultShipping.region ? <>{defaultShipping.region.region_code}<br /></> : ''}
+                                {(!addressConfig || addressConfig && addressConfig.region_id_show) && defaultShipping.region ? <>{defaultShipping.region.region_code ? defaultShipping.region.region_code : defaultShipping.region.region}<br /></> : ''}
                                 {(!addressConfig || addressConfig && addressConfig.country_id_show) && defaultShippingCountry.full_name_locale ? <>{defaultShippingCountry.full_name_locale}<br /></> : ''}
                                 {(!addressConfig || addressConfig && addressConfig.telephone_show) && defaultShipping.telephone &&
                                     <>

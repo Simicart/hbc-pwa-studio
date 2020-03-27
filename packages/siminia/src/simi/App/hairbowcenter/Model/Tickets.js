@@ -11,5 +11,5 @@ export const postTicket = (callBack, payload) => {
 }
 
 export const uploadFiles = (callBack, payload) => {
-    sendRequest(`rest/V1/simiconnector/uploadfiles`, callBack, "POST", {}, payload);
+    sendRequest(`rest/V1/simiconnector/ticketuploads`, callBack, "POST", {}, payload);
 }

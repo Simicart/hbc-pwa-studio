@@ -22,3 +22,7 @@ export const getCustomerRecentOrder = (callBack, params) => {
 export const addReorderedToCart = (callBack, params) => {
     sendRequest(`/rest/V1/simiconnector/reordered`, callBack, 'POST', {}, params)
 }
+
+export const createPassword = (callBack, passwordInfo) => {
+    sendRequest('/rest/V1/simiconnector/customers/createpassword', callBack, 'POST', {}, passwordInfo)
+}

@@ -8,11 +8,11 @@ const $ = window.$;
 const FormTicket = (props) => {
     const { tickets, orderId } = props;
     let defaultOrder = '';
-    if(orderId) {
-        const {order_options} = tickets || {}
+    if (orderId) {
+        const { order_options } = tickets || {}
         for (let i in order_options) {
             const order_option = order_options[i];
-            if(order_option === orderId) {
+            if (order_option === orderId) {
                 defaultOrder = i
             }
         }
@@ -34,7 +34,7 @@ const FormTicket = (props) => {
 
         let dpt = [];
         for (const key in departments) {
-            dpt.push(<option value={key}>{departments[key]}</option>);
+            dpt.push(<option value={key} key={key}>{departments[key]}</option>);
         }
 
         return <div className="form-group department">
@@ -47,7 +47,7 @@ const FormTicket = (props) => {
 
     const renderOrder = () => {
         if (!tickets || (tickets && !tickets.hasOwnProperty('order_options'))) return;
-       
+
         let dpt = [];
         const { order_options } = tickets;
         for (const key in order_options) {
@@ -59,9 +59,9 @@ const FormTicket = (props) => {
     const validation = (inputs) => {
         let isValid = true;
 
-        for(let indx in inputs){
+        for (let indx in inputs) {
             const item = inputs[indx];
-            if (($(`#${item.name}`).hasClass('isrequired') || $(`#${item.name}`).attr('required')) && item.value === 'null'){
+            if (($(`#${item.name}`).hasClass('isrequired') || $(`#${item.name}`).attr('required')) && item.value === 'null') {
                 isValid = false;
             }
         }
@@ -73,28 +73,36 @@ const FormTicket = (props) => {
         e.preventDefault();
         const formValue = $("#helpdesk-submit-ticket").serializeArray();
         const checkValid = validation(formValue);
-        if (checkValid){
+        if (checkValid) {
             let params = {}
             for (let index in formValue) {
                 let field = formValue[index];
                 params[field.name] = field.value;
             }
-            if (fileAttach){
-                params['file[]'] = fileAttach;
+            if (fileAttach) {
+                params['attachment'] = fileAttach;
             }
             postTicket(callBackPostTicket, params);
         }
     }
 
     const callBackPostTicket = (data) => {
-        console.log(data)
+        if (data.success) {
+            props.toggleMessages([{ type: 'success', message: data.message, auto_dismiss: true }]);
+            props.callApiListTickets();
+        } else if (data.errors) {
+            const messages = data.errors.map(value => {
+                return { type: 'error', message: value.message, auto_dismiss: true }
+            })
+            props.toggleMessages(messages);
+        }
     }
 
     const callBackUploadFiles = (data) => {
         const buttonSubmit = $('#helpdesk-submit-ticket').find('button[type="submit"]');
         buttonSubmit.removeAttr("disabled");
-        if (data.hasOwnProperty('uploadfile')){
-            fileAttach = data.uploadfile.order_path;
+        if (data.hasOwnProperty('uploadfile')) {
+            fileAttach = [{ name: data.uploadfile.title, file: data.uploadfile.title, removed: "0" }];
         }
     }
 
