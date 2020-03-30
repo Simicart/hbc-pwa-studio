@@ -23,10 +23,15 @@ const DataTable = (props) => {
     const renderItem = (item, index) => {
         let dateP = item.last_reply_date;
         const dateF = dateP.split(/[- :]/);
-        let date = new Date(dateF[0], dateF[1], dateF[2], dateF[3], dateF[4], dateF[5]);
-        let m = date.getMonth() + 1;
+        // let date = new Date(dateF[0], dateF[1], dateF[2], dateF[3], dateF[4], dateF[5]);
+        /* let m = date.getMonth() + 1;
         m = m < 10 ? "0" + m : m;
-        date = date.getDate() + "/" + m + "/" + date.getFullYear();
+        date = date.getDate() + "/" + m + "/" + date.getFullYear(); */
+
+        let date = new Date(dateP);
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: "UTC" };
+        const dateCV = date.toLocaleDateString("en-US", options).replace(",", "");
+
 
         const detailLocation = {
             pathname: `/ticket.html/${item.id}`,
@@ -52,7 +57,7 @@ const DataTable = (props) => {
                     {item.status}
                 </td>
                 <td data-title={Identify.__("Last Reply")}>
-                    {date}
+                    {dateCV}
                 </td>
             </tr>
         )

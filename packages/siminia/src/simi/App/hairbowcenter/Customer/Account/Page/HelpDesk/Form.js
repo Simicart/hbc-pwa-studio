@@ -20,7 +20,7 @@ const FormTicket = (props) => {
         }
     }
 
-    let fileAttach = null;
+    let fileAttach = [];
 
     const handleOnChange = (e) => {
         if (e.target.name === 'new_password') {
@@ -80,7 +80,7 @@ const FormTicket = (props) => {
                 let field = formValue[index];
                 params[field.name] = field.value;
             }
-            if (fileAttach) {
+            if (fileAttach && fileAttach.length) {
                 params['attachment'] = fileAttach;
             }
             showFogLoading();
@@ -93,7 +93,7 @@ const FormTicket = (props) => {
             props.toggleMessages([{ type: 'success', message: data.message, auto_dismiss: true }]);
             props.callApiListTickets();
             $("#helpdesk-submit-ticket")[0].reset();
-            fileAttach = null;
+            fileAttach = [];
             $('#aw-helpdesk-attachments-added').empty();
         } else if (data.errors) {
             const messages = data.errors.map(value => {
@@ -109,31 +109,45 @@ const FormTicket = (props) => {
         const buttonSubmit = $('#helpdesk-submit-ticket').find('button[type="submit"]');
         buttonSubmit.removeAttr("disabled");
         if (data.hasOwnProperty('uploadfile')) {
-            fileAttach = [{ name: data.uploadfile.file_name, file: data.uploadfile.file_name, removed: "0" }];
+            fileAttach.push({ name: data.uploadfile.file_name, file: data.uploadfile.file_name, removed: "0" });
         }
     }
 
     const handleUploadFile = async () => {
         const containerTag = $('#helpdesk-submit-ticket');
         const buttonSubmit = containerTag.find('button[type="submit"]');
-        const fileUL = document.getElementById("aw-helpdesk-attachments").files[0];
-        const base64Result = await convertImageToBase64(fileUL).catch(e => e);
-        if (base64Result) {
-            const base64RP = base64Result.replace(/^data:image.+;base64,/, '');
-            const fileData = {
-                'type': fileUL.type,
-                'name': fileUL.name,
-                'size': fileUL.size,
-                'base64': base64RP
-            };
-            if (fileData && Object.keys(fileData).length) {
-                if (containerTag.find('#aw-helpdesk-attachments-added').length) {
-                    containerTag.find('#aw-helpdesk-attachments-added').append(`<li><span>${fileUL.name} (${niceBytes(fileUL.size)})</span> <span>x</span></li>`);
+        const fileChoose = document.getElementById("aw-helpdesk-attachments").files;
+        for (let c = 0; c < fileChoose.length; c++) {
+            const fileUL = fileChoose[c];
+            const base64Result = await convertImageToBase64(fileUL).catch(e => e);
+            if (base64Result) {
+                const base64RP = base64Result.replace(/^data:image.+;base64,/, '');
+                const fileData = {
+                    'type': fileUL.type,
+                    'name': fileUL.name,
+                    'size': fileUL.size,
+                    'base64': base64RP
+                };
+                if (fileData && Object.keys(fileData).length) {
+                    if (containerTag.find('#aw-helpdesk-attachments-added').length) {
+                        containerTag.find('#aw-helpdesk-attachments-added').append(`<li><span>${fileUL.name} (${niceBytes(fileUL.size)})</span> <span class="close-item" data-position="${containerTag.find('#aw-helpdesk-attachments-added li').length}">x</span></li>`);
+                    }
+                    buttonSubmit.attr("disabled", true);
+                    uploadFiles(callBackUploadFiles, { fileData });
                 }
-                buttonSubmit.attr("disabled", true);
-                uploadFiles(callBackUploadFiles, { fileData });
             }
         }
+
+    }
+
+    const renderJs = () => {
+        $(document).on("click", ".close-item", function (e) {
+            const dPosition = $(this).attr('data-position');
+            if (fileAttach.length && fileAttach.length >= dPosition) {
+                fileAttach.splice(dPosition, 1);
+                $(this).closest('li').remove();
+            }
+        });
     }
 
     return <form onSubmit={submitTicket} id="helpdesk-submit-ticket">
@@ -176,6 +190,7 @@ const FormTicket = (props) => {
                 <button type="submit">{Identify.__("Submit Ticket")}</button>
             </div>
         </div>
+        {renderJs()}
     </form>
 }
 

@@ -305,3 +305,11 @@
         }
     }
 }
+
+@media (max-width: 767px) {
+    #helpdesk-submit-ticket {
+        .main__edit-column {
+            width: 100%;
+        }
+    }
+}

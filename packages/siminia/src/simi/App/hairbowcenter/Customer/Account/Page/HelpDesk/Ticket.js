@@ -9,6 +9,7 @@ import ReactHTMLParser from 'react-html-parser';
 import { Link } from 'src/drivers';
 import { showFogLoading, hideFogLoading } from 'src/simi/BaseComponents/Loading/GlobalLoading';
 import { convertImageToBase64, niceBytes } from 'src/simi/App/hairbowcenter/Helper';
+import Loading from "src/simi/BaseComponents/Loading";
 require('./style.scss');
 
 const $ = window.$;
@@ -17,8 +18,8 @@ const Ticket = (props) => {
     const { history, ticketId } = props;
 
     smoothScrollToView($('#root'));
-    const defaultData = history.location.state.hasOwnProperty('ticketData') && history.location.state.ticketData ? history.location.state.ticketData : null;
-    const [data, setData] = useState(defaultData);
+    //const defaultData = history.location.state.hasOwnProperty('ticketData') && history.location.state.ticketData ? history.location.state.ticketData : null;
+    const [data, setData] = useState(null);
 
     function callbackTicketDetail(data) {
         if (data && data.ticket) {
@@ -26,32 +27,28 @@ const Ticket = (props) => {
         }
     }
 
-    useEffect(() => {
-        if (!data && ticketId) {
-            getTicket(callbackTicketDetail, ticketId)
-        }
-    }, []);
+    if (!data && ticketId) {
+        getTicket(callbackTicketDetail, ticketId);
+        return <Loading />
+    }
 
     if (!data)
         return <EmptyData message={Identify.__("Not found ticket id.")} />
-    /* const productLocation = `/${data.product_url}${productUrlSuffix()}`;
 
-    let dateP = data.review_created_at;
-    const dateF = dateP.split(/[- :]/);
-    let date = new Date(dateF[0], dateF[1], dateF[2], dateF[3], dateF[4], dateF[5]);
-
-    let m = date.getMonth() + 1;
-    m = m < 10 ? "0" + m : m;
-    date = date.getDate() + "/" + m + "/" + date.getFullYear();
-    const image = data.product_image ? resourceUrl(data.product_image, { type: 'image-product', width: 640 }) : null;
- */
-
-    let fileAttach = null;
+    let fileAttach = [];
 
     const renderJs = () => {
         $(document).ready(function () {
             const title = `[${data.uid}] ${data.subject}`;
             $('#helpdesk-ticket-tt').html(title);
+
+            $(document).on("click", ".close-item", function (e) {
+                const dPosition = $(this).attr('data-position');
+                if (fileAttach.length && fileAttach.length >= dPosition) {
+                    fileAttach.splice(dPosition, 1);
+                    $(this).closest('li').remove();
+                }
+            });
         });
     }
 
@@ -81,9 +78,7 @@ const Ticket = (props) => {
             html = listThread.map((thread, ide) => {
                 const attachmentList = thread.hasOwnProperty('attachments') && thread.attachments.length ?
                     thread.attachments.map((atment, il) => {
-                        return <React.Fragment key={il}>
-                            <a href={atment.url}>{atment.name}</a> ({niceBytes(atment.length)})
-                        </React.Fragment>
+                        return <p key={il}><a href={atment.url} download>{atment.name}</a> ({niceBytes(atment.length)})</p>
                     })
                     : '';
                 return <li className={`aw-helpdesk-ticket-view__thread-message ${thread.type}`} key={ide}>
@@ -103,29 +98,32 @@ const Ticket = (props) => {
         const buttonSubmit = $('#aw-helpdesk-customer-reply-form').find('button[type="submit"]');
         buttonSubmit.removeAttr("disabled");
         if (data.hasOwnProperty('uploadfile')) {
-            fileAttach = [{ name: data.uploadfile.file_name, file: data.uploadfile.file_name, removed: "0" }];
+            fileAttach.push({ name: data.uploadfile.file_name, file: data.uploadfile.file_name, removed: "0" });
         }
     }
 
     const handleUploadFile = async () => {
         const containerTag = $('#aw-helpdesk-customer-reply-form');
         const buttonSubmit = containerTag.find('button[type="submit"]');
-        const fileUL = document.getElementById("aw-helpdesk-attachments").files[0];
-        const base64Result = await convertImageToBase64(fileUL).catch(e => e);
-        if (base64Result) {
-            const base64RP = base64Result.replace(/^data:image.+;base64,/, '');
-            const fileData = {
-                'type': fileUL.type,
-                'name': fileUL.name,
-                'size': fileUL.size,
-                'base64': base64RP
-            };
-            if (fileData && Object.keys(fileData).length) {
-                if (containerTag.find('#aw-helpdesk-attachments-added').length) {
-                    containerTag.find('#aw-helpdesk-attachments-added').append(`<li><span>${fileUL.name} (${niceBytes(fileUL.size)})</span> <span>x</span></li>`);
+        const fileChoose = document.getElementById("aw-helpdesk-attachments").files;
+        for (let c = 0; c < fileChoose.length; c++) {
+            const fileUL = fileChoose[c];
+            const base64Result = await convertImageToBase64(fileUL).catch(e => e);
+            if (base64Result) {
+                const base64RP = base64Result.replace(/^data:image.+;base64,/, '');
+                const fileData = {
+                    'type': fileUL.type,
+                    'name': fileUL.name,
+                    'size': fileUL.size,
+                    'base64': base64RP
+                };
+                if (fileData && Object.keys(fileData).length) {
+                    if (containerTag.find('#aw-helpdesk-attachments-added').length) {
+                        containerTag.find('#aw-helpdesk-attachments-added').append(`<li><span>${fileUL.name} (${niceBytes(fileUL.size)})</span> <span class="close-item" data-position="${containerTag.find('#aw-helpdesk-attachments-added li').length}">x</span></li>`);
+                    }
+                    buttonSubmit.attr("disabled", true);
+                    uploadFiles(callBackUploadFiles, { fileData });
                 }
-                buttonSubmit.attr("disabled", true);
-                uploadFiles(callBackUploadFiles, { fileData });
             }
         }
     }
@@ -152,7 +150,7 @@ const Ticket = (props) => {
                 let field = formValue[index];
                 params[field.name] = field.value;
             }
-            if (fileAttach) {
+            if (fileAttach && fileAttach.length) {
                 params['attachment'] = fileAttach;
             }
             showFogLoading();
@@ -166,7 +164,7 @@ const Ticket = (props) => {
             getTicket(callbackTicketDetail, ticketId);
             $("#aw-helpdesk-customer-reply-form")[0].reset();
             $('#aw-helpdesk-attachments-added').empty();
-            fileAttach = null;
+            fileAttach = [];
         } else if (data.errors) {
             const messages = data.errors.map(value => {
                 return { type: 'error', message: value.message, auto_dismiss: true }
