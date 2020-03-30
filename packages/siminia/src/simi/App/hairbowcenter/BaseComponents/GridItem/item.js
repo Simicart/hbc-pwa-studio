@@ -60,10 +60,11 @@ const Griditem = props => {
     }
 
     let isNew = false;
+    let isSale = false;
     let hoverImage = null;
     if (simiExtraField.attribute_values) {
+        const now = new Date()
         if (productLabelConfig && productLabelConfig.new_label) {
-            const now = new Date()
             let newsFrom = null;
             let newsTo = null;
             if (simiExtraField.attribute_values.news_from_date) {
@@ -79,6 +80,22 @@ const Griditem = props => {
                 }
             }
         }
+        if (productLabelConfig && productLabelConfig.sale_label) {
+            if(simiExtraField.attribute_values.hasOwnProperty('has_special_price') && simiExtraField.attribute_values.has_special_price) {
+                let saleForm = null
+                let saleTo = null
+                if(item.special_from_date) {
+                    saleForm = new Date(item.special_from_date);
+                }
+                if(item.special_to_date) {
+                    saleTo = new Date(item.special_to_date);
+                }
+                if((!item.saleForm && !item.saleTo) || (now >= saleForm && !item.saleTo) || (now <= saleTo && !item.saleForm) || (now >= saleForm && now <= saleTo)) {
+                    isSale = true
+                }
+            }
+        }
+       
         if (simiExtraField.attribute_values.small_image) {
             small_image = resourceUrl(simiExtraField.attribute_values.small_image, { type: 'image-product', width: 300 });
         }
@@ -106,8 +123,8 @@ const Griditem = props => {
                 {hoverImage && <Image src={hoverImage} alt={name} className="hover_image" />}
             </Link>
             <div className="product-labels">
-                {newLabel ? newLabel : spLabel}
-                {isNew && <div className="product-label new-label">{productLabelConfig.new_label_text}</div>}
+                {isSale && spLabel}
+                {isNew && newLabel}
             </div>
 
             {hideActionButton && <div className="product-item-inner">
@@ -252,7 +269,7 @@ const Griditem = props => {
                         <Link to={location} className="action more">{Identify.__("Learn more")}</Link>
                     </div>
                     <div className="price-box">
-                        <Price prices={price} type={type_id} />
+                        <Price prices={price} type={type_id} isSale={isSale}/>
                         {renderAsLowPrice()}
                     </div>
                     {item.short_description && <div className="short-description">{ReactHTMLParse(item.short_description.html)}</div>}

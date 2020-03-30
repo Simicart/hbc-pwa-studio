@@ -27,7 +27,6 @@
     <link async id="rtl-stylesheet" rel="stylesheet" href="/simistatic/rtl.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <script src="/simistatic/config.js"></script>
-    <script src="https://www.simicart.com/appdashboard/rest/app_configs?bear_token=JkCVJ7uuRX7p2RthobLjVPpls9M0e3uXn6T7dnB&pwa=1&js=1"></script>
     <script src="/simistatic/jquery.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDml6rqKwjgQgPomyAhC-WxVt4aLodlraU&libraries=places" async defer></script>
     <link rel="stylesheet" href="/simistatic/style.css"></link>

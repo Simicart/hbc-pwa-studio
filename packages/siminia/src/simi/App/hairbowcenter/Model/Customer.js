@@ -16,7 +16,7 @@ export const getCustomerReviewById = (callBack, id) => {
 }
 
 export const getCustomerRecentOrder = (callBack, params) => {
-    sendRequest('rest/V1/simiconnector/orders', callBack, 'GET', params);
+    sendRequest('/rest/V1/simiconnector/orders', callBack, 'GET', params);
 }
 
 export const addReorderedToCart = (callBack, params) => {

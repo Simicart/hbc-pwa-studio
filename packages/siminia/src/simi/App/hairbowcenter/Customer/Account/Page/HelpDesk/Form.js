@@ -2,7 +2,9 @@ import React from 'react';
 import TextBox from 'src/simi/BaseComponents/TextBox';
 import Identify from 'src/simi/Helper/Identify';
 import { postTicket, uploadFiles } from 'src/simi/App/hairbowcenter/Model/Tickets';
-
+import { showFogLoading, hideFogLoading } from 'src/simi/BaseComponents/Loading/GlobalLoading';
+import { convertImageToBase64, niceBytes } from 'src/simi/App/hairbowcenter/Helper';
+import { smoothScrollToView } from 'src/simi/Helper/Behavior';
 const $ = window.$;
 
 const FormTicket = (props) => {
@@ -31,7 +33,6 @@ const FormTicket = (props) => {
     }
 
     const renderDepartment = (departments) => {
-
         let dpt = [];
         for (const key in departments) {
             dpt.push(<option value={key} key={key}>{departments[key]}</option>);
@@ -82,6 +83,7 @@ const FormTicket = (props) => {
             if (fileAttach) {
                 params['attachment'] = fileAttach;
             }
+            showFogLoading();
             postTicket(callBackPostTicket, params);
         }
     }
@@ -90,33 +92,32 @@ const FormTicket = (props) => {
         if (data.success) {
             props.toggleMessages([{ type: 'success', message: data.message, auto_dismiss: true }]);
             props.callApiListTickets();
+            $("#helpdesk-submit-ticket")[0].reset();
+            fileAttach = null;
+            $('#aw-helpdesk-attachments-added').empty();
         } else if (data.errors) {
             const messages = data.errors.map(value => {
                 return { type: 'error', message: value.message, auto_dismiss: true }
             })
             props.toggleMessages(messages);
         }
+        smoothScrollToView($('#root'));
+        hideFogLoading();
     }
 
     const callBackUploadFiles = (data) => {
         const buttonSubmit = $('#helpdesk-submit-ticket').find('button[type="submit"]');
         buttonSubmit.removeAttr("disabled");
         if (data.hasOwnProperty('uploadfile')) {
-            fileAttach = [{ name: data.uploadfile.title, file: data.uploadfile.title, removed: "0" }];
+            fileAttach = [{ name: data.uploadfile.file_name, file: data.uploadfile.file_name, removed: "0" }];
         }
     }
 
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-
     const handleUploadFile = async () => {
-        const buttonSubmit = $('#helpdesk-submit-ticket').find('button[type="submit"]');
+        const containerTag = $('#helpdesk-submit-ticket');
+        const buttonSubmit = containerTag.find('button[type="submit"]');
         const fileUL = document.getElementById("aw-helpdesk-attachments").files[0];
-        const base64Result = await toBase64(fileUL).catch(e => e);
+        const base64Result = await convertImageToBase64(fileUL).catch(e => e);
         if (base64Result) {
             const base64RP = base64Result.replace(/^data:image.+;base64,/, '');
             const fileData = {
@@ -126,6 +127,9 @@ const FormTicket = (props) => {
                 'base64': base64RP
             };
             if (fileData && Object.keys(fileData).length) {
+                if (containerTag.find('#aw-helpdesk-attachments-added').length) {
+                    containerTag.find('#aw-helpdesk-attachments-added').append(`<li><span>${fileUL.name} (${niceBytes(fileUL.size)})</span> <span>x</span></li>`);
+                }
                 buttonSubmit.attr("disabled", true);
                 uploadFiles(callBackUploadFiles, { fileData });
             }
@@ -161,6 +165,7 @@ const FormTicket = (props) => {
             <div className="form-group attachment">
                 <label htmlFor="aw-helpdesk-attachments">{Identify.__("Attachments")}</label>
                 <div className="aw-helpdesk-file-upload__container">
+                    <ul id="aw-helpdesk-attachments-added" />
                     <span className="aw-helpdesk-file-upload">
                         <span className="aw-helpdesk-file-upload__link">{Identify.__("Add file")}</span>
                         <input type="file" name="file[]" id="aw-helpdesk-attachments" multiple onChange={handleUploadFile} />

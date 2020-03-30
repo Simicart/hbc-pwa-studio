@@ -1,6 +1,5 @@
 {{> templates/open-document}}
   {{> templates/open-body }}
-
     <div id="root">
         {{> templates/splash}}
     </div>

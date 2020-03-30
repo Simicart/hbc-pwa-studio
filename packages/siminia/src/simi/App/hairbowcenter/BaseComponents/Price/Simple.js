@@ -11,7 +11,11 @@ class Simple extends Abstract {
         let price_excluding_tax = <div></div>;
         let price_including_tax = <div></div>;
         let price = <div></div>;
-        if (this.prices.regularPrice.amount.value !== this.prices.minimalPrice.amount.value || this.prices.has_special_price) {
+        if (
+            typeof this.props.isSale === 'undefined' && (this.prices.regularPrice.amount.value !== this.prices.minimalPrice.amount.value || this.prices.has_special_price)
+            || this.props.isSale
+        ) {
+            
             if (this.prices.show_ex_in_price !== null && this.prices.show_ex_in_price === 1) {
                 
                 special_price_label = (<div>{this.prices.special_price_label}</div>);

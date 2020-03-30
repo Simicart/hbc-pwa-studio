@@ -72,7 +72,7 @@ class CateTree extends React.Component {
 
     renderTreeMenu (categoryTrees) {
         categoryTrees.sort((a, b) => parseInt(a.position, 10) - parseInt(b.position, 10));
-        return categoryTrees.map((item, index) => {
+        const html = categoryTrees.map((item, index) => {
             if (!item.name || !item.include_in_menu) return '';
 
                 const itemLabel = item.hasOwnProperty('sw_menu_cat_label') && item.sw_menu_cat_label ? <span className={item.sw_menu_cat_label === 'label2' ? 'cat-label cat-label-label2' : (item.sw_menu_cat_label === 'label3' ? 'cat-label cat-label-label3' : 'cat-label cat-label-label1')}>{item.sw_menu_cat_label === 'label1' ? Identify.__("NEW") : (item.sw_menu_cat_label === 'label3' ? Identify.__("SALE") : Identify.__("HOT!"))}</span> : '';
@@ -110,6 +110,7 @@ class CateTree extends React.Component {
                     )
                 }
         })
+        return html
     }
 
     render(){
@@ -124,6 +125,21 @@ class CateTree extends React.Component {
             <nav className="mobile-navigation cat-tree-navigation" id="navigation-menu">
                 <ul>
                     {this.renderTreeMenu(jsonParse.categorytrees)}
+                    <li className="ui-menu-item level0">
+                        <Link to={'/new-product'} className="level-top" onClick={() => this.handleCloseMenu()} >
+                            <span>{Identify.__('New')}</span>
+                        </Link>
+                    </li>
+                    <li className="ui-menu-item level0" >
+                        <Link to={'/shop_by_theme'} className="level-top" onClick={() => this.handleCloseMenu()} >
+                            <span>{Identify.__('Theme')}</span>
+                        </Link>
+                    </li>
+                    <li className="ui-menu-item level0">
+                        <Link to={'/blog'} className="level-top" onClick={() => this.handleCloseMenu()} >
+                            <span>{Identify.__('Blog')}</span>
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         )

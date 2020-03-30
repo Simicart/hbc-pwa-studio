@@ -91,6 +91,7 @@ class Abstract extends React.Component{
                 <Route exact {...router.product_reviews}/>
                 <Route exact {...router.review_detail}/>
                 <Route exact {...router.help_desk}/>
+                <Route exact {...router.help_desk_ticket}/>
                 <Route exact {...router.reward_points}/>
                 <Route exact {...router.login}/>
                 <Route exact {...router.create_account} />

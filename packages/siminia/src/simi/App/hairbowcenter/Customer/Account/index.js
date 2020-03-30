@@ -3,10 +3,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import Identify from "src/simi/Helper/Identify";
 import defaultClasses from './style.scss'
-import LogoutIcon from 'src/simi/BaseComponents/Icon/TapitaIcons/Logout'
 import CloseIcon from 'src/simi/BaseComponents/Icon/TapitaIcons/Close'
 import MenuIcon from 'src/simi/BaseComponents/Icon/Menu'
-import BreadCrumb from "src/simi/BaseComponents/BreadCrumb"
 import classify from 'src/classify';
 import { Link } from 'src/drivers';
 import { compose } from 'redux';
@@ -23,6 +21,7 @@ import Downloadable from './Page/Downloadable';
 import ProductReviews from './Page/Reviews';
 import ReviewDetail from './Page/Reviews/Detail';
 import HelpDesk from './Page/HelpDesk';
+import HelpDeskTicket from './Page/HelpDesk/Ticket';
 import RewardPoints from './Page/RewardPoints';
 import CustomerRecentOrdered from 'src/simi/App/hairbowcenter/BaseComponents/Customer/RecentOrdered';
 
@@ -262,7 +261,10 @@ class CustomerLayout extends React.Component {
                 content = <ReviewDetail history={this.props.history} reviewId={this.props.match.params.reviewId} />
                 break;
             case 'help-desk':
-                content = <HelpDesk history={this.props.history} orderId={this.props.match.params.orderId} />
+                content = <HelpDesk history={this.props.history} />
+                break;
+            case 'help-desk-ticket':
+                content = <HelpDeskTicket history={this.props.history} ticketId={this.props.match.params.ticketId} />
                 break;
             case 'reward-points':
                 content = <RewardPoints history={this.props.history} />
@@ -294,6 +296,14 @@ class CustomerLayout extends React.Component {
                     <span className="base">{Identify.__("Order # ")} {this.props.match.params.orderId}</span>
                 </h1>
                 <span id="order-status" />
+            </div>
+        }
+
+        if (pageT === 'help-desk-ticket' && this.props.match.params.hasOwnProperty('ticketId')) {
+            return <div className="page-title-wrapper">
+                <h1 className="page-title">
+                    <span className="base" id="helpdesk-ticket-tt" />
+                </h1>
             </div>
         }
 

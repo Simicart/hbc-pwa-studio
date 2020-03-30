@@ -36,7 +36,6 @@ const AttributePage = props => {
     }
 
     const renderContentItem = (item) => {
-        console.log(displaySettings);
         if(displaySettings && displaySettings.listing_mode === 'link') {
             return item.name
         } 
@@ -52,7 +51,6 @@ const AttributePage = props => {
         const cols = displaySettings.column_count || 5
 
         const classRow = 'attributepages-cols-' + cols;
-
         const html = data.attributepages.map((item, index) => {
             return (
                 <li className="item" key={index}>

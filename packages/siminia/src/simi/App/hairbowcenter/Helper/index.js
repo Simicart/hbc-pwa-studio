@@ -1,11 +1,11 @@
 import Identify from 'src/simi/Helper/Identify';
 
-const { simiStoreConfig } = Identify.getStoreConfig();
-
-export const hasBlogConfig = simiStoreConfig.config && simiStoreConfig.config.hasOwnProperty('amasty_blog_configs') && simiStoreConfig.config.amasty_blog_configs || null;
+const storeConfig = Identify.getStoreConfig();
+const simiStoreConfig = storeConfig && storeConfig.simiStoreConfig;
+export const hasBlogConfig = simiStoreConfig && simiStoreConfig.config && simiStoreConfig.config.hasOwnProperty('amasty_blog_configs') && simiStoreConfig.config.amasty_blog_configs || null;
 
 export const getGooglePublicKey = () => {
-    if (simiStoreConfig.config && simiStoreConfig.config.google_public_key) {
+    if (simiStoreConfig && simiStoreConfig.config && simiStoreConfig.config.google_public_key) {
         return simiStoreConfig.config.google_public_key
     }
 
@@ -13,7 +13,7 @@ export const getGooglePublicKey = () => {
 }
 
 export const getEasyBanner = (id) => {
-    if (simiStoreConfig.config && simiStoreConfig.config.easy_banners) {
+    if (simiStoreConfig && simiStoreConfig.config && simiStoreConfig.config.easy_banners) {
         return simiStoreConfig.config.easy_banners.items.find(item => item.identifier === id);
     }
 
@@ -21,7 +21,7 @@ export const getEasyBanner = (id) => {
 }
 
 export const getProductLabel = () => {
-    if (simiStoreConfig.config && simiStoreConfig.config.product_label) {
+    if (simiStoreConfig && simiStoreConfig.config && simiStoreConfig.config.product_label) {
         return simiStoreConfig.config.product_label;
     }
 
@@ -77,7 +77,7 @@ export const getFormatMonth = (number) => {
 }
 
 export const getCategoryById = (id) => {
-    if (hasBlogConfig && simiStoreConfig.config.amasty_blog_configs.categories_tree.length) {
+    if (simiStoreConfig && hasBlogConfig && simiStoreConfig.config.amasty_blog_configs.categories_tree.length) {
         const { categories_tree } = simiStoreConfig.config.amasty_blog_configs;
         for (let c = 0; c < categories_tree.length; c++) {
             const cItem = categories_tree[c];
@@ -117,17 +117,33 @@ export function getRootCategoriesArray(root, id) {
     return null;
 }
 
-export function getAttributePage () {
-    if(
-        simiStoreConfig 
+export function getAttributePage() {
+    if (
+        simiStoreConfig
         && simiStoreConfig.config
-        && simiStoreConfig.config.attribute_page 
-        && simiStoreConfig.config.attribute_page.items 
-        && simiStoreConfig.config.attribute_page.items.length 
+        && simiStoreConfig.config.attribute_page
+        && simiStoreConfig.config.attribute_page.items
+        && simiStoreConfig.config.attribute_page.items.length
         && simiStoreConfig.config.attribute_page.items.length > 0
     ) {
         return simiStoreConfig.config.attribute_page.items
     }
 
     return null;
+}
+
+export const convertImageToBase64 = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
+
+export const niceBytes = (x) => {
+    const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    let l = 0, n = parseInt(x, 10) || 0;
+    while (n >= 1024 && ++l) {
+        n = n / 1024;
+    }
+    return (n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l]);
 }

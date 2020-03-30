@@ -29,13 +29,12 @@ const DataTable = (props) => {
         date = date.getDate() + "/" + m + "/" + date.getFullYear();
 
         const detailLocation = {
-            pathname: `/review-detail.html/${item.entity_id}`,
+            pathname: `/ticket.html/${item.id}`,
             state: {
-                reviewData: item
+                ticketData: item
             }
         }
 
-        const productLocation = `/${item.product_url}${productUrlSuffix()}`;
         const orderDetailLink = item.order_increment_id === 'Unassigned' ? `/orderhistory.html` : `/orderdetails.html/${item.order_increment_id}`;
 
         return (
@@ -44,7 +43,7 @@ const DataTable = (props) => {
                     {item.uid}
                 </td>
                 <td data-title={Identify.__("Subject")}>
-                    <Link to={productLocation}>{Identify.__(item.subject)}</Link>
+                    <Link to={detailLocation}>{Identify.__(item.subject)}</Link>
                 </td>
                 <td data-title={Identify.__("Order")}>
                     <Link to={orderDetailLink}>{`#${item.order_increment_id}`}</Link>

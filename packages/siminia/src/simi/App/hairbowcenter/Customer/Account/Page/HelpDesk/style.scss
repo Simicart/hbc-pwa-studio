@@ -86,50 +86,6 @@
                 resize: vertical;
                 display: block;
             }
-            .aw-helpdesk-file-upload__container {
-                background: #efefef;
-                padding: 0.6rem 0 0.6rem;
-                display: inline-block;
-                width: 100%;
-                .aw-helpdesk-file-upload {
-                    color: #007bdb;
-                    position: relative;
-                    overflow: hidden;
-                    float: left;
-                    display: inline-block;
-                    padding: 6px 12px;
-                    margin-bottom: 0;
-                    font-size: 14px;
-                    font-weight: 400;
-                    line-height: 1.42857143;
-                    text-align: center;
-                    white-space: nowrap;
-                    vertical-align: middle;
-                    cursor: pointer;
-                    -webkit-user-select: none;
-                    -moz-user-select: none;
-                    -ms-user-select: none;
-                    user-select: none;
-                    background-image: none;
-                    border: 1px solid transparent;
-                    border-radius: 4px;
-                    .aw-helpdesk-file-upload__link {
-                        color: #1979c3;
-                    }
-                    input[type='file'] {
-                        display: block;
-                        position: absolute;
-                        top: 0;
-                        right: 0;
-                        margin: 0;
-                        opacity: 0;
-                        -ms-filter: 'alpha(opacity=0)';
-                        font-size: 200px;
-                        direction: ltr;
-                        cursor: pointer;
-                    }
-                }
-            }
         }
 
         button[type='submit'] {
@@ -148,6 +104,203 @@
 
             &:disabled {
                 opacity: 0.8;
+            }
+        }
+    }
+}
+
+.aw-helpdesk-file-upload__container {
+    background: #efefef;
+    padding: 0.6rem 0 0.6rem;
+    display: inline-block;
+    width: 100%;
+    .aw-helpdesk-file-upload {
+        color: #007bdb;
+        position: relative;
+        overflow: hidden;
+        float: left;
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        .aw-helpdesk-file-upload__link {
+            color: #1979c3;
+        }
+        input[type='file'] {
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+            font-size: 200px;
+            direction: ltr;
+            cursor: pointer;
+        }
+    }
+    #aw-helpdesk-attachments-added {
+        li {
+            margin-bottom: 0.6rem;
+            padding-left: 5px;
+            display: flex;
+            justify-content: space-between;
+            &:last-child {
+                margin-bottom: 20px;
+            }
+            span {
+                word-break: break-all;
+                &:last-child {
+                    cursor: pointer;
+                    margin-right: 5px;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+.customer-helpdesk-ticket.view {
+    .ticket-detail-container {
+        .top-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.3em;
+            .back-page {
+                color: #00cccd;
+                cursor: pointer;
+            }
+            .close-tick {
+                border: 1px solid #ccc;
+                color: #777;
+                line-height: 30px;
+                padding: 0 12px;
+                height: 32px;
+                background-color: #fff;
+                border-radius: 3px;
+                cursor: pointer;
+                font-weight: 400;
+                &:hover {
+                    background-color: #00cccc;
+                    color: #fff;
+                    border-color: #00cccc;
+                }
+            }
+        }
+        .info-fieldset {
+            background: #f5f5f5;
+            padding: 15px;
+            clear: both;
+            border: 0;
+            margin: 0 0 36px;
+            .field.aw-helpdesk-ticket-view__field {
+                margin: 0 0 10px;
+                > .label {
+                    width: calc((100%) * 0.3 - 30px);
+                    float: left;
+                    margin-left: 10px;
+                    font-weight: 400;
+                    font-size: 1.4rem;
+                    margin: 0 0 8px;
+                    display: inline-block;
+                }
+                > .control {
+                    width: calc((100%) * 0.5 - 30px);
+                    text-transform: capitalize;
+                }
+            }
+        }
+        .block-thread {
+            #aw-helpdesk-customer-reply-form .actions {
+                display: inline-block;
+                width: 100%;
+                margin-top: 1em;
+                .post-reply {
+                    float: right;
+                    background-image: none;
+                    color: #ffffff;
+                    cursor: pointer;
+                    display: inline-block;
+                    font-weight: 600;
+                    padding: 7px 15px;
+                    font-size: 1.4rem;
+                    box-sizing: border-box;
+                    vertical-align: middle;
+                    font-weight: 400;
+                    line-height: 22px;
+                }
+            }
+            ul.messages {
+                list-style: none;
+                margin-top: 1em;
+                padding: 0;
+                li {
+                    display: block;
+                    margin-bottom: 1rem;
+                    padding: 2rem;
+                    width: 66%;
+                    &.customer-reply {
+                        margin-left: 30%;
+                        border: 0.1rem solid #ccd6c7;
+                        border-radius: 3px;
+                        background: #d1eaca;
+                        border-left: 3px solid #88c56e;
+                    }
+                    &.admin-reply {
+                        border: 0.1rem solid #c2c2c2;
+                        border-radius: 2px;
+                        background: #f5f5f5;
+                        border-left: 3px solid #c2c2c2;
+                    }
+                }
+                .message-header {
+                    margin-bottom: 10px;
+                    font-weight: 700;
+                    .date {
+                        float: right;
+                    }
+                }
+                .aw-helpdesk-ticket-view__message-text {
+                    margin-top: 1rem;
+                }
+            }
+            textarea {
+                background: #ffffff;
+                background-clip: padding-box;
+                border: 1px solid #cccccc;
+                border-radius: 6px;
+                font-size: 13px;
+                height: auto;
+                line-height: 1.4;
+                margin: 0;
+                padding: 9px;
+                vertical-align: baseline;
+                width: 100%;
+                box-sizing: border-box;
+                resize: vertical;
+            }
+            .aw-helpdesk-file-upload__container {
+                width: 50%;
+            }
+            .aw-helpdesk-ticket-view__attachment {
+                margin-top: 1rem;
+                a {
+                    word-break: break-all;
+                }
             }
         }
     }

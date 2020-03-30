@@ -113,20 +113,15 @@ const AtrributePageDetail = props => {
                 pathArray.push({ name: page.title, link: `/${page.identifier}` })
                 pathArray.push({ name: pageData.title })
 
-                let style = {width: '100%' }
-                console.log(pageData.root_template);
+                const style = {width: '100%' }
                 if(pageData.root_template) {
-                    console.log(pageData.root_template);
                     if(pageData.root_template === '2columns-left') {
-                        console.log('run 1')
                         style.width = '75%'
                         style.marginLeft = 'auto'
                     } else if(pageData.root_template === '2columns-right') {
-                        console.log('run 2')
                         style.width = '75%'
                         style.marginRight = 'auto'
                     } else if(pageData.root_template === '3columns') {
-                        console.log('run 3')
                         style.width = '50%'
                         style.margin = '0 auto'
                     }

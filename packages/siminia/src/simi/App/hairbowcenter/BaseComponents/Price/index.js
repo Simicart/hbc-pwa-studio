@@ -22,7 +22,7 @@ class PriceComponent extends React.Component {
         }
         else {
             ////simple, configurable ....
-            return <Simple prices={this.prices} parent={this} classes={this.props.classes} showLabel={this.props.showLabel}/>
+            return <Simple prices={this.prices} parent={this} classes={this.props.classes} showLabel={this.props.showLabel} isSale={this.props.isSale}/>
         }
     }
 
@@ -40,7 +40,8 @@ PriceComponent.defaultProps = {
     stylePrice : {},
     styleSpecialPrice : {},
     classes : {},
-    showLabel: false
+    showLabel: false,
+    isSale: undefined
 };
 PriceComponent.propTypes = {
     type : PropTypes.string,
