@@ -25,6 +25,6 @@ export const configColor = {
     status_bar_background: config ? config['theme']['status_bar_background'] : window.DEFAULT_COLORS.status_bar_background,
     status_bar_text: config ? config['theme']['status_bar_text'] : window.DEFAULT_COLORS.status_bar_text,
     loading_color: config ? config['theme']['loading_color'] : window.DEFAULT_COLORS.loading_color,
-    splash_screen_color : window.DEFAULT_COLORS.splash_screen_color ? window.DEFAULT_COLORS.splash_screen_color : '#fff',
-    loading_splash_screen_color : window.DEFAULT_COLORS.loading_splash_screen_color ? window.DEFAULT_COLORS.loading_splash_screen_color : '#000',
+    splash_screen_color : window && window.DEFAULT_COLORS && window.DEFAULT_COLORS.splash_screen_color ? window.DEFAULT_COLORS.splash_screen_color : '#fff',
+    loading_splash_screen_color : window && window.DEFAULT_COLORS && window.DEFAULT_COLORS.loading_splash_screen_color ? window.DEFAULT_COLORS.loading_splash_screen_color : '#000',
 };

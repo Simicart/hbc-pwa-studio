@@ -78,7 +78,7 @@ const Ticket = (props) => {
             html = listThread.map((thread, ide) => {
                 const attachmentList = thread.hasOwnProperty('attachments') && thread.attachments.length ?
                     thread.attachments.map((atment, il) => {
-                        return <p key={il}><a href={atment.url} download>{atment.name}</a> ({niceBytes(atment.length)})</p>
+                        return <p key={il}><a href={atment.url} target="_blank" download={atment.name}>{atment.name}</a> ({niceBytes(atment.length)})</p>
                     })
                     : '';
                 return <li className={`aw-helpdesk-ticket-view__thread-message ${thread.type}`} key={ide}>
