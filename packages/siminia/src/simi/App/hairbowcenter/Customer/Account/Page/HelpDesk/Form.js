@@ -13,9 +13,9 @@ const FormTicket = (props) => {
     if (orderId) {
         const { order_options } = tickets || {}
         for (let i in order_options) {
-            const order_option = order_options[i];
-            if (order_option === orderId) {
-                defaultOrder = i
+            if (Number(i) === Number(orderId)) {
+                defaultOrder = i;
+                smoothScrollToView($('#helpdesk-submit-ticket'));
             }
         }
     }

@@ -35,7 +35,7 @@ const TableOrder = props => {
             <div className="actions-toolbar order-actions-toolbar">
                 <div className="actions">
                     {(data.status === 'processing' || data.status === 'completed') ? <span className="action re-order" onClick={() => handleReOrder()}>{Identify.__("Reorder")}</span> : null}
-                    <Link to={`/help-desk.html/${data.increment_id}`} className="action submit-ticket">{Identify.__("Submit Support Ticket")}</Link>
+                    <Link to={`/help-desk.html/${data.entity_id}`} className="action submit-ticket">{Identify.__("Submit Support Ticket")}</Link>
                     <Link to={`/print.html/${data.increment_id}`} className="action print-order">{Identify.__("Print")}</Link>
                 </div>
             </div>
@@ -94,7 +94,7 @@ const TableOrder = props => {
                                     </dd>
                                 </dl>}
                             </Fragment>
-                            
+
                         )
                     }
                     {tab === 'invoices' && <div className="order-title">

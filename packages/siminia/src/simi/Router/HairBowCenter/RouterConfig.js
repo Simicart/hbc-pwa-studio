@@ -150,7 +150,7 @@ const router = {
         render : location => <Account {...location} page={`review-detail`} />
     },
     help_desk : {
-        path: '/help-desk.html',
+        path: '/help-desk.html/:orderId?',
         render : (location) => <Account {...location} page={`help-desk`}/>
     },
     help_desk_ticket : {

@@ -261,7 +261,7 @@ class CustomerLayout extends React.Component {
                 content = <ReviewDetail history={this.props.history} reviewId={this.props.match.params.reviewId} />
                 break;
             case 'help-desk':
-                content = <HelpDesk history={this.props.history} />
+                content = <HelpDesk history={this.props.history} orderId={this.props.match.params.orderId} />
                 break;
             case 'help-desk-ticket':
                 content = <HelpDeskTicket history={this.props.history} ticketId={this.props.match.params.ticketId} />
