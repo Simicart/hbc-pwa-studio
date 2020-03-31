@@ -35,14 +35,10 @@ const HelpDesk = (props) => {
         return <EmptyData message={data.errors[0].message} />
     }
 
-    if (!ticket || ticket.total < 1) {
-        return <EmptyData message={Identify.__("You have submitted no tickets.")} />
-    }
-
     return <React.Fragment>
         <div className="table-wrapper tickets">
             <a href="#helpdesk-submit-ticket" className="create_ticket_form_link action primary"><span>{Identify.__("Create New Ticket")}</span></a>
-            <DataTable data={ticket} key={Identify.randomString(3)} />
+            {(!ticket || ticket.total < 1) ? <EmptyData message={Identify.__("You have submitted no tickets.")} /> : <DataTable data={ticket} key={Identify.randomString(3)} />}
         </div>
         <FormTicket tickets={ticket} orderId={props.orderId} callApiListTickets={callApiListTickets} toggleMessages={props.toggleMessages} />
     </React.Fragment>
