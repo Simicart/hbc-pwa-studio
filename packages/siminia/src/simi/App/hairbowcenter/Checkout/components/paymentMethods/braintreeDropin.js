@@ -93,10 +93,12 @@ const BraintreeDropin = props => {
 
         async function createDropinInstance() {
             let myContainer = document.getElementById(CONTAINER_ID);
-                myContainer.innerHTML = '';
+            myContainer.innerHTML = '';
+            const placeOrderSubmit = window.$('.payment-method-content .actions-toolbar').find('button.action.primary');
+            if (placeOrderSubmit.length) {
+                placeOrderSubmit.attr("disabled", true);
+            }
             try {
-
-
 
                 const dropInTT = {
                     authorization,
@@ -127,9 +129,9 @@ const BraintreeDropin = props => {
                         currency: cartCurrencyCode,
                         onAuthorize: function (data, actions) {
                             return paypalCheckoutInstance.tokenizePayment(data, function (err, payload) {
-                              // Submit `payload.nonce` to your server.
+                                // Submit `payload.nonce` to your server.
                             });
-                          },
+                        },
                     }
                 }
 
@@ -167,6 +169,7 @@ const BraintreeDropin = props => {
                     setIsError(true);
                 }
             }
+            placeOrderSubmit.removeAttr("disabled");
         }
 
         // Initialize the dropin with a reference to the container mounted in
@@ -187,9 +190,9 @@ const BraintreeDropin = props => {
             try {
                 const paymentNonce = await dropinInstance.requestPaymentMethod();
                 if (paymentNonce instanceof Object && Object.keys(paymentNonce).length) {
-                    if (paymentNonce.type === "CreditCard"){
+                    if (paymentNonce.type === "CreditCard") {
                         paymentNonce.value = method;
-                    } else if (paymentNonce.type === "PayPalAccount"){
+                    } else if (paymentNonce.type === "PayPalAccount") {
                         paymentNonce.value = 'braintree_paypal';
                     } /* else if (paymentNonce.type === "PayPalAccount"){
                         paymentNonce.value = 'braintree_paypal_credit';

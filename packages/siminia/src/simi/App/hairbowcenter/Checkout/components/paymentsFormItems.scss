@@ -71,6 +71,9 @@
         .actions-toolbar .primary .action.primary {
             padding: 0 17px;
             color: #fff;
+            &:disabled{
+                opacity: 0.4;
+            }
         }
     }
 }
