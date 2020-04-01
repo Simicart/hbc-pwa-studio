@@ -81,7 +81,6 @@ const Griditem = props => {
             }
         }
         if (productLabelConfig && productLabelConfig.sale_label) {
-            if(simiExtraField.attribute_values.hasOwnProperty('has_special_price') && simiExtraField.attribute_values.has_special_price) {
                 let saleForm = null
                 let saleTo = null
                 if(item.special_from_date) {
@@ -90,12 +89,13 @@ const Griditem = props => {
                 if(item.special_to_date) {
                     saleTo = new Date(item.special_to_date);
                 }
-                if((!item.saleForm && !item.saleTo) || (now >= saleForm && !item.saleTo) || (now <= saleTo && !item.saleForm) || (now >= saleForm && now <= saleTo)) {
-                    isSale = true
+                if ((saleForm || saleTo) && spPrice){
+                    if ((saleForm && saleTo && now >= saleForm && now <= saleTo) || (!saleTo && now >= saleForm) || (!saleForm && now <= saleTo)){
+                        isSale = true;
+                    }
                 }
-            }
         }
-       
+
         if (simiExtraField.attribute_values.small_image) {
             small_image = resourceUrl(simiExtraField.attribute_values.small_image, { type: 'image-product', width: 300 });
         }
@@ -108,7 +108,7 @@ const Griditem = props => {
     if (spPrice && productLabelConfig.sale_label_percent) {
         spLabel = <div className="product-label sale-label">-{spPrice}%</div>
     } else if (spPrice && !productLabelConfig.sale_label_percent) {
-        spLabel = <div className="product-label sale-label">{productLabelConfig.new_label_text}</div>
+        spLabel = <div className="product-label sale-label">{productLabelConfig.sale_label_text}</div>
     }
 
     let newLabel = null;

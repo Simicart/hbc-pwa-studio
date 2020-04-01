@@ -22,8 +22,7 @@ const DataTable = (props) => {
 
     const renderItem = (item, index) => {
         let dateP = item.review_created_at;
-        const dateF = dateP.split(/[- :]/);
-        let date = new Date(dateF[0], dateF[1], dateF[2], dateF[3], dateF[4], dateF[5]);
+        let date = new Date(dateP.replace(' ', 'T'));
         let m = date.getMonth() + 1;
         m = m < 10 ? "0" + m : m;
         date = date.getDate() + "/" + m + "/" + date.getFullYear();
