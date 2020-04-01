@@ -18,6 +18,24 @@
         box-sizing: border-box;
         vertical-align: middle;
     }
+    table {
+        a {
+            color: #00cccc;
+        }
+    }
+    .config-page #page-numbers li {
+        background: #ffffff;
+        border: 1px solid #cccccc;
+        color: #0088cc;
+        display: inline-block;
+        padding: 2px 3px;
+        text-decoration: none;
+        width: 26px;
+        border-radius: 3px;
+        text-align: center;
+        font-size: 1.3rem;
+        cursor: pointer;
+    }
 }
 #helpdesk-submit-ticket {
     .main__edit-column {
@@ -50,15 +68,16 @@
                 }
             }
             select {
-                -webkit-appearance: none;
+                /* -webkit-appearance: none;
                 -moz-appearance: none;
                 -ms-appearance: none;
-                appearance: none;
+                appearance: none; */
                 border: 1px solid #cccccc;
                 height: 32px;
-                background: #ffffff url('../../../../Images/select-bg.svg')
+                background: #fff;
+                /* background: #ffffff url('../../../../Images/select-bg.svg')
                     no-repeat 100% 48%;
-                background-size: 30px 60px;
+                background-size: 30px 60px; */
                 padding-right: 25px;
                 text-indent: 0.01em;
                 border-radius: 6px;
@@ -221,6 +240,9 @@
                 > .control {
                     width: calc((100%) * 0.5 - 30px);
                     text-transform: capitalize;
+                    a{
+                        color: #00cccd;
+                    }
                 }
             }
         }

@@ -84,7 +84,7 @@ const NewsletterPopup = props => {
                     {newsletterConfig.logo_src && <Image src={newsletterConfig.logo_src} alt=""/>}
                     {ReactHTMLParse(newsletterConfig.content)}
                     <form className="form subscribe" onSubmit={(e) => handleOnSubmit(e)}>
-                        <div className="field newsletter">
+                        <div className="field-newsletter">
                             <div className="control">
                                 <input id="subscribe-popup-email" name="email" type="email" onChange={(e) => email = e.target.value}/>
 

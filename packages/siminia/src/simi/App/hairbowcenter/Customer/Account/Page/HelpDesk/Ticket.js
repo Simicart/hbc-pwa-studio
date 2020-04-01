@@ -76,15 +76,20 @@ const Ticket = (props) => {
         let html = null;
         if (listThread.length) {
             html = listThread.map((thread, ide) => {
+
+                let dateP = thread.created_at;
+                let d = new Date(dateP.replace(' ', 'T'));
+                const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: "UTC" };
+                const dateCV = d.toLocaleDateString("en-US", options).replace(",", "");
+
                 const attachmentList = thread.hasOwnProperty('attachments') && thread.attachments.length ?
                     thread.attachments.map((atment, il) => {
                         return <p key={il}><a href={atment.url} target="_blank" download={atment.name}>{atment.name}</a> ({niceBytes(atment.length)})</p>
-                    })
-                    : '';
+                    }) : '';
                 return <li className={`aw-helpdesk-ticket-view__thread-message ${thread.type}`} key={ide}>
                     <div className="message-header">
                         <span className="name">{thread.author_name}</span>
-                        <span className="date">{thread.created_at}</span>
+                        <span className="date">{dateCV}</span>
                     </div>
                     <div className="aw-helpdesk-ticket-view__message-text">{ReactHTMLParser(thread.content)}</div>
                     {attachmentList && <div className="aw-helpdesk-ticket-view__attachment">{attachmentList}</div>}

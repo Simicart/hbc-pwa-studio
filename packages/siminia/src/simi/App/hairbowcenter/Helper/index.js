@@ -21,8 +21,9 @@ export const getEasyBanner = (id) => {
 }
 
 export const getProductLabel = () => {
-    if (simiStoreConfig && simiStoreConfig.config && simiStoreConfig.config.product_label) {
-        return simiStoreConfig.config.product_label;
+    const storeConfig = Identify.getStoreConfig();
+    if (storeConfig && storeConfig.simiStoreConfig && storeConfig.simiStoreConfig.config && storeConfig.simiStoreConfig.config.product_label) {
+        return storeConfig.simiStoreConfig.config.product_label;
     }
 
     return null

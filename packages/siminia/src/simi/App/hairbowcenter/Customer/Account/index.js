@@ -243,7 +243,7 @@ class CustomerLayout extends React.Component {
                 content = <Newsletter />
                 break;
             case 'order-detail':
-                content = <OrderDetail history={this.props.history} isPhone={this.state.isPhone} />
+                content = <OrderDetail history={this.props.history} isPhone={this.state.isPhone} orderId={this.props.match.params.orderId} />
                 break;
             case 'wishlist':
                 content = <Wishlist history={this.props.history} />

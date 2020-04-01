@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from "react";
 import Identify from "src/simi/Helper/Identify";
 import Loading from "src/simi/BaseComponents/Loading";
-import { getOrderDetail} from 'src/simi/Model/Orders';
+import { getOrderDetail } from 'src/simi/Model/Orders';
 import { toggleMessages } from 'src/simi/Redux/actions/simiactions';
 import { connect } from 'src/drivers';
 import { logoUrl } from 'src/simi/Helper/Url'
 import Image from 'src/simi/BaseComponents/Image'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Table from "./Table";
 import {
     getCartDetails,
@@ -18,12 +18,14 @@ require('./style.scss');
 const Detail = (props) => {
     const [data, setData] = useState(null)
     const [loaded, setLoaded] = useState(false)
-    const { history, isPhone, match, print, getCartDetails, toggleMessages } = props
+    const { history, isPhone, match, print, getCartDetails, toggleMessages } = props;
     let id = null;
-    if(history.location.state && history.location.state.orderData && history.location.state.orderData.increment_id) {
+    if (history.location.state && history.location.state.orderData && history.location.state.orderData.increment_id) {
         id = history.location.state.orderData.increment_id
-    } else if(match && match.params && match.params.orderId) {
+    } else if (match && match.params && match.params.orderId) {
         id = match.params.orderId
+    }else if (props.orderId){
+        id = props.orderId;
     }
     // const id = history.location.state.orderData.increment_id || null;
 
@@ -80,30 +82,30 @@ const Detail = (props) => {
                     <div className="box-content">
                         <address>
                             {shippingAddress.firstname + ' ' + shippingAddress.lastname}
-                            <br/>
+                            <br />
                             {shippingAddress.company}
-                            <br/>
+                            <br />
                             {shippingAddress.street[0]}
-                            {shippingAddress.street[1] && ( 
+                            {shippingAddress.street[1] && (
                                 <React.Fragment>
-                                    <br/> 
+                                    <br />
                                     {shippingAddress.street[1]}
                                 </React.Fragment>
-                                )
+                            )
                             }
-                            {shippingAddress.street[2] && ( 
+                            {shippingAddress.street[2] && (
                                 <React.Fragment>
-                                    <br/> 
+                                    <br />
                                     {shippingAddress.street[2]}
                                 </React.Fragment>
-                                )
+                            )
                             }
-                            <br/>
+                            <br />
                             {`${shippingAddress.city}${shippingAddress.region ? ', ' + shippingAddress.region : ''}, ${shippingAddress.postcode}`}
-                            <br/>
+                            <br />
                             {shippingAddress.country_name}
-                            <br/>
-                            T: <a href={`tel:${shippingAddress.telephone}`}>{shippingAddress.telephone}</a> 
+                            <br />
+                            T: <a href={`tel:${shippingAddress.telephone}`}>{shippingAddress.telephone}</a>
                         </address>
                     </div>
                 </div>}
@@ -122,30 +124,30 @@ const Detail = (props) => {
                     <div className="box-content">
                         <address>
                             {billingAddress.firstname + ' ' + billingAddress.lastname}
-                            <br/>
+                            <br />
                             {billingAddress.company}
-                            <br/>
+                            <br />
                             {billingAddress.street[0]}
-                            {billingAddress.street[1] && ( 
+                            {billingAddress.street[1] && (
                                 <React.Fragment>
-                                    <br/> 
+                                    <br />
                                     {billingAddress.street[1]}
                                 </React.Fragment>
-                                )
+                            )
                             }
-                            {billingAddress.street[2] && ( 
+                            {billingAddress.street[2] && (
                                 <React.Fragment>
-                                    <br/> 
+                                    <br />
                                     {billingAddress.street[2]}
                                 </React.Fragment>
-                                )
+                            )
                             }
-                            <br/>
+                            <br />
                             {`${billingAddress.city}${billingAddress.region ? ', ' + billingAddress.region : ''}, ${billingAddress.postcode}`}
-                            <br/>
+                            <br />
                             {billingAddress.country_name}
-                            <br/>
-                            T: <a href={`tel:${billingAddress.telephone}`}>{billingAddress.telephone}</a> 
+                            <br />
+                            T: <a href={`tel:${billingAddress.telephone}`}>{billingAddress.telephone}</a>
                         </address>
                     </div>
                 </div>}
@@ -178,11 +180,11 @@ const Detail = (props) => {
         )
     }
 
-    if(print) {
-        const {storeConfig} = Identify.getStoreConfig();
+    if (print) {
+        const { storeConfig } = Identify.getStoreConfig();
         return (
             <div className="dashboard-acc-order-detail">
-                <Link to="/" style={{display: 'block'}}>
+                <Link to="/" style={{ display: 'block' }}>
                     <Image src={logoUrl()} alt={Identify.__("HairBow Center")} width={241} height={85} />
                 </Link>
                 <h1 className="page-title">
@@ -192,7 +194,7 @@ const Detail = (props) => {
                 <div className="order-date">
                     {data.created_at && <date>{dateFormat(data.created_at)}</date>}
                 </div>
-                <Table data={data} print={true} toggleMessages={toggleMessages} getCartDetails={getCartDetails}/>
+                <Table data={data} print={true} toggleMessages={toggleMessages} getCartDetails={getCartDetails} />
                 <div className="block block-order-details-view">
                     <div className="block-title">
                         <strong>{Identify.__('Order Information')}</strong>
@@ -210,7 +212,7 @@ const Detail = (props) => {
             <div className="order-date">
                 {data.created_at && <date>{dateFormat(data.created_at)}</date>}
             </div>
-            <Table data={data} toggleMessages={toggleMessages} getCartDetails={getCartDetails}/>
+            <Table data={data} toggleMessages={toggleMessages} getCartDetails={getCartDetails} />
             <div className="block block-order-details-view">
                 <div className="block-title">
                     <strong>{Identify.__('Order Information')}</strong>

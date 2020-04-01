@@ -82,3 +82,10 @@
     font-size: 11px;
     vertical-align: middle;
 }
+
+@media (max-width: 640px) {
+    #newsletter_popup {
+        padding: 40px 10px 25px;
+        width: 100% !important;
+    }
+}
