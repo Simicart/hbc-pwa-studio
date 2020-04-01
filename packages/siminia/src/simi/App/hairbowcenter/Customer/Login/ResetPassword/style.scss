@@ -1,0 +1,16 @@
+.form-password-reset {
+    display: block;
+    border: 1px solid #ececec;
+    border-radius: 8px;
+    background: #fff;
+    border-top: 4px solid #00CCCC;
+    padding: 35px 25px;
+    box-shadow: 0 2px 3px rgba(0,0,0,.08);
+
+}
+
+@media (min-width: 768px) {
+    .form-password-reset .field {
+        max-width: 600px;
+    }
+}

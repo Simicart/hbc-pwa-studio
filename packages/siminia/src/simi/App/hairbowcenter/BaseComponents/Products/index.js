@@ -151,15 +151,10 @@ class Products extends React.Component {
                     }
                 });
             }
-
-            if (config.hasOwnProperty('shopper_reviews')) {
-                const { shopper_reviews } = config;
-                blogRating = <BlogRating data={shopper_reviews} type="product_list" />
-            }
         }
 
         return <React.Fragment>
-            {blogRating}
+            <BlogRating type="reviews_left" />
             {supportBlock}
             <RatingList />
             {bannerBlock}

@@ -22,6 +22,7 @@ const storage = new BrowserPersistence();
 const SignIn = React.lazy(() => import('./SignIn'));
 const CreateAccount = React.lazy(() => import('./CreateAccount'));
 const ForgotPassword = React.lazy(() => import('./ForgotPassword'));
+const ResetPassword = React.lazy(() => import('./ResetPassword'));
 
 class CustomerLogin extends Component {
     constructor(props) {
@@ -112,6 +113,10 @@ class CustomerLogin extends Component {
                 {
                     page === 'forgot-password'
                     && <ForgotPassword toggleMessages={this.props.toggleMessages} history={this.props.history}/>
+                }
+                {
+                    page === 'reset-password'
+                    && <ResetPassword toggleMessages={this.props.toggleMessages} history={this.props.history}/>
                 }
             </Suspense>
         )

@@ -85,7 +85,7 @@ const Home = props => {
                             <div className="col-md-3 col-sm-4 sidebar">
                                 <div className="custome-block" style={{marginTop: '44px', paddingBottom: '37px', marginBottom: '15px'}}>
                                     <div className="block block-border">
-                                        {simiStoreConfig && simiStoreConfig.config && simiStoreConfig.config.shopper_reviews && <BlogRating data={simiStoreConfig.config.shopper_reviews} type="home"/>}
+                                        {simiStoreConfig && simiStoreConfig.config && simiStoreConfig.config.shopper_reviews && <BlogRating type="reviews_home"/>}
                                         <div style={{textAlign: 'right', marginTop: '30px'}}>
                                             <a href="http://www.shopperapproved.com/reviews/hairbowcenter.com/" target="_blank" rel="nofollow">
                                                 <img className="sa_widget_footer" src="https://www.shopperapproved.com/widgets/widgetfooter-darknarrow.png" alt=""/>

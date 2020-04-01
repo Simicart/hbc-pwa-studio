@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import Identify from 'src/simi/Helper/Identify';
 import { StaticRate } from 'src/simi/App/hairbowcenter/BaseComponents/Rate'
 
 require("./blog-rating.scss");
 const $ = window.$;
 
 const BlogRating = (props) => {
-    const { data, type } = props;
+    const {type} = props;
+    
+    const { simiStoreConfig } = Identify.getStoreConfig();
+    let data = null;
+    if(simiStoreConfig && simiStoreConfig.config && simiStoreConfig.config.review_json && simiStoreConfig.config.review_json[type]) {
+        data = simiStoreConfig.config.review_json[type];
+    }
+
+    console.log(data);
     if (!data || !type) {
         return null;
     }
@@ -35,31 +44,36 @@ const BlogRating = (props) => {
     let html = null;
     let renderJs = null;
 
-    const parseData = JSON.parse(data);;
-    if (parseData.hasOwnProperty(`${type}`) && parseData[type]) {
-        const typeData = parseData[type];
-        html = typeData.map((review, idx) => {
-            return <div className="sa-review-wrapper" key={idx} onClick={() => window.open(review.url, "shopper approved", "width=500,height=600")}>
+    if (data.length && data.length > 0) {
+        html = data.map((review, idx) => {
+            console.log(review.review_url[0]);
+            const url = review.review_url[0] ? review.review_url[0] : null;
+            const name = review.review_name[0] ? review.review_name[0] : null;
+            const date = review.review_date[0] ? review.review_date[0] : null;
+            return <div className="sa-review-wrapper" key={idx} onClick={() => window.open(url, "shopper approved", "width=500,height=600")}>
                 <div className="rate-outer">
-                    <StaticRate rate={Number(review.stars)} classes={{}} />
+                    <StaticRate rate={Number(review.review_rating)} classes={{}} />
                 </div>
-                {review.author && <div className="shopper_approved_author">{review.author}</div>}
-                {review.time && <span>{review.time}</span>}
-                {review.comment && <div className="sa-comments">{review.comment}</div>}
+                {name && <div className="shopper_approved_author">{name}</div>}
+                {date && <span>{date}</span>}
+                {review.review_comment && <div className="sa-comments">{review.review_comment}</div>}
             </div>
         });
 
-        if (typeData.length > 1) {
-            renderJs = renderRandom(typeData.length);
+        if (data.length > 1) {
+            renderJs = renderRandom(data.length);
         } else {
             clearInterval(ivl);
         }
+
+
+        return <div className="blog-ratings-wrapper">
+            {html}
+            {renderJs}
+        </div>
     }
 
-    return <div className="blog-ratings-wrapper">
-        {html}
-        {renderJs}
-    </div>
+    return null;
 }
 
 export default BlogRating;

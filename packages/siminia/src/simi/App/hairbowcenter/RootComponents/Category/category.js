@@ -66,7 +66,11 @@ const Category = props => {
         id: Number(id),
         pageSize: pageSize,
         currentPage: currentPage,
-        stringId: String(id)
+        stringId: String(id),
+        simiProductSort: {
+            attribute: 'position',
+            direction: 'ASC'
+        }
     }
     if (filterData)
         variables.simiFilter = filterData
