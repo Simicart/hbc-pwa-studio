@@ -14,7 +14,6 @@ const BlogRating = (props) => {
         data = simiStoreConfig.config.review_json[type];
     }
 
-    console.log(data);
     if (!data || !type) {
         return null;
     }
@@ -46,13 +45,13 @@ const BlogRating = (props) => {
 
     if (data.length && data.length > 0) {
         html = data.map((review, idx) => {
-            console.log(review.review_url[0]);
             const url = review.review_url[0] ? review.review_url[0] : null;
             const name = review.review_name[0] ? review.review_name[0] : null;
             const date = review.review_date[0] ? review.review_date[0] : null;
+            const rating = (review.review_rating * 5)/100;
             return <div className="sa-review-wrapper" key={idx} onClick={() => window.open(url, "shopper approved", "width=500,height=600")}>
                 <div className="rate-outer">
-                    <StaticRate rate={Number(review.review_rating)} classes={{}} />
+                    <StaticRate rate={Number(rating)} classes={{}} />
                 </div>
                 {name && <div className="shopper_approved_author">{name}</div>}
                 {date && <span>{date}</span>}

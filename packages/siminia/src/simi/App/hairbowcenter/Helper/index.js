@@ -119,15 +119,16 @@ export function getRootCategoriesArray(root, id) {
 }
 
 export function getAttributePage() {
+    const storeConfig = Identify.getStoreConfig();
     if (
-        simiStoreConfig
-        && simiStoreConfig.config
-        && simiStoreConfig.config.attribute_page
-        && simiStoreConfig.config.attribute_page.items
-        && simiStoreConfig.config.attribute_page.items.length
-        && simiStoreConfig.config.attribute_page.items.length > 0
+        storeConfig.simiStoreConfig
+        && storeConfig.simiStoreConfig.config
+        && storeConfig.simiStoreConfig.config.attribute_page
+        && storeConfig.simiStoreConfig.config.attribute_page.items
+        && storeConfig.simiStoreConfig.config.attribute_page.items.length
+        && storeConfig.simiStoreConfig.config.attribute_page.items.length > 0
     ) {
-        return simiStoreConfig.config.attribute_page.items
+        return storeConfig.simiStoreConfig.config.attribute_page.items
     }
 
     return null;

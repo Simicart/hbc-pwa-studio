@@ -94,6 +94,7 @@ const Griditem = props => {
                         isSale = true;
                     }
                 }
+                if (spPrice && !saleForm && !saleTo) isSale = true;
         }
 
         if (simiExtraField.attribute_values.small_image) {
