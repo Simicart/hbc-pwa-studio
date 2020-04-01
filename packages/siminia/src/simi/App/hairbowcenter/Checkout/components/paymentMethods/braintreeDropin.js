@@ -17,6 +17,7 @@ import { Util } from '@magento/peregrine';
 import dropIn from 'braintree-web-drop-in';
 import { smoothScrollToView } from 'src/simi/Helper/Behavior';
 import Identify from 'src/simi/Helper/Identify';
+import { showToastMessage } from 'src/simi/Helper/Message';
 require('./braintreeDropin.scss')
 
 const { BrowserPersistence } = Util;
@@ -166,7 +167,7 @@ const BraintreeDropin = props => {
                     // Error state used to render error view. If we got an error
                     // but we are closing the form we shouldn't try to update
                     // state.
-                    setIsError(true);
+                    // setIsError(true);
                 }
             }
             placeOrderSubmit.removeAttr("disabled");
@@ -216,9 +217,9 @@ const BraintreeDropin = props => {
                 // BrainTree will update the UI with error messaging,
                 // but signal that there was an error.
                 console.error(`Invalid Payment Details. \n${e}`);
-                props.toggleMessages([{ type: 'error', message: Identify.__(e), auto_dismiss: true }]);
+                showToastMessage(Identify.__(`Invalid Payment Details. \n${e}`))
                 smoothScrollToView($('#root'));
-                // onError();
+                onError();
             }
         }
 

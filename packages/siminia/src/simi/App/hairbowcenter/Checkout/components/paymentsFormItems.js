@@ -243,7 +243,7 @@ const PaymentsFormItems = props => {
 
                         frameCard = <Fragment>
                             {renderBilling()}
-                            <BraintreeDropin shouldRequestPaymentNonce={isSubmitting} method={ite.code} cart={cart} cartCurrencyCode={cartCurrencyCode} paymentMethods={paymentMethods} onError={handleError} onSuccess={handleSuccess} toggleMessages={toggleMessages} />
+                            <BraintreeDropin shouldRequestPaymentNonce={isSubmitting} method={ite.code} cart={cart} cartCurrencyCode={cartCurrencyCode} paymentMethods={paymentMethods} onError={handleError} onSuccess={handleSuccess} />
                             <div className="actions-toolbar">
                                 <div className="primary">
                                     <button className="action primary" onClick={() => customSubmit()}>{Identify.__('Place Order')}</button>

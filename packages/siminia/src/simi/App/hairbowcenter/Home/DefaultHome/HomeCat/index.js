@@ -43,13 +43,12 @@ const HomeCat = props => {
             const sortData = dataCat.sort((a, b) => a.sort_order - b.sort_order)
             return sortData.map((item, index) => (
                 <li className="item" key={index}>
-                    <h5 className="category-name parent-category">
-                        <Link to={item.url_path + cateUrlSuffix()}>{item.cat_name}</Link>
-                    </h5>
                     <Link className="product-image" to={item.url_path + cateUrlSuffix()}>
                         <img src={item.simicategory_filename} alt={item.cat_name}/>
                     </Link>
-
+                    <h5 className="category-name parent-category">
+                        <Link to={item.url_path + cateUrlSuffix()}>{item.cat_name}</Link>
+                    </h5>
                     <ul className="list-subcategories">
                         {renderChildItems(item)}
                     </ul>
