@@ -5,7 +5,8 @@ const simiStoreConfig = storeConfig && storeConfig.simiStoreConfig;
 export const hasBlogConfig = simiStoreConfig && simiStoreConfig.config && simiStoreConfig.config.hasOwnProperty('amasty_blog_configs') && simiStoreConfig.config.amasty_blog_configs || null;
 
 export const getGooglePublicKey = () => {
-    if (simiStoreConfig && simiStoreConfig.config && simiStoreConfig.config.google_public_key) {
+    const storeConfig = Identify.getStoreConfig();
+    if (storeConfig.simiStoreConfig && storeConfig.simiStoreConfig.config && storeConfig.imiStoreConfig.config.google_public_key) {
         return simiStoreConfig.config.google_public_key
     }
 
@@ -13,8 +14,9 @@ export const getGooglePublicKey = () => {
 }
 
 export const getEasyBanner = (id) => {
-    if (simiStoreConfig && simiStoreConfig.config && simiStoreConfig.config.easy_banners) {
-        return simiStoreConfig.config.easy_banners.items.find(item => item.identifier === id);
+    const storeConfig = Identify.getStoreConfig();
+    if (storeConfig.simiStoreConfig && storeConfig.simiStoreConfig.config && storeConfig.simiStoreConfig.config.easy_banners) {
+        return storeConfig.simiStoreConfig.config.easy_banners.items.find(item => item.identifier === id);
     }
 
     return null
@@ -78,8 +80,9 @@ export const getFormatMonth = (number) => {
 }
 
 export const getCategoryById = (id) => {
-    if (simiStoreConfig && hasBlogConfig && simiStoreConfig.config.amasty_blog_configs.categories_tree.length) {
-        const { categories_tree } = simiStoreConfig.config.amasty_blog_configs;
+    const storeConfig = Identify.getStoreConfig();
+    if (storeConfig.simiStoreConfig && hasBlogConfig && storeConfig.simiStoreConfig.config.amasty_blog_configs.categories_tree.length) {
+        const { categories_tree } = storeConfig.simiStoreConfig.config.amasty_blog_configs;
         for (let c = 0; c < categories_tree.length; c++) {
             const cItem = categories_tree[c];
             if (Number(cItem.value) === id) {

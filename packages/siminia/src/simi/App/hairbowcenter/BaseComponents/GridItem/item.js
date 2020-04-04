@@ -63,38 +63,26 @@ const Griditem = props => {
     let isSale = false;
     let hoverImage = null;
     if (simiExtraField.attribute_values) {
-        const now = new Date()
-        if (productLabelConfig && productLabelConfig.new_label) {
-            let newsFrom = null;
-            let newsTo = null;
-            if (simiExtraField.attribute_values.news_from_date) {
-                newsFrom = new Date(simiExtraField.attribute_values.news_from_date)
-            }
-            if (simiExtraField.attribute_values.news_to_date) {
-                newsTo = new Date(simiExtraField.attribute_values.news_to_date)
-            }
-
-            if (newsFrom || newsTo) {
-                if ((newsFrom && newsTo && now >= newsFrom && now <= newsTo) || (!newsTo && now >= newsFrom) || (!newsFrom && now <= newsTo)) {
-                    isNew = true
-                }
-            }
+        // const now = new Date()
+        if (productLabelConfig && productLabelConfig.new_label && simiExtraField.attribute_values.is_new_label) {
+            isNew = true
         }
-        if (productLabelConfig && productLabelConfig.sale_label) {
-                let saleForm = null
-                let saleTo = null
-                if(item.special_from_date) {
-                    saleForm = new Date(item.special_from_date);
-                }
-                if(item.special_to_date) {
-                    saleTo = new Date(item.special_to_date);
-                }
-                if ((saleForm || saleTo) && spPrice){
-                    if ((saleForm && saleTo && now >= saleForm && now <= saleTo) || (!saleTo && now >= saleForm) || (!saleForm && now <= saleTo)){
-                        isSale = true;
-                    }
-                }
-                if (spPrice && !saleForm && !saleTo) isSale = true;
+        if (productLabelConfig && productLabelConfig.sale_label && simiExtraField.attribute_values.is_sale_label) {
+                // let saleForm = null
+                // let saleTo = null
+                // if(item.special_from_date) {
+                //     saleForm = new Date(item.special_from_date);
+                // }
+                // if(item.special_to_date) {
+                //     saleTo = new Date(item.special_to_date);
+                // }
+                // if ((saleForm || saleTo) && spPrice){
+                //     if ((saleForm && saleTo && now >= saleForm && now <= saleTo) || (!saleTo && now >= saleForm) || (!saleForm && now <= saleTo)){
+                //         isSale = true;
+                //     }
+                // }
+                // if (spPrice && !saleForm && !saleTo) isSale = true;
+            isSale = true;
         }
 
         if (simiExtraField.attribute_values.small_image) {
@@ -117,6 +105,7 @@ const Griditem = props => {
         newLabel = <div className="product-label new-label">{productLabelConfig.new_label_text}</div>
     }
 
+    const label = isNew ? newLabel : (isSale ? spLabel : null)
     const image = (
         <div className="product photo product-item-photo">
             <Link to={location}>
@@ -124,8 +113,7 @@ const Griditem = props => {
                 {hoverImage && <Image src={hoverImage} alt={name} className="hover_image" />}
             </Link>
             <div className="product-labels">
-                {isSale && spLabel}
-                {isNew && newLabel}
+                {label}
             </div>
 
             {hideActionButton && <div className="product-item-inner">
