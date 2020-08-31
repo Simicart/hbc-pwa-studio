@@ -77,7 +77,8 @@ class ProductImage extends React.Component {
             : transparentPlaceholder
             return (
                 <div key={Identify.randomString(5)} style={{cursor: 'pointer', backgroundColor: '#ffffff'}} className="carousel-image-container">
-                    <Image width={width} src={src} height={width} alt={item.url}  style={{objectFit: 'scale-down'}}/>
+                    {/* <Image width={width} src={src} height={width} alt={item.url}  style={{objectFit: 'scale-down'}}/>                        */}
+                    <img width={width} src={src} height={width} alt={item.url}  style={{objectFit: 'scale-down'}}/>
                 </div>
             );
         })
