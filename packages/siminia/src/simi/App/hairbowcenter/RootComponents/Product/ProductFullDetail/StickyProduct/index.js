@@ -3,6 +3,7 @@ import Identify from 'src/simi/Helper/Identify';
 import { resourceUrl } from 'src/simi/Helper/Url';
 import { transparentPlaceholder } from 'src/shared/images';
 import ProductPrice from '../../Component/Productprice';
+import Image from 'src/simi/BaseComponents/Image'
 const $ = window.$;
 require('./stickyProduct.scss')
 
@@ -65,7 +66,7 @@ const StickyProduct = props => {
         <div className="sticky-product" id="sticky-product">
             <div className="container">
                 <div className="sticky-image">
-                    <img src={image} alt={product.name} className="product-image-photo default_image" style={{width: '100px'}}/>
+                    <Image src={image} alt={product.name} className="product-image-photo default_image" style={{width: '100px'}}/>
                 </div>
                 <div className="sticky-detail">
                     <div className="product-name-area">

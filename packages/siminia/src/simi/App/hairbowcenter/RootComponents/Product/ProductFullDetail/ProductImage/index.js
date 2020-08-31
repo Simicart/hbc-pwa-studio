@@ -7,6 +7,7 @@ import isProductConfigurable from 'src/util/isProductConfigurable';
 import { resourceUrl } from 'src/simi/Helper/Url'
 import findMatchingVariant from 'src/util/findMatchingProductVariant';
 import { transparentPlaceholder } from 'src/shared/images';
+import Image from 'src/simi/BaseComponents/Image'
 require('./style.scss')
 
 
@@ -76,9 +77,7 @@ class ProductImage extends React.Component {
             : transparentPlaceholder
             return (
                 <div key={Identify.randomString(5)} style={{cursor: 'pointer', backgroundColor: '#ffffff'}} className="carousel-image-container">
-                    <img width={width} src={src} height={width} alt={item.url}
-                         style={{objectFit: 'scale-down'}}
-                    />
+                    <Image width={width} src={src} height={width} alt={item.url}  style={{objectFit: 'scale-down'}}/>
                 </div>
             );
         })
@@ -144,7 +143,6 @@ class ProductImage extends React.Component {
         this.images = this.sortedImages()
         const {images} = this
         const {isPhone} = this.state;
-        console.log(isPhone);
         return (
             <div className="product-detail-carousel">
                 <Carousel 

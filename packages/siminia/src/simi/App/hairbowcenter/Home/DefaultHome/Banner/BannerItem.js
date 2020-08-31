@@ -1,5 +1,6 @@
 import React from 'react'
 import {productUrlSuffix, cateUrlSuffix} from 'src/simi/Helper/Url';
+import Image from 'src/simi/BaseComponents/Image'
 
 const BannerItem = props => {
     const { history, item, isPhone } = props;
@@ -44,7 +45,7 @@ const BannerItem = props => {
             style={{position: 'relative', maxWidth: w, minHeight: h}} 
             className="banner-item" onClick={e => handleRedirect(e)}
         >
-            <img className="img-responsive" width={w} height={h} src={img} alt={item.banner_title}/>
+            <Image className="img-responsive" width={w} height={h} src={img} alt={item.banner_title}/>
         </div>
     )
 }

@@ -6,7 +6,9 @@ import ReactHTMLParse from 'react-html-parser';
 import {cateUrlSuffix} from 'src/simi/Helper/Url';
 import {showFogLoading, hideFogLoading} from 'src/simi/BaseComponents/Loading/GlobalLoading';
 import {moveCartItemToWl} from '../Model/Cart'
+import Image from 'src/simi/BaseComponents/Image'
 require('./cartItem.scss')
+
 const $ = window.$;
 
 const CartItem = props => {
@@ -127,7 +129,7 @@ const CartItem = props => {
                         <Link to={location} className="product-item-photo">
                             <span className="product-image-container" style={{width: '165px'}}>
                                 <span className="product-image-wrapper">
-                                    <img src={image} alt={item.name} className="product-image-photo"/>
+                                    <Image src={image} alt={item.name} className="product-image-photo" />
                                 </span>
                             </span>
                         </Link>

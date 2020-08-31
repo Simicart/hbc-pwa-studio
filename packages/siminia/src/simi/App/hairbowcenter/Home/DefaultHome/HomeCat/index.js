@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Identify from "src/simi/Helper/Identify";
 import {cateUrlSuffix} from 'src/simi/Helper/Url';
+import Image from 'src/simi/BaseComponents/Image'
 require('./homecat.scss')
 
 const HomeCat = props => {
@@ -44,7 +44,7 @@ const HomeCat = props => {
             return sortData.map((item, index) => (
                 <li className="item" key={index}>
                     <Link className="product-image" to={item.url_path + cateUrlSuffix()}>
-                        <img src={item.simicategory_filename} alt={item.cat_name}/>
+                        <Image src={item.simicategory_filename} alt={item.cat_name}/>
                     </Link>
                     <h5 className="category-name parent-category">
                         <Link to={item.url_path + cateUrlSuffix()}>{item.cat_name}</Link>

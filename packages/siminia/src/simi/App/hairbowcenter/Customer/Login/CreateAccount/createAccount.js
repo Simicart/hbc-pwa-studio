@@ -188,6 +188,9 @@ const CreateAccount = props => {
                 })
                 showToastMessage(errorMsg)
             }
+            if(window.grecaptcha) {
+                window.grecaptcha.reset()
+            }
         } else {
             props.onSignIn(registeringEmail, registeringPassword)
         }

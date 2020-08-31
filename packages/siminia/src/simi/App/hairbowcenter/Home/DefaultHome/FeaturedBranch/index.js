@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import AliceCarousel from 'react-alice-carousel'
 import "react-alice-carousel/lib/scss/alice-carousel.scss";
+import Image from 'src/simi/BaseComponents/Image'
 require('./featuredbranch.scss')
 
 const FeatureBranch = props => {
@@ -30,7 +31,7 @@ const FeatureBranch = props => {
             if(item.brand_image) {
                 carouselItem.push(
                     <div className="slide-item" key={index}>
-                        <img className="img-responsive" src={item.brand_image} alt={item.title}/>
+                        <Image className="img-responsive" src={item.brand_image} alt={item.title} />
                     </div>
                 )
             }

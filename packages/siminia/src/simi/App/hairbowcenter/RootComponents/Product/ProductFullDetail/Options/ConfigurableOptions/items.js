@@ -4,6 +4,8 @@ import {formatLabelPrice} from 'src/simi/Helper/Pricing';
 import Identify from 'src/simi/Helper/Identify';
 import { resourceUrl } from 'src/simi/Helper/Url'
 import { transparentPlaceholder } from 'src/shared/images';
+import Image from 'src/simi/BaseComponents/Image'
+
 const $ = window.$;
 
 const ItemOption = props => {
@@ -253,7 +255,7 @@ const ItemOption = props => {
                                 <div className="swatch-attribute color">
                                     <div className="swatch-attribute-options clearfix">
                                         <div className="swatch-option image">
-                                            <img src={optionImage} alt={option.label}/>
+                                            <Image src={optionImage} alt={option.label} />
                                         </div>
                                     </div>
                                 </div>

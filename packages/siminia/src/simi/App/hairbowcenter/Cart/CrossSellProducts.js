@@ -6,6 +6,7 @@ import {formatLabelPrice} from 'src/simi/Helper/Pricing';
 import Loading from 'src/simi/BaseComponents/Loading'
 import { addToCart as simiAddToCart } from 'src/simi/Model/Cart';
 import {showFogLoading, hideFogLoading} from 'src/simi/BaseComponents/Loading/GlobalLoading';
+import Image from 'src/simi/BaseComponents/Image'
 require('./crossSellProducts.scss');
 
 const CrossSellProducts = props =>  {
@@ -72,7 +73,7 @@ const CrossSellProducts = props =>  {
                 <div className="item product product-item" key={index}>
                     <div className="product-item-info ">
                         <Link to={"/" + item.request_path} className="product photo product-item-photo">
-                            <img src={item.thumbnail} alt="No-Slip Grips"/>
+                            <Image src={item.thumbnail} alt="No-Slip Grips"/>
                         </Link>
                         <div className="product details product-item-details">
                             <strong className="product name product-item-name">

@@ -9,6 +9,7 @@ import {cateUrlSuffix} from 'src/simi/Helper/Url';
 import Price from 'src/simi/App/hairbowcenter/BaseComponents/Price';
 import StaticRate from '../../Component/StaticRate';
 import { resourceUrl } from 'src/simi/Helper/Url'
+import Image from 'src/simi/BaseComponents/Image'
 const $ = window.$
 require('./relatedProduct.scss');
 
@@ -84,11 +85,12 @@ const ProductRelated = props => {
                         small_image:
                             typeof small_image === 'object' ? small_image.url : small_image
                     }
+                    
                     if (itemData)
                         return (
                             <div className="product-item-info" key={index}>
                                 <Link to={itemData.url_key + cateUrlSuffix()} className="product photo product-item-photo">
-                                    <img src={resourceUrl(itemData.simiExtraField.attribute_values.small_image , {type: 'image-product', width: 84})} alt={itemData.name}/>
+                                    <Image src={resourceUrl(itemData.small_image , {type: 'image-product', width: 84})}  alt={itemData.name}/>
                                 </Link>
                                 <div className="product details product-item-details">
                                     <strong className="product name product-item-name">

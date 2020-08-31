@@ -6,7 +6,7 @@ export const hasBlogConfig = simiStoreConfig && simiStoreConfig.config && simiSt
 
 export const getGooglePublicKey = () => {
     const storeConfig = Identify.getStoreConfig();
-    if (storeConfig.simiStoreConfig && storeConfig.simiStoreConfig.config && storeConfig.imiStoreConfig.config.google_public_key) {
+    if (storeConfig.simiStoreConfig && storeConfig.simiStoreConfig.config && storeConfig.simiStoreConfig.config.google_public_key) {
         return simiStoreConfig.config.google_public_key
     }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { countEasyBannerPoint } from 'src/simi/App/hairbowcenter/Model/EasyBanner';
 import { Link } from 'src/drivers';
+import Image from 'src/simi/BaseComponents/Image'
 require("./ads-banner.scss");
 
 const AdsBanner = (props) => {
@@ -26,7 +27,7 @@ const AdsBanner = (props) => {
         console.log(data)
     }
 
-    const img = <img src={data.image} alt={data.title} />;
+    const img = <Image src={data.image} alt={data.title} />;
 
     let linkHTML = null;
     const pattern = /^((http|https|ftp):\/\/)/;
