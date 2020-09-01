@@ -1,4 +1,4 @@
-query amBlogPosts($page: Int, $type: String, $s: String) {
+query amBlogPosts($page: Int, $type: String!, $s: String) {
     amBlogPosts(page: $page, type: $type, s: $s) {
         items {
             post_id

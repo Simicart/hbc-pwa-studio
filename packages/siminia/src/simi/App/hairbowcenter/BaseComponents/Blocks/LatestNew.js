@@ -6,6 +6,7 @@ import Identify from 'src/simi/Helper/Identify';
 import amBlogPosts from 'src/simi/App/hairbowcenter/queries/blog/amBlogPosts';
 import { simiUseQuery } from 'src/simi/Network/Query';
 import ReactHTMLParser from 'react-html-parser';
+import Image from 'src/simi/BaseComponents/Image'
 require('./lastest-news.scss');
 
 const LatestNew = props => {
@@ -19,7 +20,7 @@ const LatestNew = props => {
         runQuery({
             variables: {
                 type: 'grid',
-                page: 1
+                page: 1,
             }
         });
     }
@@ -39,7 +40,7 @@ const LatestNew = props => {
                         <div className="row">
                             <div className="col-sm-5">
                                 <div className="post-image">
-                                    <img src={post.post_thumbnail} alt={post.title} />
+                                    <Image src={post.post_thumbnail} alt={post.title} />
                                 </div>
                             </div>
                             <div className="col-sm-7">
