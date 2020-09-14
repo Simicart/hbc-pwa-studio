@@ -86,10 +86,10 @@ const Griditem = props => {
         }
 
         if (simiExtraField.attribute_values.small_image) {
-            small_image = resourceUrl(simiExtraField.attribute_values.small_image, { type: 'image-product', width: 300 });
+            small_image = simiExtraField.attribute_values.small_image
         }
         if (simiExtraField.attribute_values.product_image_behind) {
-            hoverImage = resourceUrl(simiExtraField.attribute_values.product_image_behind, { type: 'image-product', width: 300 });
+            hoverImage = simiExtraField.attribute_values.product_image_behind
         }
     }
 
