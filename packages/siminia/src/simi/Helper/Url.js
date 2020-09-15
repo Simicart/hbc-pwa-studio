@@ -2,7 +2,7 @@ import makeOptimizedUrl from 'src/util/makeUrl'
 import Identify from './Identify'
 
 export const resourceUrl = (path, { type, width } = {}) => {
-    const urlBuffer = window.SMCONFIGS.media_url_prefix?window.SMCONFIGS.media_url_prefix:''
+    const urlBuffer = window.SMCONFIGS.media_url_prefix ? window.SMCONFIGS.media_url_prefix : ''
     let result = makeOptimizedUrl(path, {type, width});
     //fix error when path is not full url, when the result does not directory ./pub
     if ((path.indexOf('http://') === -1) && (path.indexOf('https://') === -1)) { //url does not have protocol
@@ -11,6 +11,8 @@ export const resourceUrl = (path, { type, width } = {}) => {
                 result = result.replace('media%2Fcatalog%2Fproduct', urlBuffer + 'media%2Fcatalog%2Fproduct')
             } else if (result.indexOf('media%2Fcatalog%2Fcategory') !== -1) {
                 result = result.replace('media%2Fcatalog%2Fcategory', urlBuffer + 'media%2Fcatalog%2Fcategory')
+            } else if(result.indexOf('media/catalog/category') !== -1) {
+                result = result.replace('media/catalog/category', urlBuffer + 'media/catalog/category')
             }
         }
     } else { //url has protocol
